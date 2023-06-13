@@ -1,0 +1,27 @@
+name: Release version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-on-push:
+    name: Release creation
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - id: release
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: minor
+          tag_prefix: v
+
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"

@@ -1,13 +1,33 @@
 plugins {
 	java
+	`maven-publish`
 	id("org.springframework.boot") version "3.1.0"
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.20"
 }
 
 group = "dev.trustproject"
-version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+publishing {
+	publications {
+		create<MavenPublication>("default") {
+			from(components["java"])
+			// Include any other artifacts here, like javadocs
+		}
+	}
+
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/primatime/spring-vocdoni")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
+}
 
 configurations {
 	compileOnly {

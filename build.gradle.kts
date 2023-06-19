@@ -45,7 +45,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.google.protobuf:protobuf-java:3.21.12")
+	implementation("com.google.protobuf:protobuf-java:3.23.3")
 	implementation("org.web3j:crypto:5.0.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

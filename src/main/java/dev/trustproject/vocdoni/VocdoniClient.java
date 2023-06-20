@@ -490,7 +490,8 @@ public class VocdoniClient {
         Instant endDate,
         String censusId,
         String censusURI,
-        ArrayList<VocdoniQuestion> questions
+        ArrayList<VocdoniQuestion> questions,
+        int censusSize
     ) {
 
         HashMap<String, String> titleMap = new HashMap<>();
@@ -554,6 +555,7 @@ public class VocdoniClient {
             .setVoteOptions(voteOptions)
             .setCensusOrigin(CensusOrigin.OFF_CHAIN_TREE_WEIGHTED)
             .setMetadata(cid)
+            .setMaxCensusSize(censusSize)
             .build();
 
         NewProcessTx newProcessTx = NewProcessTx.newBuilder()

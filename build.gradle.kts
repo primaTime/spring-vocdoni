@@ -22,8 +22,10 @@ publishing {
 			name = "GitHubPackages"
 			url = uri("https://maven.pkg.github.com/primatime/spring-vocdoni")
 			credentials {
-				username = System.getenv("GITHUB_ACTOR")
-				password = System.getenv("GITHUB_TOKEN")
+				username = providers.environmentVariable("GITHUB_ACTOR")
+						.orElse(providers.gradleProperty("github.username")).get()
+				password = providers.environmentVariable("GITHUB_TOKEN")
+						.orElse(providers.gradleProperty("github.password")).get()
 			}
 		}
 	}

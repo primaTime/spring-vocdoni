@@ -14,6 +14,7 @@ import dev.trustproject.vocdoni.model.chain.ChainSubmitTxResponse;
 import dev.trustproject.vocdoni.model.chain.TransactionInfo;
 import dev.trustproject.vocdoni.model.chain.VochainInfo;
 import dev.trustproject.vocdoni.model.process.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -21,17 +22,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.web3j.crypto.*;
-import org.web3j.utils.Numeric;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
 import static dev.trustproject.vocdoni.VocdoniConstants.*;
+import static dev.trustproject.vocdoni.VocdoniUtils.*;
 
 @Component
+@RequiredArgsConstructor
 public class VocdoniClient {
 
     @Value("${vocdoni.api.url}")
@@ -44,126 +45,17 @@ public class VocdoniClient {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static HttpHeaders makeHeaders() {
+    private final TransactionSigner transactionSigner;
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        return headers;
+    public String signTransaction(byte[] tx, String walletAddress) {
+        return transactionSigner.signTransaction(tx, walletAddress);
     }
 
-    private static String strip0x(String hex) {
-
-        if (hex.startsWith("0x")) {
-            return hex.substring(2);
-        }
-        return hex;
-    }
-
-    private static int estimateBlockAtDateTime(Instant dateTime, Instant blockTimestamp, int height, int[] blockTime) {
-
-        Duration dateDiff = Duration.between(dateTime, blockTimestamp).abs();
-
-        double averageBlockTime = 12000;
-        double weightA, weightB;
-
-        if (dateDiff.toMillis() >= 1000 * 60 * 60 * 24) {
-            for (double blockTimeValue : blockTime) {
-                if (blockTimeValue > 0) {
-                    averageBlockTime = blockTimeValue;
-                    break;
-                }
-            }
-        } else {
-            for (int i = 0; i < blockTime.length - 1; i++) {
-                long lowerBound = 1000L * 60 * (i == 0 ? 1 : (int) Math.pow(10, i));
-                long upperBound = 1000L * 60 * (i == 0 ? 10 : (int) Math.pow(10, i + 1));
-                if (i == blockTime.length - 2) {
-                    upperBound *= 6;
-                }
-
-                if (dateDiff.toMillis() >= lowerBound && dateDiff.toMillis() < upperBound) {
-                    if (blockTime[i + 1] > 0 && blockTime[i] > 0) {
-                        weightB = (dateDiff.toMillis() - lowerBound) / (double) (upperBound - lowerBound);
-                        weightA = 1 - weightB;
-
-                        averageBlockTime = weightA * blockTime[i] + weightB * blockTime[i + 1];
-                    } else {
-                        for (int j = i; j >= 0; j--) {
-                            if (blockTime[j] > 0) {
-                                averageBlockTime = blockTime[j];
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
-        double estimatedBlockDiff = dateDiff.toMillis() / averageBlockTime;
-        int estimatedBlock = dateTime.isBefore(blockTimestamp)
-            ? height - (int) Math.ceil(estimatedBlockDiff)
-            : height + (int) Math.floor(estimatedBlockDiff);
-
-        return Math.max(estimatedBlock, 0);
-    }
-
-    public static String generatePrivateKey() {
-
-        try {
-            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-            return Numeric.toHexStringNoPrefix(ecKeyPair.getPrivateKey());
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Error generating private key: " + e.getMessage());
-        }
-    }
-
-    public static String getWalletAddress(String privateKey) {
-
-        Credentials credentials = Credentials.create(privateKey);
-        return credentials.getAddress();
-    }
-
-    private String signTransaction(byte[] tx, String signerKey) {
-
-        String chainId = getVochainInfo().getChainId();
-
-        //Digest Vocdoni transaction
-        String prefix = "Vocdoni signed transaction:\n" + chainId + "\n";
-        byte[] digestedPayload = Hash.sha3(tx);
-        String digestedPayloadHex = Numeric.toHexStringNoPrefix(digestedPayload);
-        String combinedPayload = prefix + digestedPayloadHex;
-        byte[] prefixAndDigestedPayload = combinedPayload.getBytes(StandardCharsets.UTF_8);
-
-        //Sign the digested payload
-        Credentials credentials = Credentials.create(signerKey);
-        Sign.SignatureData signatureData = Sign.signPrefixedMessage(prefixAndDigestedPayload, credentials.getEcKeyPair());
-
-        //Create signed transaction using the original transaction and the signature
-        byte[] signature = Arrays.copyOf(signatureData.getR(), 65);
-        System.arraycopy(signatureData.getS(), 0, signature, 32, 32);
-        signature[64] = signatureData.getV()[0];
-
-        SignedTx signedTx = SignedTx.newBuilder()
-            .setTx(ByteString.copyFrom(tx))
-            .setSignature(ByteString.copyFrom(signature))
-            .build();
-
-        return Base64.getEncoder().encodeToString(signedTx.toByteArray());
-    }
-
-    private String getCID(String payload) {
-
+    private String getCID(String payload) throws JsonProcessingException {
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("payload", payload);
-        String jsonString;
-        try {
-            jsonString = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String jsonString = objectMapper.writeValueAsString(payloadMap);
+
         HttpEntity<String> httpEntity = new HttpEntity<>(jsonString, makeHeaders());
 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
@@ -177,49 +69,7 @@ public class VocdoniClient {
             : null;
     }
 
-    private void waitForTransaction(String txHash) {
-
-        int attemptsNumber = ATTEMPTS;
-
-        HttpHeaders headers = makeHeaders();
-
-        while (attemptsNumber > 0) {
-
-            try {
-                ResponseEntity<TransactionInfo> response = restTemplate.exchange(
-                    apiUrl + TRANSACTION_BY_HASH + "/" + txHash,
-                    HttpMethod.GET,
-                    new HttpEntity<>(headers),
-                    TransactionInfo.class
-                );
-
-                if (response.getStatusCode() != HttpStatus.OK) {
-                    throw new RuntimeException();
-                }
-
-                break;
-            } catch (HttpClientErrorException e) {
-                throw new RuntimeException("Request error: " + e.getMessage());
-            } catch (Exception ignored) {
-                // Do nothing, continue retrying
-            }
-
-            attemptsNumber--;
-
-            if (attemptsNumber == 0) {
-                throw new RuntimeException("Time out waiting for transaction: " + txHash);
-            }
-
-            try {
-                Thread.sleep(RETRY_TIME);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     private CensusProof getCensusProof(String voterAddress, String censusId, String censusToken) {
-
         HttpHeaders headers = makeHeaders();
         headers.setBearerAuth(censusToken);
 
@@ -232,8 +82,7 @@ public class VocdoniClient {
         return response.getBody();
     }
 
-    public FaucetPackage getFaucet(String walletAddress) {
-
+    public FaucetPackage getFaucet(String walletAddress) throws JsonProcessingException {
         HttpHeaders headers = makeHeaders();
         headers.setBearerAuth(faucetToken);
 
@@ -244,22 +93,17 @@ public class VocdoniClient {
             FaucetPackageInfo.class);
 
         FaucetPackageInfo faucetPackageInfo = response.getBody();
+
         byte[] faucetPackageBytes  = Base64.getDecoder().decode(faucetPackageInfo.getFaucetPackage());
-        String jsonString = new String(faucetPackageBytes);
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readTree(jsonString);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+
+        JsonNode jsonNode = objectMapper.readTree(new String(faucetPackageBytes));
         String payload = jsonNode.get("faucetPayload").asText();
         String signature = jsonNode.get("signature").asText();
+
         return new FaucetPackage(payload, signature);
     }
 
-    public void collectTokens(String privateKey) {
-
-        String walletAddress = getWalletAddress(privateKey);
+    public void collectTokens(String walletAddress) throws JsonProcessingException {
         AccountInfo accountInfo = getAccountInfo(walletAddress);
         FaucetPackage faucetPackage = getFaucet(walletAddress);
 
@@ -281,16 +125,11 @@ public class VocdoniClient {
             .build();
 
         byte[] encodedTx = tx.toByteArray();
-        String signedTx = signTransaction(encodedTx, privateKey);
+        String signedTx = signTransaction(encodedTx, walletAddress);
 
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("payload", signedTx);
-        String payloadJson;
-        try {
-            payloadJson = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         HttpHeaders headers = makeHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -307,14 +146,8 @@ public class VocdoniClient {
         waitForTransaction(chainSubmitTxResponse.getHash());
     }
 
-    public void createAccount(String privateKey, FaucetPackage faucetPackage, AccountMetadata accountMetadata) {
-
-        String accountMetadataJson;
-        try {
-            accountMetadataJson = objectMapper.writeValueAsString(accountMetadata);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public void createAccount(String walletAddress, FaucetPackage faucetPackage, AccountMetadata accountMetadata) throws JsonProcessingException {
+        String accountMetadataJson = objectMapper.writeValueAsString(accountMetadata);
         String metadata = Base64.getEncoder().encodeToString(accountMetadataJson.getBytes(StandardCharsets.ISO_8859_1));
 
         String cid = getCID(metadata);
@@ -323,8 +156,6 @@ public class VocdoniClient {
             .setPayload(ByteString.copyFrom(Base64.getDecoder().decode(faucetPackage.getPayload())))
             .setSignature(ByteString.copyFrom(Base64.getDecoder().decode(faucetPackage.getSignature())))
             .build();
-
-        String walletAddress = getWalletAddress(privateKey);
 
         SetAccountTx setAccountTx = SetAccountTx.newBuilder()
             .setTxtype(TxType.CREATE_ACCOUNT)
@@ -339,17 +170,12 @@ public class VocdoniClient {
             .setSetAccount(setAccountTx)
             .build();
 
-        String txPayload = signTransaction(tx.toByteArray(), privateKey);
+        String signedTx = signTransaction(tx.toByteArray(), walletAddress);
 
         Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("txPayload", txPayload);
+        payloadMap.put("txPayload", signedTx);
         payloadMap.put("metadata", metadata);
-        String payloadJson;
-        try {
-            payloadJson = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         HttpHeaders headers = makeHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -367,7 +193,6 @@ public class VocdoniClient {
     }
 
     public AccountInfo getAccountInfo(String walletAddress) {
-
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<AccountInfo> response = restTemplate.exchange(
@@ -380,7 +205,6 @@ public class VocdoniClient {
     }
 
     public List<Election> getElectionList(String walletAddress, int page) {
-
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
@@ -394,8 +218,7 @@ public class VocdoniClient {
             : null;
     }
 
-    public String createCensus(String token) {
-
+    public String createCensus(String token) throws JsonProcessingException {
         HttpHeaders headers = makeHeaders();
         headers.setBearerAuth(token);
 
@@ -407,18 +230,12 @@ public class VocdoniClient {
             httpEntity,
             String.class);
 
-        String jsonString = response.getBody();
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readTree(jsonString);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
         return jsonNode.get("censusID").asText();
     }
 
     public void addParticipantsToCensus(String censusId, String token, List<CensusParticipant> participants) {
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
@@ -439,7 +256,6 @@ public class VocdoniClient {
     }
 
     public PublishedCensusInfo publishCensus(String censusId, String token) {
-
         HttpHeaders headers = makeHeaders();
         headers.setBearerAuth(token);
 
@@ -455,7 +271,6 @@ public class VocdoniClient {
     }
 
     public VochainInfo getVochainInfo() {
-
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<VochainInfo> response = restTemplate.exchange(
@@ -468,7 +283,6 @@ public class VocdoniClient {
     }
 
     public ProcessInfo getProcessInfo(String electionId) {
-
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<ProcessInfo> response = restTemplate.exchange(
@@ -481,30 +295,25 @@ public class VocdoniClient {
     }
 
     public ProcessInfo createProcess(
-        String privateKey,
+        String walletAddress,
         String title,
         String description,
         ProcessMedia media,
-        HashMap<String, Object> meta,
+        Map<String, Object> meta,
         Instant startDate,
         Instant endDate,
         String censusId,
         String censusURI,
-        ArrayList<VocdoniQuestion> questions,
+        List<VocdoniQuestion> questions,
         int censusSize
-    ) {
-
-        HashMap<String, String> titleMap = new HashMap<>();
+    ) throws JsonProcessingException {
+        Map<String, String> titleMap = new HashMap<>();
         titleMap.put("default", title);
-        HashMap<String, String> descriptionMap = new HashMap<>();
+        Map<String, String> descriptionMap = new HashMap<>();
         descriptionMap.put("default", description);
         ProcessMetadata metadata = new ProcessMetadata(PROTOCOL_VERSION, titleMap, descriptionMap, media, meta, questions, null);
-        String jsonString;
-        try {
-            jsonString = objectMapper.writeValueAsString(metadata);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String jsonString = objectMapper.writeValueAsString(metadata);
+
         String base64EncodedMetadata = Base64.getEncoder().encodeToString(jsonString.getBytes(StandardCharsets.ISO_8859_1));
         String cid = getCID(base64EncodedMetadata);
 
@@ -514,8 +323,6 @@ public class VocdoniClient {
         int[] blockTime = vochainInfo.getBlockTime();
         int startBlock = estimateBlockAtDateTime(startDate, blockTimestamp, height, blockTime);
         int endBlock = estimateBlockAtDateTime(endDate, blockTimestamp, height, blockTime);
-
-        String walletAddress = getWalletAddress(privateKey);
 
         AccountInfo accountInfo = getAccountInfo(walletAddress);
         int nonce = Integer.parseInt(accountInfo.getNonce());
@@ -569,7 +376,7 @@ public class VocdoniClient {
             .build();
 
         byte[] encodedTx = tx.toByteArray();
-        String signedTx = signTransaction(encodedTx, privateKey);
+        String signedTx = signTransaction(encodedTx, walletAddress);
 
         HttpHeaders headers = makeHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -577,12 +384,7 @@ public class VocdoniClient {
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("txPayload", signedTx);
         payloadMap.put("metadata", base64EncodedMetadata);
-        String payloadJson;
-        try {
-            payloadJson = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         ResponseEntity<NewProcess> response = restTemplate.exchange(
             apiUrl + ELECTIONS,
@@ -597,9 +399,7 @@ public class VocdoniClient {
         return getProcessInfo(newProcess.getElectionID());
     }
 
-    public void changeProcessStatus(String privateKey, String electionId, VocdoniProcessStatus status) {
-
-        String walletAddress = getWalletAddress(privateKey);
+    public void changeProcessStatus(String walletAddress, String electionId, VocdoniProcessStatus status) throws JsonProcessingException {
         AccountInfo accountInfo = getAccountInfo(walletAddress);
         int accountNonce = Integer.parseInt(accountInfo.getNonce());
 
@@ -615,19 +415,14 @@ public class VocdoniClient {
             .build();
 
         byte[] encodedTx = tx.toByteArray();
-        String signedTx = signTransaction(encodedTx, privateKey);
+        String signedTx = signTransaction(encodedTx, walletAddress);
 
         HttpHeaders headers = makeHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("payload", signedTx);
-        String payloadJson;
-        try {
-            payloadJson = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         restTemplate.exchange(
             apiUrl + CHAIN_TRANSACTION,
@@ -636,13 +431,11 @@ public class VocdoniClient {
             Void.class);
     }
 
-    public String vote(String electionId, String voterKey, String censusToken, ArrayList<Integer> votes) {
-
+    public String vote(String electionId, String walletAddress, String censusToken, List<Integer> votes) throws JsonProcessingException {
         ProcessInfo processInfo = getProcessInfo(electionId);
         String censusId = processInfo.getCensus().getCensusRoot();
 
-        String voterAddress = getWalletAddress(voterKey);
-        CensusProof censusProof = getCensusProof(voterAddress, censusId, censusToken);
+        CensusProof censusProof = getCensusProof(walletAddress, censusId, censusToken);
 
         ProofArbo aProof = ProofArbo.newBuilder()
             .setSiblings(ByteString.fromHex(censusProof.getProof()))
@@ -670,15 +463,10 @@ public class VocdoniClient {
         }
         String votePackageNonce = sb.toString();
 
-        HashMap<String, Object> payloadMap = new HashMap<>();
+        Map<String, Object> payloadMap = new HashMap<>();
         payloadMap.put("nonce", votePackageNonce);
         payloadMap.put("votes", votes);
-        String strPayload;
-        try {
-            strPayload = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String strPayload = objectMapper.writeValueAsString(payloadMap);
         byte[] votePackage = strPayload.getBytes(StandardCharsets.UTF_8);
 
         VoteEnvelope voteEnvelope = VoteEnvelope.newBuilder()
@@ -694,16 +482,11 @@ public class VocdoniClient {
             .setVote(voteEnvelope)
             .build();
 
-        String signedTx = signTransaction(tx.toByteArray(), voterKey);
+        String signedTx = signTransaction(tx.toByteArray(), walletAddress);
 
-        HashMap<String, String> payload = new HashMap<>();
+        Map<String, String> payload = new HashMap<>();
         payload.put("txPayload", signedTx);
-        String jsonPayload;
-        try {
-            jsonPayload = objectMapper.writeValueAsString(payload);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String jsonPayload = objectMapper.writeValueAsString(payload);
 
         HttpHeaders headers = makeHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -722,4 +505,51 @@ public class VocdoniClient {
 
         return newVote.getVoteID();
     }
+
+    private void waitForTransaction(String txHash) {
+        int attemptsNumber = ATTEMPTS;
+
+        HttpHeaders headers = makeHeaders();
+
+        while (attemptsNumber > 0) {
+
+            try {
+                ResponseEntity<TransactionInfo> response = restTemplate.exchange(
+                        apiUrl + TRANSACTION_BY_HASH + "/" + txHash,
+                        HttpMethod.GET,
+                        new HttpEntity<>(headers),
+                        TransactionInfo.class
+                );
+
+                if (response.getStatusCode() != HttpStatus.OK) {
+                    throw new RuntimeException();
+                }
+
+                break;
+            } catch (HttpClientErrorException e) {
+                throw new RuntimeException("Request error: " + e.getMessage());
+            } catch (Exception ignored) {
+                // Do nothing, continue retrying
+            }
+
+            attemptsNumber--;
+
+            if (attemptsNumber == 0) {
+                throw new RuntimeException("Time out waiting for transaction: " + txHash);
+            }
+
+            try {
+                Thread.sleep(RETRY_TIME);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public interface TransactionSigner {
+
+        String signTransaction(byte[] tx, String walletAddress);
+
+    }
+
 }

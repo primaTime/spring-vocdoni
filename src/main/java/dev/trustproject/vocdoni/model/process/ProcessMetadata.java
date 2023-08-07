@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -13,10 +13,10 @@ import java.util.HashMap;
 public class ProcessMetadata {
 
     private String version;
-    private HashMap<String, String> title;
-    private HashMap<String, String> description;
+    private Map<String, String> title;
+    private Map<String, String> description;
     private ProcessMedia media;
-    private HashMap<String, Object> meta;
-    private ArrayList<VocdoniQuestion> questions;
+    private Map<String, Object> meta;
+    private List<VocdoniQuestion> questions;
     private Results results;
 }

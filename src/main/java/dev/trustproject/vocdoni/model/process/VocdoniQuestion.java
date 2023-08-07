@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -14,9 +14,9 @@ public class VocdoniQuestion {
 
     private Map<String, String> title;
     private Map<String, String> description;
-    private ArrayList<VocdoniOption> choices;
+    private List<VocdoniOption> choices;
 
-    public VocdoniQuestion(String title, String description, ArrayList<VocdoniOption> choices) {
+    public VocdoniQuestion(String title, String description, List<VocdoniOption> choices) {
         this.title = Map.of("default", title);
         this.description = Map.of("default", description);
         this.choices = choices;

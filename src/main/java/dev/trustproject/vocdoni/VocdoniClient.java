@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;
 import dev.trustproject.vocdoni.Vochain.Process;
 import dev.trustproject.vocdoni.Vochain.*;
+import dev.trustproject.vocdoni.configuration.VocdoniProperties;
 import dev.trustproject.vocdoni.model.account.FaucetPackage;
 import dev.trustproject.vocdoni.model.account.*;
 import dev.trustproject.vocdoni.model.census.CensusProof;
@@ -14,8 +15,7 @@ import dev.trustproject.vocdoni.model.chain.ChainSubmitTxResponse;
 import dev.trustproject.vocdoni.model.chain.TransactionInfo;
 import dev.trustproject.vocdoni.model.chain.VochainInfo;
 import dev.trustproject.vocdoni.model.process.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -32,18 +32,13 @@ import static dev.trustproject.vocdoni.VocdoniConstants.*;
 import static dev.trustproject.vocdoni.VocdoniUtils.*;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class VocdoniClient {
-
-    @Value("${vocdoni.api.url}")
-    private String apiUrl;
-    @Value("${vocdoni.faucet.url}")
-    private String faucetUrl;
-    @Value("${vocdoni.faucet.token}")
-    private String faucetToken;
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final VocdoniProperties config;
 
     private final TransactionSigner transactionSigner;
 
@@ -59,7 +54,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(jsonString, makeHeaders());
 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-            apiUrl + CID,
+            config.getApiUrl() + CID,
             HttpMethod.POST,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -74,7 +69,7 @@ public class VocdoniClient {
         headers.setBearerAuth(censusToken);
 
         ResponseEntity<CensusProof> response = restTemplate.exchange(
-            apiUrl + CENSUSES + "/" + censusId + PROOF + "/" + voterAddress,
+            config.getApiUrl() + CENSUSES + "/" + censusId + PROOF + "/" + voterAddress,
             HttpMethod.GET,
             new HttpEntity<>(headers),
             CensusProof.class);
@@ -84,10 +79,10 @@ public class VocdoniClient {
 
     public FaucetPackage getFaucet(String walletAddress) throws JsonProcessingException {
         HttpHeaders headers = makeHeaders();
-        headers.setBearerAuth(faucetToken);
+        headers.setBearerAuth(config.getFaucetToken());
 
         ResponseEntity<FaucetPackageInfo> response = restTemplate.exchange(
-            faucetUrl + "/" + walletAddress,
+            config.getFaucetUrl() + "/" + walletAddress,
             HttpMethod.GET,
             new HttpEntity<>(headers),
             FaucetPackageInfo.class);
@@ -136,7 +131,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(payloadJson, headers);
 
         ResponseEntity<ChainSubmitTxResponse> response = restTemplate.exchange(
-            apiUrl + CHAIN_TRANSACTION,
+            config.getApiUrl() + CHAIN_TRANSACTION,
             HttpMethod.POST,
             httpEntity,
             ChainSubmitTxResponse.class);
@@ -182,7 +177,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(payloadJson, headers);
 
         ResponseEntity<NewAccount> response = restTemplate.exchange(
-            apiUrl + ACCOUNTS,
+            config.getApiUrl() + ACCOUNTS,
             HttpMethod.POST,
             httpEntity,
             NewAccount.class);
@@ -196,7 +191,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<AccountInfo> response = restTemplate.exchange(
-            apiUrl + ACCOUNTS + "/" + walletAddress,
+            config.getApiUrl() + ACCOUNTS + "/" + walletAddress,
             HttpMethod.GET,
             httpEntity,
             AccountInfo.class);
@@ -208,7 +203,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-            apiUrl + ACCOUNTS + "/" + walletAddress + ELECTIONS + PAGE + "/" + page,
+            config.getApiUrl() + ACCOUNTS + "/" + walletAddress + ELECTIONS + PAGE + "/" + page,
             HttpMethod.GET,
             httpEntity,
             new ParameterizedTypeReference<>() {});
@@ -225,7 +220,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-            apiUrl + CENSUSES + WEIGHTED,
+            config.getApiUrl() + CENSUSES + WEIGHTED,
             HttpMethod.POST,
             httpEntity,
             String.class);
@@ -245,7 +240,7 @@ public class VocdoniClient {
         HttpEntity<Map<String, List<CensusParticipant>>> httpEntity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<Void> response = restTemplate.exchange(
-            apiUrl + CENSUSES + "/" + censusId + PARTICIPANTS,
+            config.getApiUrl() + CENSUSES + "/" + censusId + PARTICIPANTS,
             HttpMethod.POST,
             httpEntity,
             Void.class);
@@ -262,7 +257,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
 
         ResponseEntity<PublishedCensusInfo> response = restTemplate.exchange(
-            apiUrl + CENSUSES + "/" + censusId + PUBLISH,
+            config.getApiUrl() + CENSUSES + "/" + censusId + PUBLISH,
             HttpMethod.POST,
             httpEntity,
             PublishedCensusInfo.class);
@@ -274,7 +269,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<VochainInfo> response = restTemplate.exchange(
-            apiUrl + CHAIN_INFO,
+            config.getApiUrl() + CHAIN_INFO,
             HttpMethod.GET,
             httpEntity,
             VochainInfo.class);
@@ -286,7 +281,7 @@ public class VocdoniClient {
         HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
 
         ResponseEntity<ProcessInfo> response = restTemplate.exchange(
-            apiUrl + ELECTIONS + "/" + electionId,
+            config.getApiUrl() + ELECTIONS + "/" + electionId,
             HttpMethod.GET,
             httpEntity,
             ProcessInfo.class);
@@ -387,7 +382,7 @@ public class VocdoniClient {
         String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         ResponseEntity<NewProcess> response = restTemplate.exchange(
-            apiUrl + ELECTIONS,
+            config.getApiUrl() + ELECTIONS,
             HttpMethod.POST,
             new HttpEntity<>(payloadJson, headers),
             NewProcess.class);
@@ -425,7 +420,7 @@ public class VocdoniClient {
         String payloadJson = objectMapper.writeValueAsString(payloadMap);
 
         restTemplate.exchange(
-            apiUrl + CHAIN_TRANSACTION,
+            config.getApiUrl() + CHAIN_TRANSACTION,
             HttpMethod.POST,
             new HttpEntity<>(payloadJson, headers),
             Void.class);
@@ -494,7 +489,7 @@ public class VocdoniClient {
         HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
 
         ResponseEntity<NewVote> response = restTemplate.exchange(
-            apiUrl + VOTES,
+            config.getApiUrl() + VOTES,
             HttpMethod.POST,
             entity,
             NewVote.class);
@@ -515,7 +510,7 @@ public class VocdoniClient {
 
             try {
                 ResponseEntity<TransactionInfo> response = restTemplate.exchange(
-                        apiUrl + TRANSACTION_BY_HASH + "/" + txHash,
+                        config.getApiUrl() + TRANSACTION_BY_HASH + "/" + txHash,
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
                         TransactionInfo.class

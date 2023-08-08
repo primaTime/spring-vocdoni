@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -13,7 +13,7 @@ import java.util.Map;
 public class AccountMetadata {
 
     private String version;
-    private ArrayList<String> languages;
+    private List<String> languages;
     private Map<String, Object> name;
     private Map<String, Object> description;
     private Map<String, Object> newsFeed;

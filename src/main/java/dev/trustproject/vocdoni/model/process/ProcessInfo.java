@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class ProcessInfo {
     private Instant endDate;
     private int voteCount;
     private boolean finalResults;
-    private ArrayList<ArrayList<Integer>> result;
+    private List<List<Integer>> result;
     private Census census;
     private String metadataURL;
     private String creationTime;

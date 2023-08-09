@@ -290,6 +290,45 @@ public class VocdoniClient {
     }
 
     public ProcessInfo createProcess(
+            String walletAddress,
+            String title,
+            String description,
+            ProcessMedia media,
+            Map<String, Object> meta,
+            Instant startDate,
+            Instant endDate,
+            String censusId,
+            String censusURI,
+            List<VocdoniQuestion> questions,
+            int censusSize
+    ) throws JsonProcessingException {
+        EnvelopeType envelopeType = EnvelopeType.newBuilder()
+                .setSerial(false)
+                .setAnonymous(false)
+                .setEncryptedVotes(false)
+                .setUniqueValues(false)
+                .setCostFromWeight(false)
+                .build();
+
+        ProcessMode mode = ProcessMode.newBuilder()
+                .setAutoStart(true)
+                .setInterruptible(true)
+                .setDynamicCensus(false)
+                .setEncryptedMetaData(false)
+                .setPreRegister(false)
+                .build();
+
+        ProcessVoteOptions voteOptions = ProcessVoteOptions.newBuilder()
+                .setMaxCount(questions.size())
+                .setMaxValue(questions.stream().mapToInt(question -> question.getChoices().size()).max().getAsInt())
+                .setMaxVoteOverwrites(1)
+                .setCostExponent(1)
+                .build();
+
+        return createProcess(walletAddress, title, description, media, meta, startDate, endDate, censusId, censusURI, questions, censusSize, envelopeType, mode, voteOptions);
+    }
+
+    public ProcessInfo createProcess(
         String walletAddress,
         String title,
         String description,
@@ -300,7 +339,10 @@ public class VocdoniClient {
         String censusId,
         String censusURI,
         List<VocdoniQuestion> questions,
-        int censusSize
+        int censusSize,
+        EnvelopeType envelopeType,
+        ProcessMode mode,
+        ProcessVoteOptions voteOptions
     ) throws JsonProcessingException {
         Map<String, String> titleMap = new HashMap<>();
         titleMap.put("default", title);
@@ -321,29 +363,6 @@ public class VocdoniClient {
 
         AccountInfo accountInfo = getAccountInfo(walletAddress);
         int nonce = Integer.parseInt(accountInfo.getNonce());
-
-        EnvelopeType envelopeType = EnvelopeType.newBuilder()
-            .setSerial(false)
-            .setAnonymous(false)
-            .setEncryptedVotes(false)
-            .setUniqueValues(false)
-            .setCostFromWeight(false)
-            .build();
-
-        ProcessMode mode = ProcessMode.newBuilder()
-            .setAutoStart(true)
-            .setInterruptible(true)
-            .setDynamicCensus(false)
-            .setEncryptedMetaData(false)
-            .setPreRegister(false)
-            .build();
-
-        ProcessVoteOptions voteOptions = ProcessVoteOptions.newBuilder()
-            .setMaxCount(questions.size())
-            .setMaxValue(questions.stream().mapToInt(question -> question.getChoices().size()).max().getAsInt())
-            .setMaxVoteOverwrites(1)
-            .setCostExponent(1)
-            .build();
 
         Process process = Process.newBuilder()
             .setEntityId(ByteString.fromHex(strip0x(walletAddress)))

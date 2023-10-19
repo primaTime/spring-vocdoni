@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CensusProof {
 
+    private String type;
     private String weight;
-    private String proof;
+    private String censusRoot;
+    private String censusProof;
     private String value;
 }

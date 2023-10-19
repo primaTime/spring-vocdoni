@@ -452,7 +452,7 @@ public class VocdoniClient {
         CensusProof censusProof = getCensusProof(walletAddress, censusId, censusToken);
 
         ProofArbo aProof = ProofArbo.newBuilder()
-            .setSiblings(ByteString.fromHex(censusProof.getProof()))
+            .setSiblings(ByteString.fromHex(censusProof.getCensusProof()))
             .setType(ProofArbo.Type.BLAKE2B)
             .setValue(ByteString.fromHex(censusProof.getValue()))
             .setKeyType(ProofArbo.KeyType.ADDRESS)

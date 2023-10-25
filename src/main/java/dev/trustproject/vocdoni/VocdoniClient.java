@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;
-import dev.trustproject.vocdoni.Vochain.Process;
-import dev.trustproject.vocdoni.Vochain.*;
+import dvote.types.v1.Vochain;
+import dvote.types.v1.Vochain.*;
 import dev.trustproject.vocdoni.configuration.VocdoniProperties;
 import dev.trustproject.vocdoni.model.account.FaucetPackage;
 import dev.trustproject.vocdoni.model.account.*;
@@ -364,7 +364,7 @@ public class VocdoniClient {
         AccountInfo accountInfo = getAccountInfo(walletAddress);
         int nonce = Integer.parseInt(accountInfo.getNonce());
 
-        Process process = Process.newBuilder()
+        Vochain.Process process = Vochain.Process.newBuilder()
             .setEntityId(ByteString.fromHex(strip0x(walletAddress)))
             .setStartBlock(startBlock)
             .setBlockCount(endBlock - startBlock)
@@ -454,7 +454,7 @@ public class VocdoniClient {
         ProofArbo aProof = ProofArbo.newBuilder()
             .setSiblings(ByteString.fromHex(censusProof.getCensusProof()))
             .setType(ProofArbo.Type.BLAKE2B)
-            .setValue(ByteString.fromHex(censusProof.getValue()))
+            .setAvailableWeight(ByteString.fromHex(censusProof.getValue()))
             .setKeyType(ProofArbo.KeyType.ADDRESS)
             .build();
 

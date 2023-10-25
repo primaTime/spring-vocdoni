@@ -1,6 +1,7 @@
 package dev.trustproject.vocdoni;
 
 import com.google.protobuf.ByteString;
+import dvote.types.v1.Vochain;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.web3j.crypto.ECKeyPair;

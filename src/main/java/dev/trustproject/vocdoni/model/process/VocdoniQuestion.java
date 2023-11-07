@@ -18,7 +18,10 @@ public class VocdoniQuestion {
 
     public VocdoniQuestion(String title, String description, List<VocdoniOption> choices) {
         this.title = Map.of("default", title);
-        this.description = Map.of("default", description);
         this.choices = choices;
+
+        if (description != null) {
+            this.description = Map.of("default", description);
+        }
     }
 }

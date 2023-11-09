@@ -15,7 +15,15 @@ import dev.trustproject.vocdoni.model.chain.ChainSubmitTxResponse;
 import dev.trustproject.vocdoni.model.chain.TransactionInfo;
 import dev.trustproject.vocdoni.model.chain.VochainInfo;
 import dev.trustproject.vocdoni.model.process.*;
+import io.vocdoni.api.AccountsApi;
+import io.vocdoni.invoker.ApiClient;
+import io.vocdoni.invoker.ApiException;
+import io.vocdoni.invoker.Configuration;
+import io.vocdoni.model.AccountsPostRequest;
+import io.vocdoni.model.ApiAccount;
+import io.vocdoni.model.ApiAccountSet;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -32,7 +40,6 @@ import static dev.trustproject.vocdoni.VocdoniConstants.*;
 import static dev.trustproject.vocdoni.VocdoniUtils.*;
 
 @Component
-@AllArgsConstructor
 public class VocdoniClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -41,6 +48,18 @@ public class VocdoniClient {
     private final VocdoniProperties config;
 
     private final TransactionSigner transactionSigner;
+
+    private final AccountsApi accountsApi;
+
+    public VocdoniClient(VocdoniProperties config, TransactionSigner transactionSigner) {
+        this.config = config;
+        this.transactionSigner = transactionSigner;
+
+        final ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath(config.getApiUrl());
+
+        this.accountsApi = new AccountsApi(defaultClient);
+    }
 
     public String signTransaction(byte[] tx, String walletAddress) {
         return transactionSigner.signTransaction(tx, walletAddress);
@@ -79,7 +98,6 @@ public class VocdoniClient {
 
     public FaucetPackage getFaucet(String walletAddress) throws JsonProcessingException {
         HttpHeaders headers = makeHeaders();
-        headers.setBearerAuth(config.getFaucetToken());
 
         ResponseEntity<FaucetPackageInfo> response = restTemplate.exchange(
             config.getFaucetUrl() + "/" + walletAddress,
@@ -98,8 +116,8 @@ public class VocdoniClient {
         return new FaucetPackage(payload, signature);
     }
 
-    public void collectTokens(String walletAddress) throws JsonProcessingException {
-        AccountInfo accountInfo = getAccountInfo(walletAddress);
+    public void collectTokens(String walletAddress) throws JsonProcessingException, ApiException {
+        ApiAccount accountInfo = getAccountInfo(walletAddress);
         FaucetPackage faucetPackage = getFaucet(walletAddress);
 
         byte[] payloadBytes = Base64.getDecoder().decode(faucetPackage.getPayload().getBytes(StandardCharsets.UTF_8));
@@ -111,7 +129,7 @@ public class VocdoniClient {
             .build();
 
         CollectFaucetTx collectFaucetTx = CollectFaucetTx.newBuilder()
-            .setNonce(Integer.parseInt(accountInfo.getNonce()))
+            .setNonce(accountInfo.getNonce())
             .setFaucetPackage(vochainFaucetPackage)
             .build();
 
@@ -141,7 +159,7 @@ public class VocdoniClient {
         waitForTransaction(chainSubmitTxResponse.getHash());
     }
 
-    public void createAccount(String walletAddress, FaucetPackage faucetPackage, AccountMetadata accountMetadata) throws JsonProcessingException {
+    public ApiAccountSet createAccount(String walletAddress, FaucetPackage faucetPackage, AccountMetadata accountMetadata) throws JsonProcessingException, ApiException {
         String accountMetadataJson = objectMapper.writeValueAsString(accountMetadata);
         String metadata = Base64.getEncoder().encodeToString(accountMetadataJson.getBytes(StandardCharsets.ISO_8859_1));
 
@@ -167,36 +185,11 @@ public class VocdoniClient {
 
         String signedTx = signTransaction(tx.toByteArray(), walletAddress);
 
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("txPayload", signedTx);
-        payloadMap.put("metadata", metadata);
-        String payloadJson = objectMapper.writeValueAsString(payloadMap);
-
-        HttpHeaders headers = makeHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> httpEntity = new HttpEntity<>(payloadJson, headers);
-
-        ResponseEntity<NewAccount> response = restTemplate.exchange(
-            config.getApiUrl() + ACCOUNTS,
-            HttpMethod.POST,
-            httpEntity,
-            NewAccount.class);
-
-        NewAccount newAccount = response.getBody();
-
-        waitForTransaction(newAccount.getTxHash());
+        return this.accountsApi.accountsPost(new AccountsPostRequest().txPayload(signedTx).metadata(metadata));
     }
 
-    public AccountInfo getAccountInfo(String walletAddress) {
-        HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
-
-        ResponseEntity<AccountInfo> response = restTemplate.exchange(
-            config.getApiUrl() + ACCOUNTS + "/" + walletAddress,
-            HttpMethod.GET,
-            httpEntity,
-            AccountInfo.class);
-
-        return response.getBody();
+    public ApiAccount getAccountInfo(String walletAddress) throws ApiException {
+        return this.accountsApi.accountsAddressGet(walletAddress);
     }
 
     public List<Election> getElectionList(String walletAddress, int page) {
@@ -301,7 +294,7 @@ public class VocdoniClient {
             String censusURI,
             List<VocdoniQuestion> questions,
             int censusSize
-    ) throws JsonProcessingException {
+    ) throws JsonProcessingException, ApiException {
         EnvelopeType envelopeType = EnvelopeType.newBuilder()
                 .setSerial(false)
                 .setAnonymous(false)
@@ -343,7 +336,7 @@ public class VocdoniClient {
         EnvelopeType envelopeType,
         ProcessMode mode,
         ProcessVoteOptions voteOptions
-    ) throws JsonProcessingException {
+    ) throws JsonProcessingException, ApiException {
         Map<String, String> titleMap = new HashMap<>();
         titleMap.put("default", title);
         Map<String, String> descriptionMap = new HashMap<>();
@@ -361,8 +354,7 @@ public class VocdoniClient {
         int startBlock = estimateBlockAtDateTime(startDate, blockTimestamp, height, blockTime);
         int endBlock = estimateBlockAtDateTime(endDate, blockTimestamp, height, blockTime);
 
-        AccountInfo accountInfo = getAccountInfo(walletAddress);
-        int nonce = Integer.parseInt(accountInfo.getNonce());
+        final ApiAccount accountInfo = this.getAccountInfo(walletAddress);
 
         Vochain.Process process = Vochain.Process.newBuilder()
             .setEntityId(ByteString.fromHex(strip0x(walletAddress)))
@@ -381,7 +373,7 @@ public class VocdoniClient {
 
         NewProcessTx newProcessTx = NewProcessTx.newBuilder()
             .setTxtype(TxType.NEW_PROCESS)
-            .setNonce(nonce)
+            .setNonce(accountInfo.getNonce())
             .setProcess(process)
             .build();
 
@@ -413,13 +405,12 @@ public class VocdoniClient {
         return getProcessInfo(newProcess.getElectionID());
     }
 
-    public void changeProcessStatus(String walletAddress, String electionId, VocdoniProcessStatus status) throws JsonProcessingException {
-        AccountInfo accountInfo = getAccountInfo(walletAddress);
-        int accountNonce = Integer.parseInt(accountInfo.getNonce());
+    public void changeProcessStatus(String walletAddress, String electionId, VocdoniProcessStatus status) throws JsonProcessingException, ApiException {
+        ApiAccount accountInfo = getAccountInfo(walletAddress);
 
         SetProcessTx setProcessTx = SetProcessTx.newBuilder()
             .setTxtype(TxType.SET_PROCESS_STATUS)
-            .setNonce(accountNonce)
+            .setNonce(accountInfo.getNonce())
             .setProcessId(ByteString.fromHex(strip0x(electionId)))
             .setStatus(Vochain.ProcessStatus.valueOf(status.toString()))
             .build();

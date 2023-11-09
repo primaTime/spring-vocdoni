@@ -1,0 +1,6 @@
+vocdoni:
+  api:
+    url: https://api.vocdoni.io/v2
+  faucet:
+    url: https://api-faucet.vocdoni.io/v2/open/claim
+    token: 158a58ba-bd3e-479e-b230-2814a34fae8f

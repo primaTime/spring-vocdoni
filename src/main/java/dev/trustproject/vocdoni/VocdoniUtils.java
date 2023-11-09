@@ -2,14 +2,17 @@ package dev.trustproject.vocdoni;
 
 import com.google.protobuf.ByteString;
 import dvote.types.v1.Vochain;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -80,18 +83,22 @@ public class VocdoniUtils {
         return Math.max(estimatedBlock, 0);
     }
 
+    @SneakyThrows
     public static String signTransaction(String chainId, byte[] tx, ECKeyPair ecKeyPair) {
-        //Digest Vocdoni transaction
-        String prefix = "Vocdoni signed transaction:\n" + chainId + "\n";
-        byte[] digestedPayload = Hash.sha3(tx);
-        String digestedPayloadHex = Numeric.toHexStringNoPrefix(digestedPayload);
-        String combinedPayload = prefix + digestedPayloadHex;
-        byte[] prefixAndDigestedPayload = combinedPayload.getBytes(StandardCharsets.UTF_8);
+        final String template = "You are signing a Vocdoni transaction of type CREATE_ACCOUNT for address {address}.\n\nThe hash of this transaction is {hash} and the destination chain is {chainId}.";
 
-        //Sign the digested payload
-        Sign.SignatureData signatureData = Sign.signPrefixedMessage(prefixAndDigestedPayload, ecKeyPair);
+        final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
 
-        //Create signed transaction using the original transaction and the signature
+        final String payload = template.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress()).toLowerCase())
+                .replace("{hash}", txHash)
+                .replace("{chainId}", chainId);
+
+        final byte[] payloadBytes = payload.getBytes(StandardCharsets.UTF_8);
+
+        Sign.SignatureData signatureData = Sign.signMessage(payloadBytes, ecKeyPair);
+
+        assert Sign.signedMessageToKey(payloadBytes, signatureData).equals(ecKeyPair.getPublicKey());
+
         byte[] signature = Arrays.copyOf(signatureData.getR(), 65);
         System.arraycopy(signatureData.getS(), 0, signature, 32, 32);
         signature[64] = signatureData.getV()[0];

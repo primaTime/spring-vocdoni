@@ -189,7 +189,7 @@ public class VocdoniClient {
     }
 
     public ApiAccount getAccountInfo(String walletAddress) throws ApiException {
-        return this.accountsApi.accountsAddressGet(walletAddress);
+        return this.accountsApi.accountsAddressGet(strip0x(walletAddress));
     }
 
     public List<Election> getElectionList(String walletAddress, int page) {

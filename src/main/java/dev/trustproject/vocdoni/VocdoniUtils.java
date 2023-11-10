@@ -6,14 +6,9 @@ import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.web3j.crypto.*;
-import org.web3j.utils.Bytes;
 import org.web3j.utils.Numeric;
 
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -86,7 +81,7 @@ public class VocdoniUtils {
 
     @SneakyThrows
     public static String signTransaction(String chainId, byte[] tx, ECKeyPair ecKeyPair) {
-        final String template = "You are signing a Vocdoni transaction of type CREATE_ACCOUNT for address {address}.\n\nThe hash of this transaction is {hash} and the destination chain is {chainId}.";
+        final String template = TxMessage.CREATE_ACCOUNT.getMessage();
 
         final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
 

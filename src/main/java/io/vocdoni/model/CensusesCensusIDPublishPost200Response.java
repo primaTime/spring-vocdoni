@@ -19,7 +19,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.CensusesCensusIDPublishPost200ResponseCensus;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -50,33 +49,58 @@ import io.vocdoni.invoker.JSON;
 /**
  * CensusesCensusIDPublishPost200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T21:49:26.053235+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
 public class CensusesCensusIDPublishPost200Response {
-  public static final String SERIALIZED_NAME_CENSUS = "census";
-  @SerializedName(SERIALIZED_NAME_CENSUS)
-  private CensusesCensusIDPublishPost200ResponseCensus census;
+  public static final String SERIALIZED_NAME_CENSUS_I_D = "censusID";
+  @SerializedName(SERIALIZED_NAME_CENSUS_I_D)
+  private String censusID;
+
+  public static final String SERIALIZED_NAME_URI = "uri";
+  @SerializedName(SERIALIZED_NAME_URI)
+  private String uri;
 
   public CensusesCensusIDPublishPost200Response() {
   }
 
-  public CensusesCensusIDPublishPost200Response census(CensusesCensusIDPublishPost200ResponseCensus census) {
+  public CensusesCensusIDPublishPost200Response censusID(String censusID) {
     
-    this.census = census;
+    this.censusID = censusID;
     return this;
   }
 
    /**
-   * Get census
-   * @return census
+   * Get censusID
+   * @return censusID
   **/
   @javax.annotation.Nullable
-  public CensusesCensusIDPublishPost200ResponseCensus getCensus() {
-    return census;
+  public String getCensusID() {
+    return censusID;
   }
 
 
-  public void setCensus(CensusesCensusIDPublishPost200ResponseCensus census) {
-    this.census = census;
+  public void setCensusID(String censusID) {
+    this.censusID = censusID;
+  }
+
+
+  public CensusesCensusIDPublishPost200Response uri(String uri) {
+    
+    this.uri = uri;
+    return this;
+  }
+
+   /**
+   * Get uri
+   * @return uri
+  **/
+  @javax.annotation.Nullable
+  public String getUri() {
+    return uri;
+  }
+
+
+  public void setUri(String uri) {
+    this.uri = uri;
   }
 
 
@@ -90,19 +114,21 @@ public class CensusesCensusIDPublishPost200Response {
       return false;
     }
     CensusesCensusIDPublishPost200Response censusesCensusIDPublishPost200Response = (CensusesCensusIDPublishPost200Response) o;
-    return Objects.equals(this.census, censusesCensusIDPublishPost200Response.census);
+    return Objects.equals(this.censusID, censusesCensusIDPublishPost200Response.censusID) &&
+        Objects.equals(this.uri, censusesCensusIDPublishPost200Response.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(census);
+    return Objects.hash(censusID, uri);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CensusesCensusIDPublishPost200Response {\n");
-    sb.append("    census: ").append(toIndentedString(census)).append("\n");
+    sb.append("    censusID: ").append(toIndentedString(censusID)).append("\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -125,7 +151,8 @@ public class CensusesCensusIDPublishPost200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("census");
+    openapiFields.add("censusID");
+    openapiFields.add("uri");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -152,9 +179,11 @@ public class CensusesCensusIDPublishPost200Response {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `census`
-      if (jsonObj.get("census") != null && !jsonObj.get("census").isJsonNull()) {
-        CensusesCensusIDPublishPost200ResponseCensus.validateJsonElement(jsonObj.get("census"));
+      if ((jsonObj.get("censusID") != null && !jsonObj.get("censusID").isJsonNull()) && !jsonObj.get("censusID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `censusID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusID").toString()));
+      }
+      if ((jsonObj.get("uri") != null && !jsonObj.get("uri").isJsonNull()) && !jsonObj.get("uri").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `uri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uri").toString()));
       }
   }
 

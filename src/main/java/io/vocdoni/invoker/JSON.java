@@ -140,7 +140,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusdbCensusDump.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDProofKeyGet200Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDPublishPost200Response.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDPublishPost200ResponseCensus.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDPublishRootPost200Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDRootGet200Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDSizeGet200Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.vocdoni.model.CensusesCensusIDTypeGet200Response.CustomTypeAdapterFactory());

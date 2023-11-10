@@ -49,7 +49,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * CensusesCensusIDPublishPost200ResponseCensus
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T21:49:26.053235+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T15:59:06.083620+01:00[Europe/Prague]")
 public class CensusesCensusIDPublishPost200ResponseCensus {
   public static final String SERIALIZED_NAME_CENSUS_I_D = "censusID";
   @SerializedName(SERIALIZED_NAME_CENSUS_I_D)

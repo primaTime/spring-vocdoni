@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
 
@@ -52,7 +51,7 @@ public class VocdoniClientTest {
         FaucetPackage faucetPackage = vocdoniClient.getFaucet(ORGANIZATION.getAddress());
         vocdoniClient.createAccount(ORGANIZATION.getAddress(), faucetPackage, accountMetadata);
 
-        /*String censusToken = UUID.randomUUID().toString();
+        String censusToken = UUID.randomUUID().toString();
         String censusId = vocdoniClient.createCensus(censusToken);
 
         vocdoniClient.addParticipantsToCensus(censusId, censusToken, List.of(new CensusParticipant(
@@ -110,7 +109,7 @@ public class VocdoniClientTest {
                 processInfo.getElectionId(),
                 SECOND_ACTOR.getAddress(),
                 censusId,
-                List.of(1));*/
+                List.of(1));
     }
 
 }

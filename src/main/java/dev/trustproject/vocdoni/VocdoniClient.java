@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 import dvote.types.v1.Vochain;
 import dvote.types.v1.Vochain.*;
 import dev.trustproject.vocdoni.configuration.VocdoniProperties;
@@ -16,14 +17,12 @@ import dev.trustproject.vocdoni.model.chain.TransactionInfo;
 import dev.trustproject.vocdoni.model.chain.VochainInfo;
 import dev.trustproject.vocdoni.model.process.*;
 import io.vocdoni.api.AccountsApi;
+import io.vocdoni.api.CensusesApi;
+import io.vocdoni.api.ElectionsApi;
 import io.vocdoni.invoker.ApiClient;
 import io.vocdoni.invoker.ApiException;
 import io.vocdoni.invoker.Configuration;
-import io.vocdoni.model.AccountsPostRequest;
-import io.vocdoni.model.ApiAccount;
-import io.vocdoni.model.ApiAccountSet;
-import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
+import io.vocdoni.model.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -35,6 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static dev.trustproject.vocdoni.VocdoniConstants.*;
 import static dev.trustproject.vocdoni.VocdoniUtils.*;
@@ -50,6 +50,8 @@ public class VocdoniClient {
     private final TransactionSigner transactionSigner;
 
     private final AccountsApi accountsApi;
+    private final ElectionsApi electionsApi;
+    private final CensusesApi censusesApi;
 
     public VocdoniClient(VocdoniProperties config, TransactionSigner transactionSigner) {
         this.config = config;
@@ -59,41 +61,33 @@ public class VocdoniClient {
         defaultClient.setBasePath(config.getApiUrl());
 
         this.accountsApi = new AccountsApi(defaultClient);
+        this.electionsApi = new ElectionsApi(defaultClient);
+        this.censusesApi = new CensusesApi(defaultClient);
     }
 
     public String signTransaction(byte[] tx, String walletAddress) {
         return transactionSigner.signTransaction(tx, walletAddress);
     }
 
-    private String getCID(String payload) throws JsonProcessingException {
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("payload", payload);
-        String jsonString = objectMapper.writeValueAsString(payloadMap);
+    private String getCID(String payload) throws ApiException {
+        ChainTransactionsPostRequest chainTransactionsPostRequest = new ChainTransactionsPostRequest().payload(payload);
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(jsonString, makeHeaders());
+        ApiFile apiFileResponse = electionsApi.filesCidPost(chainTransactionsPostRequest);
 
-        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-            config.getApiUrl() + CID,
-            HttpMethod.POST,
-            httpEntity,
-            new ParameterizedTypeReference<>() {});
-
-        return response.getBody().get("cid") != null
-            ? (String) response.getBody().get("cid")
-            : null;
+        return apiFileResponse.getCid();
     }
 
-    private CensusProof getCensusProof(String voterAddress, String censusId, String censusToken) {
-        HttpHeaders headers = makeHeaders();
-        headers.setBearerAuth(censusToken);
+    private CensusProof getCensusProof(String voterAddress, String censusId, String censusToken) throws ApiException {
 
-        ResponseEntity<CensusProof> response = restTemplate.exchange(
-            config.getApiUrl() + CENSUSES + "/" + censusId + PROOF + "/" + voterAddress,
-            HttpMethod.GET,
-            new HttpEntity<>(headers),
-            CensusProof.class);
+        censusesApi.getApiClient().addDefaultHeader("Authorization", "Bearer " + censusToken);
 
-        return response.getBody();
+        CensusesCensusIDProofKeyGet200Response response = censusesApi.censusesCensusIDProofKeyGet(censusId, voterAddress);
+
+        return new CensusProof(
+            String.valueOf(response.getWeight()),
+            response.getProof(),
+            response.getValue()
+        );
     }
 
     public FaucetPackage getFaucet(String walletAddress) throws JsonProcessingException {
@@ -206,56 +200,36 @@ public class VocdoniClient {
             : null;
     }
 
-    public String createCensus(String token) throws JsonProcessingException {
-        HttpHeaders headers = makeHeaders();
-        headers.setBearerAuth(token);
+    public String createCensus(String token) throws ApiException {
+        censusesApi.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+        CensusesTypePost200Response response = censusesApi.censusesTypePost("weighted");
 
-        ResponseEntity<String> response = restTemplate.exchange(
-            config.getApiUrl() + CENSUSES + WEIGHTED,
-            HttpMethod.POST,
-            httpEntity,
-            String.class);
-
-        JsonNode jsonNode = objectMapper.readTree(response.getBody());
-
-        return jsonNode.get("censusID").asText();
+        return response.getCensusID();
     }
 
-    public void addParticipantsToCensus(String censusId, String token, List<CensusParticipant> participants) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
+    public void addParticipantsToCensus(String censusId, String token, List<CensusParticipant> participants) throws ApiException {
+        List<ApiCensusParticipant> apiParticipants = participants.stream()
+                .map(p -> new ApiCensusParticipant()
+                        .key(p.getKey())
+                        .weight(p.getWeight()))
+                .collect(Collectors.toList());
+        ApiCensusParticipants apiCensusParticipants = new ApiCensusParticipants().participants(apiParticipants);
 
-        Map<String, List<CensusParticipant>> requestBody = new HashMap<>();
-        requestBody.put("participants", participants);
-        HttpEntity<Map<String, List<CensusParticipant>>> httpEntity = new HttpEntity<>(requestBody, headers);
+        censusesApi.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
 
-        ResponseEntity<Void> response = restTemplate.exchange(
-            config.getApiUrl() + CENSUSES + "/" + censusId + PARTICIPANTS,
-            HttpMethod.POST,
-            httpEntity,
-            Void.class);
-
-        if (response.getStatusCode() != HttpStatus.OK) {
-            throw new RuntimeException("Request failed with status code: " + response.getStatusCode());
-        }
+        censusesApi.censusesCensusIDParticipantsPost(censusId, apiCensusParticipants);
     }
 
-    public PublishedCensusInfo publishCensus(String censusId, String token) {
-        HttpHeaders headers = makeHeaders();
-        headers.setBearerAuth(token);
+    public PublishedCensusInfo publishCensus(String censusId, String token) throws ApiException {
+        censusesApi.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+        CensusesCensusIDPublishPost200Response response = censusesApi.censusesCensusIDPublishPost(censusId);
 
-        ResponseEntity<PublishedCensusInfo> response = restTemplate.exchange(
-            config.getApiUrl() + CENSUSES + "/" + censusId + PUBLISH,
-            HttpMethod.POST,
-            httpEntity,
-            PublishedCensusInfo.class);
-
-        return response.getBody();
+        return new PublishedCensusInfo(
+            response.getCensusID(),
+            response.getUri()
+        );
     }
 
     public VochainInfo getVochainInfo() {
@@ -270,19 +244,12 @@ public class VocdoniClient {
         return response.getBody();
     }
 
-    public ProcessInfo getProcessInfo(String electionId) {
-        HttpEntity<String> httpEntity = new HttpEntity<>(makeHeaders());
+    public ApiElection getProcessInfo(String electionId) throws ApiException {
 
-        ResponseEntity<ProcessInfo> response = restTemplate.exchange(
-            config.getApiUrl() + ELECTIONS + "/" + electionId,
-            HttpMethod.GET,
-            httpEntity,
-            ProcessInfo.class);
-
-        return response.getBody();
+        return electionsApi.electionsElectionIDGet(electionId);
     }
 
-    public ProcessInfo createProcess(
+    public ApiElection createProcess(
             String walletAddress,
             String title,
             String description,
@@ -294,7 +261,7 @@ public class VocdoniClient {
             String censusURI,
             List<VocdoniQuestion> questions,
             int censusSize
-    ) throws JsonProcessingException, ApiException {
+    ) throws JsonProcessingException, ApiException, InvalidProtocolBufferException {
         EnvelopeType envelopeType = EnvelopeType.newBuilder()
                 .setSerial(false)
                 .setAnonymous(false)
@@ -321,7 +288,7 @@ public class VocdoniClient {
         return createProcess(walletAddress, title, description, media, meta, startDate, endDate, censusId, censusURI, questions, censusSize, envelopeType, mode, voteOptions);
     }
 
-    public ProcessInfo createProcess(
+    public ApiElection createProcess(
         String walletAddress,
         String title,
         String description,
@@ -336,7 +303,7 @@ public class VocdoniClient {
         EnvelopeType envelopeType,
         ProcessMode mode,
         ProcessVoteOptions voteOptions
-    ) throws JsonProcessingException, ApiException {
+    ) throws JsonProcessingException, ApiException, InvalidProtocolBufferException {
         Map<String, String> titleMap = new HashMap<>();
         titleMap.put("default", title);
         Map<String, String> descriptionMap = new HashMap<>();
@@ -384,25 +351,20 @@ public class VocdoniClient {
         byte[] encodedTx = tx.toByteArray();
         String signedTx = signTransaction(encodedTx, walletAddress);
 
-        HttpHeaders headers = makeHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        byte[] signedTxBytes = Base64.getDecoder().decode(signedTx);
 
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("txPayload", signedTx);
-        payloadMap.put("metadata", base64EncodedMetadata);
-        String payloadJson = objectMapper.writeValueAsString(payloadMap);
+        Vochain.SignedTx parsedSignedTx = Vochain.SignedTx.parseFrom(signedTxBytes);
 
-        ResponseEntity<NewProcess> response = restTemplate.exchange(
-            config.getApiUrl() + ELECTIONS,
-            HttpMethod.POST,
-            new HttpEntity<>(payloadJson, headers),
-            NewProcess.class);
+        List<Integer> txList = convertByteArrayToListOfIntegers(parsedSignedTx.getTx().toByteArray());
+        List<Integer> signatureList = convertByteArrayToListOfIntegers(parsedSignedTx.getSignature().toByteArray());
 
-        NewProcess newProcess = response.getBody();
+        ModelsSignedTx modelsSignedTx = new ModelsSignedTx()
+                .tx(txList)
+                .signature(signatureList);
 
-        waitForTransaction(newProcess.getTxHash());
+        ApiElectionCreate apiElectionCreate = electionsApi.electionsPost(modelsSignedTx);
 
-        return getProcessInfo(newProcess.getElectionID());
+        return getProcessInfo(apiElectionCreate.getElectionID());
     }
 
     public void changeProcessStatus(String walletAddress, String electionId, VocdoniProcessStatus status) throws JsonProcessingException, ApiException {
@@ -436,8 +398,8 @@ public class VocdoniClient {
             Void.class);
     }
 
-    public String vote(String electionId, String walletAddress, String censusToken, List<Integer> votes) throws JsonProcessingException {
-        ProcessInfo processInfo = getProcessInfo(electionId);
+    public String vote(String electionId, String walletAddress, String censusToken, List<Integer> votes) throws JsonProcessingException, ApiException {
+        ApiElection processInfo = getProcessInfo(electionId);
         String censusId = processInfo.getCensus().getCensusRoot();
 
         CensusProof censusProof = getCensusProof(walletAddress, censusId, censusToken);

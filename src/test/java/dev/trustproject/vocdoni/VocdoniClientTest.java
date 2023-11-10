@@ -1,17 +1,18 @@
 package dev.trustproject.vocdoni;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.protobuf.InvalidProtocolBufferException;
 import dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration;
 import dev.trustproject.vocdoni.model.account.AccountMedia;
 import dev.trustproject.vocdoni.model.account.AccountMetadata;
 import dev.trustproject.vocdoni.model.account.FaucetPackage;
 import dev.trustproject.vocdoni.model.census.PublishedCensusInfo;
 import dev.trustproject.vocdoni.model.process.CensusParticipant;
-import dev.trustproject.vocdoni.model.process.ProcessInfo;
 import dev.trustproject.vocdoni.model.process.VocdoniOption;
 import dev.trustproject.vocdoni.model.process.VocdoniQuestion;
 import dvote.types.v1.Vochain;
 import io.vocdoni.invoker.ApiException;
+import io.vocdoni.model.ApiElection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +33,7 @@ public class VocdoniClientTest {
     protected VocdoniClient vocdoniClient;
 
     @Test
-    public void all() throws JsonProcessingException, ApiException {
+    public void all() throws JsonProcessingException, ApiException, InvalidProtocolBufferException {
         List<String> languages = new ArrayList<>();
         languages.add("en");
 
@@ -83,7 +84,7 @@ public class VocdoniClientTest {
                 .setCostExponent(1)
                 .build();
 
-        ProcessInfo processInfo = vocdoniClient.createProcess(
+        ApiElection processInfo = vocdoniClient.createProcess(
                 ORGANIZATION.getAddress(),
                 "test process",
                 "test description",

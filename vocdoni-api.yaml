@@ -341,13 +341,10 @@ paths:
             application/json:
               schema:
                 properties:
-                  census:
-                    properties:
-                      censusID:
-                        type: string
-                      uri:
-                        type: string
-                    type: object
+                  censusID:
+                    type: string
+                  uri:
+                    type: string
                 type: object
           description: It return published censusID and the ipfs uri where its uploaded
       security:
@@ -528,7 +525,7 @@ paths:
             application/json:
               schema:
                 properties:
-                  censusId:
+                  censusID:
                     type: string
                 type: object
           description: OK

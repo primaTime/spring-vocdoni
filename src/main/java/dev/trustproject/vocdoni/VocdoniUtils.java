@@ -16,9 +16,7 @@ import java.security.Key;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
+import java.util.*;
 
 public class VocdoniUtils {
 
@@ -110,4 +108,11 @@ public class VocdoniUtils {
         return Base64.getEncoder().encodeToString(signedTx.toByteArray());
     }
 
+    public static List<Integer> convertByteArrayToListOfIntegers(byte[] byteArray) {
+        List<Integer> intList = new ArrayList<>();
+        for (byte b : byteArray) {
+            intList.add((int) b & 0xFF);
+        }
+        return intList;
+    }
 }

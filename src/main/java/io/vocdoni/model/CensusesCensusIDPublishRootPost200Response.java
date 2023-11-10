@@ -19,8 +19,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.vocdoni.model.CensusesCensusIDPublishPost200Response;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -48,185 +48,35 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * ElectionpriceFactors
+ * CensusesCensusIDPublishRootPost200Response
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class ElectionpriceFactors {
-  public static final String SERIALIZED_NAME_K1 = "k1";
-  @SerializedName(SERIALIZED_NAME_K1)
-  private BigDecimal k1;
+public class CensusesCensusIDPublishRootPost200Response {
+  public static final String SERIALIZED_NAME_CENSUS = "census";
+  @SerializedName(SERIALIZED_NAME_CENSUS)
+  private CensusesCensusIDPublishPost200Response census;
 
-  public static final String SERIALIZED_NAME_K2 = "k2";
-  @SerializedName(SERIALIZED_NAME_K2)
-  private BigDecimal k2;
-
-  public static final String SERIALIZED_NAME_K3 = "k3";
-  @SerializedName(SERIALIZED_NAME_K3)
-  private BigDecimal k3;
-
-  public static final String SERIALIZED_NAME_K4 = "k4";
-  @SerializedName(SERIALIZED_NAME_K4)
-  private BigDecimal k4;
-
-  public static final String SERIALIZED_NAME_K5 = "k5";
-  @SerializedName(SERIALIZED_NAME_K5)
-  private BigDecimal k5;
-
-  public static final String SERIALIZED_NAME_K6 = "k6";
-  @SerializedName(SERIALIZED_NAME_K6)
-  private BigDecimal k6;
-
-  public static final String SERIALIZED_NAME_K7 = "k7";
-  @SerializedName(SERIALIZED_NAME_K7)
-  private Integer k7;
-
-  public ElectionpriceFactors() {
+  public CensusesCensusIDPublishRootPost200Response() {
   }
 
-  public ElectionpriceFactors k1(BigDecimal k1) {
+  public CensusesCensusIDPublishRootPost200Response census(CensusesCensusIDPublishPost200Response census) {
     
-    this.k1 = k1;
+    this.census = census;
     return this;
   }
 
    /**
-   * sizePriceFactor
-   * @return k1
+   * Get census
+   * @return census
   **/
   @javax.annotation.Nullable
-  public BigDecimal getK1() {
-    return k1;
+  public CensusesCensusIDPublishPost200Response getCensus() {
+    return census;
   }
 
 
-  public void setK1(BigDecimal k1) {
-    this.k1 = k1;
-  }
-
-
-  public ElectionpriceFactors k2(BigDecimal k2) {
-    
-    this.k2 = k2;
-    return this;
-  }
-
-   /**
-   * durationPriceFactor
-   * @return k2
-  **/
-  @javax.annotation.Nullable
-  public BigDecimal getK2() {
-    return k2;
-  }
-
-
-  public void setK2(BigDecimal k2) {
-    this.k2 = k2;
-  }
-
-
-  public ElectionpriceFactors k3(BigDecimal k3) {
-    
-    this.k3 = k3;
-    return this;
-  }
-
-   /**
-   * encryptedPriceFactor
-   * @return k3
-  **/
-  @javax.annotation.Nullable
-  public BigDecimal getK3() {
-    return k3;
-  }
-
-
-  public void setK3(BigDecimal k3) {
-    this.k3 = k3;
-  }
-
-
-  public ElectionpriceFactors k4(BigDecimal k4) {
-    
-    this.k4 = k4;
-    return this;
-  }
-
-   /**
-   * anonymousPriceFactor
-   * @return k4
-  **/
-  @javax.annotation.Nullable
-  public BigDecimal getK4() {
-    return k4;
-  }
-
-
-  public void setK4(BigDecimal k4) {
-    this.k4 = k4;
-  }
-
-
-  public ElectionpriceFactors k5(BigDecimal k5) {
-    
-    this.k5 = k5;
-    return this;
-  }
-
-   /**
-   * overwritePriceFactor
-   * @return k5
-  **/
-  @javax.annotation.Nullable
-  public BigDecimal getK5() {
-    return k5;
-  }
-
-
-  public void setK5(BigDecimal k5) {
-    this.k5 = k5;
-  }
-
-
-  public ElectionpriceFactors k6(BigDecimal k6) {
-    
-    this.k6 = k6;
-    return this;
-  }
-
-   /**
-   * Size scaling factor for maxCensusSize
-   * @return k6
-  **/
-  @javax.annotation.Nullable
-  public BigDecimal getK6() {
-    return k6;
-  }
-
-
-  public void setK6(BigDecimal k6) {
-    this.k6 = k6;
-  }
-
-
-  public ElectionpriceFactors k7(Integer k7) {
-    
-    this.k7 = k7;
-    return this;
-  }
-
-   /**
-   * Threshold for maxCensusSize scaling
-   * @return k7
-  **/
-  @javax.annotation.Nullable
-  public Integer getK7() {
-    return k7;
-  }
-
-
-  public void setK7(Integer k7) {
-    this.k7 = k7;
+  public void setCensus(CensusesCensusIDPublishPost200Response census) {
+    this.census = census;
   }
 
 
@@ -239,32 +89,20 @@ public class ElectionpriceFactors {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ElectionpriceFactors electionpriceFactors = (ElectionpriceFactors) o;
-    return Objects.equals(this.k1, electionpriceFactors.k1) &&
-        Objects.equals(this.k2, electionpriceFactors.k2) &&
-        Objects.equals(this.k3, electionpriceFactors.k3) &&
-        Objects.equals(this.k4, electionpriceFactors.k4) &&
-        Objects.equals(this.k5, electionpriceFactors.k5) &&
-        Objects.equals(this.k6, electionpriceFactors.k6) &&
-        Objects.equals(this.k7, electionpriceFactors.k7);
+    CensusesCensusIDPublishRootPost200Response censusesCensusIDPublishRootPost200Response = (CensusesCensusIDPublishRootPost200Response) o;
+    return Objects.equals(this.census, censusesCensusIDPublishRootPost200Response.census);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(k1, k2, k3, k4, k5, k6, k7);
+    return Objects.hash(census);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ElectionpriceFactors {\n");
-    sb.append("    k1: ").append(toIndentedString(k1)).append("\n");
-    sb.append("    k2: ").append(toIndentedString(k2)).append("\n");
-    sb.append("    k3: ").append(toIndentedString(k3)).append("\n");
-    sb.append("    k4: ").append(toIndentedString(k4)).append("\n");
-    sb.append("    k5: ").append(toIndentedString(k5)).append("\n");
-    sb.append("    k6: ").append(toIndentedString(k6)).append("\n");
-    sb.append("    k7: ").append(toIndentedString(k7)).append("\n");
+    sb.append("class CensusesCensusIDPublishRootPost200Response {\n");
+    sb.append("    census: ").append(toIndentedString(census)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -287,13 +125,7 @@ public class ElectionpriceFactors {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("k1");
-    openapiFields.add("k2");
-    openapiFields.add("k3");
-    openapiFields.add("k4");
-    openapiFields.add("k5");
-    openapiFields.add("k6");
-    openapiFields.add("k7");
+    openapiFields.add("census");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -303,45 +135,49 @@ public class ElectionpriceFactors {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ElectionpriceFactors
+  * @throws IOException if the JSON Element is invalid with respect to CensusesCensusIDPublishRootPost200Response
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ElectionpriceFactors.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ElectionpriceFactors is not found in the empty JSON string", ElectionpriceFactors.openapiRequiredFields.toString()));
+        if (!CensusesCensusIDPublishRootPost200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesCensusIDPublishRootPost200Response is not found in the empty JSON string", CensusesCensusIDPublishRootPost200Response.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ElectionpriceFactors.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ElectionpriceFactors` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!CensusesCensusIDPublishRootPost200Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesCensusIDPublishRootPost200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // validate the optional field `census`
+      if (jsonObj.get("census") != null && !jsonObj.get("census").isJsonNull()) {
+        CensusesCensusIDPublishPost200Response.validateJsonElement(jsonObj.get("census"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ElectionpriceFactors.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ElectionpriceFactors' and its subtypes
+       if (!CensusesCensusIDPublishRootPost200Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CensusesCensusIDPublishRootPost200Response' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ElectionpriceFactors> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ElectionpriceFactors.class));
+       final TypeAdapter<CensusesCensusIDPublishRootPost200Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesCensusIDPublishRootPost200Response.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ElectionpriceFactors>() {
+       return (TypeAdapter<T>) new TypeAdapter<CensusesCensusIDPublishRootPost200Response>() {
            @Override
-           public void write(JsonWriter out, ElectionpriceFactors value) throws IOException {
+           public void write(JsonWriter out, CensusesCensusIDPublishRootPost200Response value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ElectionpriceFactors read(JsonReader in) throws IOException {
+           public CensusesCensusIDPublishRootPost200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -352,18 +188,18 @@ public class ElectionpriceFactors {
   }
 
  /**
-  * Create an instance of ElectionpriceFactors given an JSON string
+  * Create an instance of CensusesCensusIDPublishRootPost200Response given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ElectionpriceFactors
-  * @throws IOException if the JSON string is invalid with respect to ElectionpriceFactors
+  * @return An instance of CensusesCensusIDPublishRootPost200Response
+  * @throws IOException if the JSON string is invalid with respect to CensusesCensusIDPublishRootPost200Response
   */
-  public static ElectionpriceFactors fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ElectionpriceFactors.class);
+  public static CensusesCensusIDPublishRootPost200Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CensusesCensusIDPublishRootPost200Response.class);
   }
 
  /**
-  * Convert an instance of ElectionpriceFactors to an JSON string
+  * Convert an instance of CensusesCensusIDPublishRootPost200Response to an JSON string
   *
   * @return JSON string
   */

@@ -56,7 +56,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiElection
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T21:49:26.053235+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
 public class ApiElection {
   public static final String SERIALIZED_NAME_CENSUS = "census";
   @SerializedName(SERIALIZED_NAME_CENSUS)

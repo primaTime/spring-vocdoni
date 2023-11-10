@@ -31,6 +31,7 @@ import io.vocdoni.model.ApiCensusParticipants;
 import io.vocdoni.model.CensusdbCensusDump;
 import io.vocdoni.model.CensusesCensusIDProofKeyGet200Response;
 import io.vocdoni.model.CensusesCensusIDPublishPost200Response;
+import io.vocdoni.model.CensusesCensusIDPublishRootPost200Response;
 import io.vocdoni.model.CensusesCensusIDRootGet200Response;
 import io.vocdoni.model.CensusesCensusIDSizeGet200Response;
 import io.vocdoni.model.CensusesCensusIDTypeGet200Response;
@@ -904,7 +905,7 @@ public class CensusesApi {
      * Register a census to the storage (IPFS in our case). After this, the census can&#39;t be edited.           You could provide the census Merkle root to specify census publication at specific snapshot. See [censuses/{censusId}/participants](census-add-participants-to-census)  - Requires Bearer token - The census is copied to a new census identified by its Merkle Root - The new census **cannot be modified** - The census is published to the storage provided (IPFS in our case) - The new census ID is returned and can be used for querying - If a censusID with the same root has been already published, the request will fail - If &#x60;root&#x60; is specified as path parameter, it publish the census at specific  root (append the census to existing one).
      * @param censusID Census id (required)
      * @param root Specific root where to publish the census. Not required (required)
-     * @return CensusesCensusIDPublishPost200Response
+     * @return CensusesCensusIDPublishRootPost200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -912,8 +913,8 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public CensusesCensusIDPublishPost200Response censusesCensusIDPublishRootPost(String censusID, String root) throws ApiException {
-        ApiResponse<CensusesCensusIDPublishPost200Response> localVarResp = censusesCensusIDPublishRootPostWithHttpInfo(censusID, root);
+    public CensusesCensusIDPublishRootPost200Response censusesCensusIDPublishRootPost(String censusID, String root) throws ApiException {
+        ApiResponse<CensusesCensusIDPublishRootPost200Response> localVarResp = censusesCensusIDPublishRootPostWithHttpInfo(censusID, root);
         return localVarResp.getData();
     }
 
@@ -922,7 +923,7 @@ public class CensusesApi {
      * Register a census to the storage (IPFS in our case). After this, the census can&#39;t be edited.           You could provide the census Merkle root to specify census publication at specific snapshot. See [censuses/{censusId}/participants](census-add-participants-to-census)  - Requires Bearer token - The census is copied to a new census identified by its Merkle Root - The new census **cannot be modified** - The census is published to the storage provided (IPFS in our case) - The new census ID is returned and can be used for querying - If a censusID with the same root has been already published, the request will fail - If &#x60;root&#x60; is specified as path parameter, it publish the census at specific  root (append the census to existing one).
      * @param censusID Census id (required)
      * @param root Specific root where to publish the census. Not required (required)
-     * @return ApiResponse&lt;CensusesCensusIDPublishPost200Response&gt;
+     * @return ApiResponse&lt;CensusesCensusIDPublishRootPost200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -930,9 +931,9 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CensusesCensusIDPublishPost200Response> censusesCensusIDPublishRootPostWithHttpInfo(String censusID, String root) throws ApiException {
+    public ApiResponse<CensusesCensusIDPublishRootPost200Response> censusesCensusIDPublishRootPostWithHttpInfo(String censusID, String root) throws ApiException {
         okhttp3.Call localVarCall = censusesCensusIDPublishRootPostValidateBeforeCall(censusID, root, null);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishRootPost200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -950,10 +951,10 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call censusesCensusIDPublishRootPostAsync(String censusID, String root, final ApiCallback<CensusesCensusIDPublishPost200Response> _callback) throws ApiException {
+    public okhttp3.Call censusesCensusIDPublishRootPostAsync(String censusID, String root, final ApiCallback<CensusesCensusIDPublishRootPost200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = censusesCensusIDPublishRootPostValidateBeforeCall(censusID, root, _callback);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishRootPost200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

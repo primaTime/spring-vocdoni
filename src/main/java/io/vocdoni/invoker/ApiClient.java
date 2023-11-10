@@ -107,7 +107,7 @@ public class ApiClient {
     /**
      * Basic constructor with custom OkHttpClient
      *
-     * @param client a {@link okhttp3.OkHttpClient} object
+     * @param client a {@link OkHttpClient} object
      */
     public ApiClient(OkHttpClient client) {
         init();
@@ -1342,7 +1342,7 @@ public class ApiClient {
      * @return RequestBody
      */
     public RequestBody buildRequestBodyFormEncoding(Map<String, Object> formParams) {
-        okhttp3.FormBody.Builder formBuilder = new okhttp3.FormBody.Builder();
+        FormBody.Builder formBuilder = new FormBody.Builder();
         for (Entry<String, Object> param : formParams.entrySet()) {
             formBuilder.add(param.getKey(), parameterToString(param.getValue()));
         }
@@ -1438,7 +1438,7 @@ public class ApiClient {
     private Interceptor getProgressInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
+            public Response intercept(Chain chain) throws IOException {
                 final Request request = chain.request();
                 final Response originalResponse = chain.proceed(request);
                 if (request.tag() instanceof ApiCallback) {

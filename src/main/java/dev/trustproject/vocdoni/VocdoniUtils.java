@@ -5,13 +5,14 @@ import dvote.types.v1.Vochain;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Hash;
-import org.web3j.crypto.Sign;
+import org.web3j.crypto.*;
+import org.web3j.utils.Bytes;
 import org.web3j.utils.Numeric;
 
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
@@ -89,15 +90,13 @@ public class VocdoniUtils {
 
         final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
 
-        final String payload = template.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress()).toLowerCase())
+        final String payload = template.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
                 .replace("{hash}", txHash)
                 .replace("{chainId}", chainId);
 
         final byte[] payloadBytes = payload.getBytes(StandardCharsets.UTF_8);
 
-        Sign.SignatureData signatureData = Sign.signMessage(payloadBytes, ecKeyPair);
-
-        assert Sign.signedMessageToKey(payloadBytes, signatureData).equals(ecKeyPair.getPublicKey());
+        Sign.SignatureData signatureData = Sign.signPrefixedMessage(payloadBytes, ecKeyPair);
 
         byte[] signature = Arrays.copyOf(signatureData.getR(), 65);
         System.arraycopy(signatureData.getS(), 0, signature, 32, 32);

@@ -1,5 +1,6 @@
 package dev.trustproject.vocdoni.configuration;
 
+import dev.trustproject.vocdoni.TransactionSigner;
 import dev.trustproject.vocdoni.VocdoniClient;
 import dev.trustproject.vocdoni.VocdoniUtils;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -30,8 +31,8 @@ public class VocdoniTestConfiguration {
     }
 
     @Bean
-    public VocdoniClient.TransactionSigner transactionSigner() {
-        return (tx, walletAddress) -> {
+    public TransactionSigner transactionSigner() {
+        return (message, tx, walletAddress) -> {
             ECKeyPair keyPair;
 
             if (ORGANIZATION.getAddress().equals(walletAddress)) {
@@ -44,7 +45,7 @@ public class VocdoniTestConfiguration {
                 throw new RuntimeException("Unknown wallet address: " + walletAddress);
             }
 
-            return VocdoniUtils.signTransaction("vocdoni/STAGE/9", tx, keyPair);
+            return VocdoniUtils.signTransaction(keyPair, message, tx, "vocdoni/STAGE/9");
         };
     }
 

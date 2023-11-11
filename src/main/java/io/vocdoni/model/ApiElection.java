@@ -56,7 +56,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiElection
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-11T12:32:17.186542+01:00[Europe/Prague]")
 public class ApiElection {
   public static final String SERIALIZED_NAME_CENSUS = "census";
   @SerializedName(SERIALIZED_NAME_CENSUS)
@@ -85,6 +85,14 @@ public class ApiElection {
   public static final String SERIALIZED_NAME_MANUALLY_ENDED = "manuallyEnded";
   @SerializedName(SERIALIZED_NAME_MANUALLY_ENDED)
   private Boolean manuallyEnded;
+
+  public static final String SERIALIZED_NAME_FROM_ARCHIVE = "fromArchive";
+  @SerializedName(SERIALIZED_NAME_FROM_ARCHIVE)
+  private Boolean fromArchive;
+
+  public static final String SERIALIZED_NAME_CHAIN_ID = "chainId";
+  @SerializedName(SERIALIZED_NAME_CHAIN_ID)
+  private String chainId;
 
   public static final String SERIALIZED_NAME_METADATA = "metadata";
   @SerializedName(SERIALIZED_NAME_METADATA)
@@ -269,6 +277,48 @@ public class ApiElection {
 
   public void setManuallyEnded(Boolean manuallyEnded) {
     this.manuallyEnded = manuallyEnded;
+  }
+
+
+  public ApiElection fromArchive(Boolean fromArchive) {
+    
+    this.fromArchive = fromArchive;
+    return this;
+  }
+
+   /**
+   * Get fromArchive
+   * @return fromArchive
+  **/
+  @javax.annotation.Nullable
+  public Boolean getFromArchive() {
+    return fromArchive;
+  }
+
+
+  public void setFromArchive(Boolean fromArchive) {
+    this.fromArchive = fromArchive;
+  }
+
+
+  public ApiElection chainId(String chainId) {
+    
+    this.chainId = chainId;
+    return this;
+  }
+
+   /**
+   * Get chainId
+   * @return chainId
+  **/
+  @javax.annotation.Nullable
+  public String getChainId() {
+    return chainId;
+  }
+
+
+  public void setChainId(String chainId) {
+    this.chainId = chainId;
   }
 
 
@@ -486,6 +536,8 @@ public class ApiElection {
         Objects.equals(this.endDate, apiElection.endDate) &&
         Objects.equals(this.finalResults, apiElection.finalResults) &&
         Objects.equals(this.manuallyEnded, apiElection.manuallyEnded) &&
+        Objects.equals(this.fromArchive, apiElection.fromArchive) &&
+        Objects.equals(this.chainId, apiElection.chainId) &&
         Objects.equals(this.metadata, apiElection.metadata) &&
         Objects.equals(this.metadataURL, apiElection.metadataURL) &&
         Objects.equals(this.organizationId, apiElection.organizationId) &&
@@ -499,7 +551,7 @@ public class ApiElection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(census, creationTime, electionId, electionMode, endDate, finalResults, manuallyEnded, metadata, metadataURL, organizationId, result, startDate, status, tallyMode, voteCount, voteMode);
+    return Objects.hash(census, creationTime, electionId, electionMode, endDate, finalResults, manuallyEnded, fromArchive, chainId, metadata, metadataURL, organizationId, result, startDate, status, tallyMode, voteCount, voteMode);
   }
 
   @Override
@@ -513,6 +565,8 @@ public class ApiElection {
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    finalResults: ").append(toIndentedString(finalResults)).append("\n");
     sb.append("    manuallyEnded: ").append(toIndentedString(manuallyEnded)).append("\n");
+    sb.append("    fromArchive: ").append(toIndentedString(fromArchive)).append("\n");
+    sb.append("    chainId: ").append(toIndentedString(chainId)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    metadataURL: ").append(toIndentedString(metadataURL)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
@@ -551,6 +605,8 @@ public class ApiElection {
     openapiFields.add("endDate");
     openapiFields.add("finalResults");
     openapiFields.add("manuallyEnded");
+    openapiFields.add("fromArchive");
+    openapiFields.add("chainId");
     openapiFields.add("metadata");
     openapiFields.add("metadataURL");
     openapiFields.add("organizationId");
@@ -602,6 +658,9 @@ public class ApiElection {
       }
       if ((jsonObj.get("endDate") != null && !jsonObj.get("endDate").isJsonNull()) && !jsonObj.get("endDate").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `endDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("endDate").toString()));
+      }
+      if ((jsonObj.get("chainId") != null && !jsonObj.get("chainId").isJsonNull()) && !jsonObj.get("chainId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `chainId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chainId").toString()));
       }
       // validate the optional field `metadata`
       if (jsonObj.get("metadata") != null && !jsonObj.get("metadata").isJsonNull()) {

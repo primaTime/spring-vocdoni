@@ -311,7 +311,11 @@ paths:
             application/json:
               schema:
                 properties:
-                  proof:
+                  censusProof:
+                    type: string
+                  censusRoot:
+                    type: string
+                  type:
                     type: string
                   value:
                     type: string
@@ -1660,6 +1664,10 @@ components:
           type: boolean
         manuallyEnded:
           type: boolean
+        fromArchive:
+          type: boolean
+        chainId:
+          type: string
         metadata:
           $ref: '#/components/schemas/api.ElectionMetadata'
         metadataURL:

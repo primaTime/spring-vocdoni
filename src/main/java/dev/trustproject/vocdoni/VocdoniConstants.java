@@ -19,7 +19,7 @@ public class VocdoniConstants {
 
 
     //wait for transaction
-    public static final int RETRY_TIME = 3000;
+    public static final int RETRY_TIME = 10000;
     public static final int ATTEMPTS = 10;
 
 

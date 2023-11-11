@@ -50,11 +50,19 @@ import io.vocdoni.invoker.JSON;
 /**
  * CensusesCensusIDProofKeyGet200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-11T12:37:54.283182+01:00[Europe/Prague]")
 public class CensusesCensusIDProofKeyGet200Response {
-  public static final String SERIALIZED_NAME_PROOF = "proof";
-  @SerializedName(SERIALIZED_NAME_PROOF)
-  private String proof;
+  public static final String SERIALIZED_NAME_CENSUS_PROOF = "censusProof";
+  @SerializedName(SERIALIZED_NAME_CENSUS_PROOF)
+  private String censusProof;
+
+  public static final String SERIALIZED_NAME_CENSUS_ROOT = "censusRoot";
+  @SerializedName(SERIALIZED_NAME_CENSUS_ROOT)
+  private String censusRoot;
+
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private String type;
 
   public static final String SERIALIZED_NAME_VALUE = "value";
   @SerializedName(SERIALIZED_NAME_VALUE)
@@ -67,24 +75,66 @@ public class CensusesCensusIDProofKeyGet200Response {
   public CensusesCensusIDProofKeyGet200Response() {
   }
 
-  public CensusesCensusIDProofKeyGet200Response proof(String proof) {
+  public CensusesCensusIDProofKeyGet200Response censusProof(String censusProof) {
     
-    this.proof = proof;
+    this.censusProof = censusProof;
     return this;
   }
 
    /**
-   * Get proof
-   * @return proof
+   * Get censusProof
+   * @return censusProof
   **/
   @javax.annotation.Nullable
-  public String getProof() {
-    return proof;
+  public String getCensusProof() {
+    return censusProof;
   }
 
 
-  public void setProof(String proof) {
-    this.proof = proof;
+  public void setCensusProof(String censusProof) {
+    this.censusProof = censusProof;
+  }
+
+
+  public CensusesCensusIDProofKeyGet200Response censusRoot(String censusRoot) {
+    
+    this.censusRoot = censusRoot;
+    return this;
+  }
+
+   /**
+   * Get censusRoot
+   * @return censusRoot
+  **/
+  @javax.annotation.Nullable
+  public String getCensusRoot() {
+    return censusRoot;
+  }
+
+
+  public void setCensusRoot(String censusRoot) {
+    this.censusRoot = censusRoot;
+  }
+
+
+  public CensusesCensusIDProofKeyGet200Response type(String type) {
+    
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @javax.annotation.Nullable
+  public String getType() {
+    return type;
+  }
+
+
+  public void setType(String type) {
+    this.type = type;
   }
 
 
@@ -140,21 +190,25 @@ public class CensusesCensusIDProofKeyGet200Response {
       return false;
     }
     CensusesCensusIDProofKeyGet200Response censusesCensusIDProofKeyGet200Response = (CensusesCensusIDProofKeyGet200Response) o;
-    return Objects.equals(this.proof, censusesCensusIDProofKeyGet200Response.proof) &&
+    return Objects.equals(this.censusProof, censusesCensusIDProofKeyGet200Response.censusProof) &&
+        Objects.equals(this.censusRoot, censusesCensusIDProofKeyGet200Response.censusRoot) &&
+        Objects.equals(this.type, censusesCensusIDProofKeyGet200Response.type) &&
         Objects.equals(this.value, censusesCensusIDProofKeyGet200Response.value) &&
         Objects.equals(this.weight, censusesCensusIDProofKeyGet200Response.weight);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(proof, value, weight);
+    return Objects.hash(censusProof, censusRoot, type, value, weight);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CensusesCensusIDProofKeyGet200Response {\n");
-    sb.append("    proof: ").append(toIndentedString(proof)).append("\n");
+    sb.append("    censusProof: ").append(toIndentedString(censusProof)).append("\n");
+    sb.append("    censusRoot: ").append(toIndentedString(censusRoot)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
     sb.append("}");
@@ -179,7 +233,9 @@ public class CensusesCensusIDProofKeyGet200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("proof");
+    openapiFields.add("censusProof");
+    openapiFields.add("censusRoot");
+    openapiFields.add("type");
     openapiFields.add("value");
     openapiFields.add("weight");
 
@@ -208,8 +264,14 @@ public class CensusesCensusIDProofKeyGet200Response {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("proof") != null && !jsonObj.get("proof").isJsonNull()) && !jsonObj.get("proof").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `proof` to be a primitive type in the JSON string but got `%s`", jsonObj.get("proof").toString()));
+      if ((jsonObj.get("censusProof") != null && !jsonObj.get("censusProof").isJsonNull()) && !jsonObj.get("censusProof").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `censusProof` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusProof").toString()));
+      }
+      if ((jsonObj.get("censusRoot") != null && !jsonObj.get("censusRoot").isJsonNull()) && !jsonObj.get("censusRoot").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `censusRoot` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusRoot").toString()));
+      }
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
       if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));

@@ -78,12 +78,9 @@ public class VocdoniUtils {
     }
 
     @SneakyThrows
-    public static String signTransaction(String chainId, byte[] tx, ECKeyPair ecKeyPair) {
-        final String template = TxMessage.CREATE_ACCOUNT.getMessage();
-
+    public static String signTransaction(ECKeyPair ecKeyPair, String message, byte[] tx, String chainId) {
         final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
-
-        final String payload = template.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
+        final String payload = message.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
                 .replace("{hash}", txHash)
                 .replace("{chainId}", chainId);
 

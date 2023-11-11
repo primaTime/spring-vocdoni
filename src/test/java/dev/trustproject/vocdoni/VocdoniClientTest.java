@@ -33,7 +33,7 @@ public class VocdoniClientTest {
     protected VocdoniClient vocdoniClient;
 
     @Test
-    public void all() throws JsonProcessingException, ApiException, InvalidProtocolBufferException {
+    public void all() throws JsonProcessingException, ApiException, InvalidProtocolBufferException, InterruptedException {
         List<String> languages = new ArrayList<>();
         languages.add("en");
 
@@ -51,6 +51,8 @@ public class VocdoniClientTest {
 
         FaucetPackage faucetPackage = vocdoniClient.getFaucet(ORGANIZATION.getAddress());
         vocdoniClient.createAccount(ORGANIZATION.getAddress(), faucetPackage, accountMetadata);
+
+        Thread.sleep(15000);
 
         String censusToken = UUID.randomUUID().toString();
         String censusId = vocdoniClient.createCensus(censusToken);
@@ -103,13 +105,13 @@ public class VocdoniClientTest {
         String firstVoteId = vocdoniClient.vote(
                 processInfo.getElectionId(),
                 FIRST_ACTOR.getAddress(),
-                censusId,
+                censusToken,
                 List.of(1));
 
         String secondVoteId = vocdoniClient.vote(
                 processInfo.getElectionId(),
                 SECOND_ACTOR.getAddress(),
-                censusId,
+                censusToken,
                 List.of(1));
     }
 

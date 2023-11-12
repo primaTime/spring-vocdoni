@@ -2,16 +2,15 @@ package dev.trustproject.vocdoni;
 
 import com.google.protobuf.ByteString;
 import dvote.types.v1.Vochain;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.web3j.crypto.*;
 import org.web3j.utils.Numeric;
-
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
 
 public class VocdoniUtils {
 
@@ -80,7 +79,9 @@ public class VocdoniUtils {
     @SneakyThrows
     public static String signTransaction(ECKeyPair ecKeyPair, String message, byte[] tx, String chainId) {
         final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
-        final String payload = message.replace("{address}", strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
+        final String payload = message.replace(
+                        "{address}",
+                        strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
                 .replace("{hash}", txHash)
                 .replace("{chainId}", chainId);
 

@@ -1,5 +1,7 @@
 package dev.trustproject.vocdoni;
 
+import static dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.protobuf.InvalidProtocolBufferException;
 import dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration;
@@ -8,24 +10,19 @@ import dev.trustproject.vocdoni.model.account.AccountMetadata;
 import dev.trustproject.vocdoni.model.account.FaucetPackage;
 import dev.trustproject.vocdoni.model.census.PublishedCensusInfo;
 import dev.trustproject.vocdoni.model.process.CensusParticipant;
+import dev.trustproject.vocdoni.model.process.ProcessInfo;
 import dev.trustproject.vocdoni.model.process.VocdoniOption;
 import dev.trustproject.vocdoni.model.process.VocdoniQuestion;
 import dvote.types.v1.Vochain;
 import io.vocdoni.invoker.ApiException;
-import io.vocdoni.model.ApiElection;
+import java.time.Instant;
+import java.util.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.Instant;
-import java.util.*;
-
-import static dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration.*;
-
-@SpringBootTest(
-        classes = {VocdoniTestConfiguration.class}
-)
+@SpringBootTest(classes = {VocdoniTestConfiguration.class})
 @ActiveProfiles("test")
 public class VocdoniClientTest {
 
@@ -33,7 +30,8 @@ public class VocdoniClientTest {
     protected VocdoniClient vocdoniClient;
 
     @Test
-    public void all() throws JsonProcessingException, ApiException, InvalidProtocolBufferException, InterruptedException {
+    public void all()
+            throws JsonProcessingException, ApiException, InvalidProtocolBufferException, InterruptedException {
         List<String> languages = new ArrayList<>();
         languages.add("en");
 
@@ -57,9 +55,12 @@ public class VocdoniClientTest {
         String censusToken = UUID.randomUUID().toString();
         String censusId = vocdoniClient.createCensus(censusToken);
 
-        vocdoniClient.addParticipantsToCensus(censusId, censusToken, List.of(new CensusParticipant(
-                FIRST_ACTOR.getAddress(), "1000"), new CensusParticipant(
-                SECOND_ACTOR.getAddress(), "1000")));
+        vocdoniClient.addParticipantsToCensus(
+                censusId,
+                censusToken,
+                List.of(
+                        new CensusParticipant(FIRST_ACTOR.getAddress(), "1000"),
+                        new CensusParticipant(SECOND_ACTOR.getAddress(), "1000")));
 
         PublishedCensusInfo censusInfo = vocdoniClient.publishCensus(censusId, censusToken);
 
@@ -86,7 +87,7 @@ public class VocdoniClientTest {
                 .setCostExponent(1)
                 .build();
 
-        ApiElection processInfo = vocdoniClient.createProcess(
+        ProcessInfo processInfo = vocdoniClient.createProcess(
                 ORGANIZATION.getAddress(),
                 "test process",
                 "test description",
@@ -96,23 +97,19 @@ public class VocdoniClientTest {
                 Instant.now().plusSeconds(60),
                 censusInfo.getCensusID(),
                 censusInfo.getUri(),
-                List.of(new VocdoniQuestion("test question 2", null, List.of(new VocdoniOption("test option 1", 0), new VocdoniOption("test option 2", 1)))),
+                List.of(new VocdoniQuestion(
+                        "test question 2",
+                        null,
+                        List.of(new VocdoniOption("test option 1", 0), new VocdoniOption("test option 2", 1)))),
                 2,
                 envelopeType,
                 mode,
                 voteOptions);
 
-        String firstVoteId = vocdoniClient.vote(
-                processInfo.getElectionId(),
-                FIRST_ACTOR.getAddress(),
-                censusToken,
-                List.of(1));
+        String firstVoteId =
+                vocdoniClient.vote(processInfo.getElectionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
 
-        String secondVoteId = vocdoniClient.vote(
-                processInfo.getElectionId(),
-                SECOND_ACTOR.getAddress(),
-                censusToken,
-                List.of(1));
+        String secondVoteId =
+                vocdoniClient.vote(processInfo.getElectionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
     }
-
 }

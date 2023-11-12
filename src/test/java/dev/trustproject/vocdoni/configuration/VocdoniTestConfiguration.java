@@ -1,17 +1,15 @@
 package dev.trustproject.vocdoni.configuration;
 
 import dev.trustproject.vocdoni.TransactionSigner;
-import dev.trustproject.vocdoni.VocdoniClient;
 import dev.trustproject.vocdoni.VocdoniUtils;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
-
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 @TestConfiguration
 public class VocdoniTestConfiguration {
@@ -48,5 +46,4 @@ public class VocdoniTestConfiguration {
             return VocdoniUtils.signTransaction(keyPair, message, tx, "vocdoni/STAGE/9");
         };
     }
-
 }

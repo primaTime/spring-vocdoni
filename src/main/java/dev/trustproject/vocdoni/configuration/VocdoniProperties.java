@@ -32,5 +32,4 @@ public class VocdoniProperties {
         private String url;
         private String token;
     }
-
 }

@@ -23,5 +23,4 @@ public class VocdoniAutoConfiguration {
     public VocdoniClient vocdoniClient(TransactionSigner transactionSigner) {
         return new VocdoniClient(properties, transactionSigner);
     }
-
 }

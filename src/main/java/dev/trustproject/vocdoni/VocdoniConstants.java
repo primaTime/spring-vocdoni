@@ -2,7 +2,7 @@ package dev.trustproject.vocdoni;
 
 public class VocdoniConstants {
 
-    //API routes
+    // API routes
     public static final String ACCOUNTS = "/accounts";
     public static final String ELECTIONS = "/elections";
     public static final String PAGE = "/page";
@@ -17,13 +17,11 @@ public class VocdoniConstants {
     public static final String PROOF = "/proof";
     public static final String VOTES = "/votes";
 
-
-    //wait for transaction
+    // wait for transaction
     public static final int RETRY_TIME = 10000;
     public static final int ATTEMPTS = 10;
 
-
-    //versions
+    // versions
     public static final String PROTOCOL_VERSION = "1.1";
     public static final String ACCOUNT_METADATA_VERSION = "1.0";
 }

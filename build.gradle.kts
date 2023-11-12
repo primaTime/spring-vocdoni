@@ -2,6 +2,7 @@ plugins {
 	id("org.springframework.boot") version "3.1.0"
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.openapi.generator") version "7.0.1"
+	id("com.diffplug.spotless") version "6.19.0"
 	`maven-publish`
 	`java-library`
 }
@@ -40,6 +41,17 @@ openApiGenerate {
 	modelPackage.set("io.vocdoni.model")
 	invokerPackage.set("io.vocdoni.invoker")
 	configOptions.put("dateLibrary", "java8")
+}
+
+spotless {
+	java {
+		target("src/*/java/dev/trustproject/vocdoni/**/*.java")
+		toggleOffOn()
+		palantirJavaFormat()
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
 }
 
 configurations {

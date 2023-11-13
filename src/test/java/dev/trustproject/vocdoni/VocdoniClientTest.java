@@ -3,16 +3,18 @@ package dev.trustproject.vocdoni;
 import static dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.protobuf.InvalidProtocolBufferException;
 import dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration;
-import dev.trustproject.vocdoni.model.account.AccountMedia;
-import dev.trustproject.vocdoni.model.account.AccountMetadata;
-import dev.trustproject.vocdoni.model.account.FaucetPackage;
-import dev.trustproject.vocdoni.model.census.PublishedCensusInfo;
-import dev.trustproject.vocdoni.model.process.CensusParticipant;
-import dev.trustproject.vocdoni.model.process.ProcessInfo;
-import dev.trustproject.vocdoni.model.process.VocdoniOption;
-import dev.trustproject.vocdoni.model.process.VocdoniQuestion;
+import dev.trustproject.vocdoni.model.payload.CensusParticipant;
+import dev.trustproject.vocdoni.model.response.Census;
+import dev.trustproject.vocdoni.model.response.CensusResponse;
+import dev.trustproject.vocdoni.model.response.Election;
+import dev.trustproject.vocdoni.model.response.FaucetPackageResponse;
+import dev.trustproject.vocdoni.model.shared.FaucetPackage;
+import dev.trustproject.vocdoni.model.shared.account.AccountMedia;
+import dev.trustproject.vocdoni.model.shared.account.AccountMetadata;
+import dev.trustproject.vocdoni.model.shared.election.ElectionMetadata;
+import dev.trustproject.vocdoni.model.shared.election.ElectionQuestion;
+import dev.trustproject.vocdoni.model.shared.election.ElectionQuestionOption;
 import dvote.types.v1.Vochain;
 import io.vocdoni.invoker.ApiException;
 import java.time.Instant;
@@ -30,8 +32,7 @@ public class VocdoniClientTest {
     protected VocdoniClient vocdoniClient;
 
     @Test
-    public void all()
-            throws JsonProcessingException, ApiException, InvalidProtocolBufferException, InterruptedException {
+    public void all() throws JsonProcessingException, ApiException, InterruptedException {
         List<String> languages = new ArrayList<>();
         languages.add("en");
 
@@ -47,22 +48,22 @@ public class VocdoniClientTest {
                 new AccountMedia("", "", ""),
                 new HashMap<>());
 
-        FaucetPackage faucetPackage = vocdoniClient.getFaucet(ORGANIZATION.getAddress());
-        vocdoniClient.createAccount(ORGANIZATION.getAddress(), faucetPackage, accountMetadata);
+        FaucetPackageResponse faucetPackage = vocdoniClient.fetchFaucetPackage(ORGANIZATION.getAddress());
+        vocdoniClient.createAccount(ORGANIZATION.getAddress(), faucetPackage.faucetPackage(), accountMetadata);
 
         Thread.sleep(15000);
 
         String censusToken = UUID.randomUUID().toString();
-        String censusId = vocdoniClient.createCensus(censusToken);
+        CensusResponse censusResponse = vocdoniClient.createCensus(censusToken);
 
         vocdoniClient.addParticipantsToCensus(
-                censusId,
+                censusResponse.id(),
                 censusToken,
                 List.of(
                         new CensusParticipant(FIRST_ACTOR.getAddress(), "1000"),
                         new CensusParticipant(SECOND_ACTOR.getAddress(), "1000")));
 
-        PublishedCensusInfo censusInfo = vocdoniClient.publishCensus(censusId, censusToken);
+        Census census = vocdoniClient.publishCensus(censusResponse.id(), censusToken);
 
         Vochain.EnvelopeType envelopeType = Vochain.EnvelopeType.newBuilder()
                 .setSerial(false)
@@ -83,33 +84,37 @@ public class VocdoniClientTest {
         Vochain.ProcessVoteOptions voteOptions = Vochain.ProcessVoteOptions.newBuilder()
                 .setMaxCount(1)
                 .setMaxValue(2)
-                .setMaxVoteOverwrites(0)
+                .setMaxVoteOverwrites(1)
                 .setCostExponent(1)
                 .build();
 
-        ProcessInfo processInfo = vocdoniClient.createProcess(
-                ORGANIZATION.getAddress(),
-                "test process",
-                "test description",
+        ElectionMetadata electionMetadata = new ElectionMetadata(
+                VocdoniConstants.PROTOCOL_VERSION,
+                Map.of("default", "test process"),
+                Map.of("default", "test description"),
                 null,
                 new HashMap<>(),
+                List.of(new ElectionQuestion(
+                        Map.of("default", "test question 2"),
+                        null,
+                        List.of(
+                                new ElectionQuestionOption(Map.of("default", "test option 1"), 0),
+                                new ElectionQuestionOption(Map.of("default", "test option 2"), 1)))),
+                null);
+
+        Election election = vocdoniClient.createElection(
+                ORGANIZATION.getAddress(),
+                electionMetadata,
                 Instant.now(),
                 Instant.now().plusSeconds(60),
-                censusInfo.getCensusID(),
-                censusInfo.getUri(),
-                List.of(new VocdoniQuestion(
-                        "test question 2",
-                        null,
-                        List.of(new VocdoniOption("test option 1", 0), new VocdoniOption("test option 2", 1)))),
-                2,
+                census.id(),
+                census.uri(),
+                200,
                 envelopeType,
                 mode,
                 voteOptions);
 
-        String firstVoteId =
-                vocdoniClient.vote(processInfo.getElectionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
-
-        String secondVoteId =
-                vocdoniClient.vote(processInfo.getElectionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
+        vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
+        vocdoniClient.vote(election.electionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
     }
 }

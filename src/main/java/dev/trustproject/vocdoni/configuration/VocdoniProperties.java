@@ -7,29 +7,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "vocdoni")
 public class VocdoniProperties {
 
-    private ApiConfig api = new ApiConfig();
-    private FaucetConfig faucet = new FaucetConfig();
+    private HostsConfig hosts = new HostsConfig();
 
-    public String getApiUrl() {
-        return api.getUrl();
+    public String apiHost() {
+        return hosts.getApi();
     }
 
-    public String getFaucetUrl() {
-        return faucet.getUrl();
-    }
-
-    public String getFaucetToken() {
-        return faucet.getToken();
+    public String faucetHost() {
+        return hosts.getFaucet();
     }
 
     @Data
-    public static class ApiConfig {
-        private String url;
-    }
-
-    @Data
-    public static class FaucetConfig {
-        private String url;
-        private String token;
+    public static class HostsConfig {
+        private String api;
+        private String faucet;
     }
 }

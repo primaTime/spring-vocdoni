@@ -7,19 +7,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import lombok.SneakyThrows;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.web3j.crypto.*;
 import org.web3j.utils.Numeric;
 
 public class VocdoniUtils {
-
-    public static HttpHeaders makeHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        return headers;
-    }
 
     public static String strip0x(String hex) {
         if (hex.startsWith("0x")) {
@@ -87,25 +78,17 @@ public class VocdoniUtils {
 
         final byte[] payloadBytes = payload.getBytes(StandardCharsets.UTF_8);
 
-        Sign.SignatureData signatureData = Sign.signPrefixedMessage(payloadBytes, ecKeyPair);
+        final Sign.SignatureData signatureData = Sign.signPrefixedMessage(payloadBytes, ecKeyPair);
 
         byte[] signature = Arrays.copyOf(signatureData.getR(), 65);
         System.arraycopy(signatureData.getS(), 0, signature, 32, 32);
         signature[64] = signatureData.getV()[0];
 
-        Vochain.SignedTx signedTx = Vochain.SignedTx.newBuilder()
+        final Vochain.SignedTx signedTx = Vochain.SignedTx.newBuilder()
                 .setTx(ByteString.copyFrom(tx))
                 .setSignature(ByteString.copyFrom(signature))
                 .build();
 
         return Base64.getEncoder().encodeToString(signedTx.toByteArray());
-    }
-
-    public static List<Integer> convertByteArrayToListOfIntegers(byte[] byteArray) {
-        List<Integer> intList = new ArrayList<>();
-        for (byte b : byteArray) {
-            intList.add((int) b & 0xFF);
-        }
-        return intList;
     }
 }

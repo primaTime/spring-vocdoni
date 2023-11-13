@@ -1,5 +1,4 @@
 vocdoni:
-  api:
-    url: https://api-stg.vocdoni.net/v2
-  faucet:
-    url: https://api-stg.faucet.vocdoni.net/v2/open/claim
+  hosts:
+    api: https://api-stg.vocdoni.net
+    faucet: https://api-stg.faucet.vocdoni.net

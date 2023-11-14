@@ -81,7 +81,7 @@ public class VocdoniClient {
     }
 
     public String signTransaction(String message, byte[] tx, String walletAddress) {
-        return transactionSigner.signTransaction(message, tx, walletAddress);
+        return this.transactionSigner.signTransaction(message, tx, walletAddress);
     }
 
     public void waitForTransaction(String txHash) {
@@ -125,10 +125,8 @@ public class VocdoniClient {
     }
 
     public VochainInfo fetchVochainInfo() {
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers());
-
-        ResponseEntity<VochainInfo> response =
-                restTemplate.exchange(config.apiHost() + CHAIN_INFO, HttpMethod.GET, httpEntity, VochainInfo.class);
+        final ResponseEntity<VochainInfo> response = restTemplate.exchange(
+                config.apiHost() + CHAIN_INFO, HttpMethod.GET, new HttpEntity<>(headers()), VochainInfo.class);
 
         return response.getBody();
     }
@@ -173,19 +171,17 @@ public class VocdoniClient {
                 Vochain.Tx.newBuilder().setCollectFaucet(collectFaucetTx).build();
 
         String signedTx = signTransaction(TxMessage.COLLECT_FAUCET.getMessage(), tx, walletAddress);
-
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("payload", signedTx);
-        String payloadJson = objectMapper.writeValueAsString(payloadMap);
-
-        HttpEntity<String> httpEntity = new HttpEntity<>(payloadJson, headersPOST());
+        String payload = objectMapper.writeValueAsString(Map.of("payload", signedTx));
 
         ResponseEntity<VocdoniInternalTransaction> response = restTemplate.exchange(
-                config.apiHost() + CHAIN_TRANSACTION, HttpMethod.POST, httpEntity, VocdoniInternalTransaction.class);
+                config.apiHost() + CHAIN_TRANSACTION,
+                HttpMethod.POST,
+                new HttpEntity<>(payload, headersPOST()),
+                VocdoniInternalTransaction.class);
 
-        VocdoniInternalTransaction chainSubmitTxResponse = response.getBody();
+        VocdoniInternalTransaction transactionResponse = response.getBody();
 
-        return new TransactionResponse(chainSubmitTxResponse.hash());
+        return new TransactionResponse(transactionResponse.hash());
     }
 
     public AccountResponse createAccount(
@@ -233,13 +229,11 @@ public class VocdoniClient {
     }
 
     public CensusResponse createCensus(String token) throws JsonProcessingException {
-        HttpHeaders headers = headers();
+        final HttpHeaders headers = headers();
         headers.setBearerAuth(token);
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response =
-                restTemplate.exchange(config.apiHost() + CENSUS_WEIGHTED, HttpMethod.POST, httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(
+                config.apiHost() + CENSUS_WEIGHTED, HttpMethod.POST, new HttpEntity<>(headers), String.class);
 
         JsonNode jsonNode = objectMapper.readTree(response.getBody());
 
@@ -250,14 +244,10 @@ public class VocdoniClient {
         final HttpHeaders headers = headersPOST();
         headers.setBearerAuth(token);
 
-        Map<String, List<CensusParticipant>> requestBody = new HashMap<>();
-        requestBody.put("participants", participants);
-        HttpEntity<Map<String, List<CensusParticipant>>> httpEntity = new HttpEntity<>(requestBody, headers);
-
         ResponseEntity<Void> response = restTemplate.exchange(
                 config.apiHost() + CENSUS + "/" + censusId + CENSUS_PARTICIPANTS,
                 HttpMethod.POST,
-                httpEntity,
+                new HttpEntity<>(Map.of("participants", participants), headers),
                 Void.class);
 
         if (response.getStatusCode() != HttpStatus.OK) {
@@ -294,10 +284,11 @@ public class VocdoniClient {
     }
 
     public Election fetchElectionInfo(String electionId) {
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers());
-
-        ResponseEntity<Election> response = restTemplate.exchange(
-                config.apiHost() + ELECTION + "/" + electionId, HttpMethod.GET, httpEntity, Election.class);
+        final ResponseEntity<Election> response = restTemplate.exchange(
+                config.apiHost() + ELECTION + "/" + electionId,
+                HttpMethod.GET,
+                new HttpEntity<>(headers()),
+                Election.class);
 
         return response.getBody();
     }
@@ -400,23 +391,19 @@ public class VocdoniClient {
         Vochain.Tx tx = Vochain.Tx.newBuilder().setNewProcess(newProcessTx).build();
 
         String signedTx = signTransaction(TxMessage.NEW_PROCESS.getMessage(), tx, walletAddress);
-
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("txPayload", signedTx);
-        payloadMap.put("metadata", encodedMetadata);
-        String payloadJson = objectMapper.writeValueAsString(payloadMap);
+        String payload = objectMapper.writeValueAsString(Map.of("txPayload", signedTx, "metadata", encodedMetadata));
 
         ResponseEntity<ApiElectionCreate> response = restTemplate.exchange(
                 config.apiHost() + ELECTION,
                 HttpMethod.POST,
-                new HttpEntity<>(payloadJson, headersPOST()),
+                new HttpEntity<>(payload, headersPOST()),
                 ApiElectionCreate.class);
 
         ApiElectionCreate newProcess = response.getBody();
 
-        waitForTransaction(newProcess.getTxHash());
+        this.waitForTransaction(newProcess.getTxHash());
 
-        return fetchElectionInfo(newProcess.getElectionID());
+        return this.fetchElectionInfo(newProcess.getElectionID());
     }
 
     public void changeElectionStatus(String walletAddress, String electionId, ElectionStatus status)
@@ -433,25 +420,20 @@ public class VocdoniClient {
         Vochain.Tx tx = Vochain.Tx.newBuilder().setSetProcess(setProcessTx).build();
 
         String signedTx = signTransaction(TxMessage.SET_PROCESS.getMessage(), tx, walletAddress);
-
-        Map<String, String> payloadMap = new HashMap<>();
-        payloadMap.put("payload", signedTx);
-        String payloadJson = objectMapper.writeValueAsString(payloadMap);
+        String payload = objectMapper.writeValueAsString(Map.of("payload", signedTx));
 
         restTemplate.exchange(
                 config.apiHost() + CHAIN_TRANSACTION,
                 HttpMethod.POST,
-                new HttpEntity<>(payloadJson, headersPOST()),
+                new HttpEntity<>(payload, headersPOST()),
                 Void.class);
     }
 
     public List<ElectionResponse> fetchElections(String walletAddress, int page) {
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers());
-
-        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+        final ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                 config.apiHost() + ACCOUNT + "/" + walletAddress + ELECTION + PAGE + "/" + page,
                 HttpMethod.GET,
-                httpEntity,
+                new HttpEntity<>(headers()),
                 new ParameterizedTypeReference<>() {});
 
         return response.getBody().get("elections") != null
@@ -508,16 +490,47 @@ public class VocdoniClient {
 
         String signedTx = signTransaction(
                 TxMessage.VOTE.getMessage().replace("{processId}", strip0x(election.electionId())), tx, walletAddress);
+        String payload = objectMapper.writeValueAsString(Map.of("txPayload", signedTx));
 
-        Map<String, String> payload = new HashMap<>();
-        payload.put("txPayload", signedTx);
-        String jsonPayload = objectMapper.writeValueAsString(payload);
-
-        final HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headersPOST());
-        final ResponseEntity<VocdoniInternalVote> response =
-                restTemplate.exchange(config.apiHost() + VOTE, HttpMethod.POST, entity, VocdoniInternalVote.class);
+        final ResponseEntity<VocdoniInternalVote> response = restTemplate.exchange(
+                config.apiHost() + VOTE,
+                HttpMethod.POST,
+                new HttpEntity<>(payload, headersPOST()),
+                VocdoniInternalVote.class);
 
         final VocdoniInternalVote vote = response.getBody();
         return new VoteResponse(vote.getVoteID(), vote.getTxHash());
+    }
+
+    public TransactionResponse transferTokens(String walletAddress, String destinationAddress, int amount)
+            throws JsonProcessingException {
+        Vochain.SendTokensTx sendTokensTx = Vochain.SendTokensTx.newBuilder()
+                .setTxtype(Vochain.TxType.SET_ACCOUNT_INFO_URI)
+                .setNonce(0)
+                .setValue(amount)
+                .setFrom(ByteString.fromHex(strip0x(walletAddress)))
+                .setTo(ByteString.fromHex(strip0x(destinationAddress)))
+                .build();
+
+        Vochain.Tx tx = Vochain.Tx.newBuilder().setSendTokens(sendTokensTx).build();
+
+        String signedTx = signTransaction(
+                TxMessage.SEND_TOKENS
+                        .getMessage()
+                        .replace("{amount}", String.valueOf(amount))
+                        .replace("{to}", strip0x(destinationAddress)),
+                tx,
+                walletAddress);
+        String payload = objectMapper.writeValueAsString(Map.of("payload", signedTx));
+
+        ResponseEntity<VocdoniInternalTransaction> response = restTemplate.exchange(
+                config.apiHost() + CHAIN_TRANSACTION,
+                HttpMethod.POST,
+                new HttpEntity<>(payload, headersPOST()),
+                VocdoniInternalTransaction.class);
+
+        VocdoniInternalTransaction transactionResponse = response.getBody();
+
+        return new TransactionResponse(transactionResponse.hash());
     }
 }

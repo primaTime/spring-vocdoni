@@ -5,11 +5,7 @@ import static dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dev.trustproject.vocdoni.configuration.VocdoniTestConfiguration;
 import dev.trustproject.vocdoni.model.payload.CensusParticipant;
-import dev.trustproject.vocdoni.model.response.Census;
-import dev.trustproject.vocdoni.model.response.CensusResponse;
-import dev.trustproject.vocdoni.model.response.Election;
-import dev.trustproject.vocdoni.model.response.FaucetPackageResponse;
-import dev.trustproject.vocdoni.model.shared.FaucetPackage;
+import dev.trustproject.vocdoni.model.response.*;
 import dev.trustproject.vocdoni.model.shared.account.AccountMedia;
 import dev.trustproject.vocdoni.model.shared.account.AccountMetadata;
 import dev.trustproject.vocdoni.model.shared.election.ElectionMetadata;
@@ -19,6 +15,7 @@ import dvote.types.v1.Vochain;
 import io.vocdoni.invoker.ApiException;
 import java.time.Instant;
 import java.util.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -109,12 +106,39 @@ public class VocdoniClientTest {
                 Instant.now().plusSeconds(60),
                 census.id(),
                 census.uri(),
-                200,
+                2,
                 envelopeType,
                 mode,
                 voteOptions);
 
         vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
         vocdoniClient.vote(election.electionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
+    }
+
+    @Test
+    public void tokensTransfer() throws JsonProcessingException, ApiException, InterruptedException {
+        List<String> languages = new ArrayList<>();
+        languages.add("en");
+
+        Map<String, Object> title = Map.of("default", "Some organization");
+        Map<String, Object> description = Map.of("default", "just testing");
+
+        AccountMetadata accountMetadata = new AccountMetadata(
+                VocdoniConstants.ACCOUNT_METADATA_VERSION,
+                languages,
+                title,
+                description,
+                new HashMap<>(),
+                new AccountMedia("", "", ""),
+                new HashMap<>());
+
+        FaucetPackageResponse faucetPackage = vocdoniClient.fetchFaucetPackage(FIRST_ACTOR.getAddress());
+        vocdoniClient.createAccount(FIRST_ACTOR.getAddress(), faucetPackage.faucetPackage(), accountMetadata);
+
+        Thread.sleep(15000);
+
+        TransactionResponse transactionResponse =
+                vocdoniClient.transferTokens(FIRST_ACTOR.getAddress(), "75f7adba921facbe1d6bc4acad530051487a337b", 10);
+        vocdoniClient.waitForTransaction(transactionResponse.txHash());
     }
 }

@@ -1,0 +1,4 @@
+vocdoni:
+  hosts:
+    api: https://api-stg.vocdoni.net
+    faucet: https://api-stg.faucet.vocdoni.net

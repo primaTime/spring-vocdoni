@@ -2,28 +2,15 @@ package dev.trustproject.vocdoni;
 
 import com.google.protobuf.ByteString;
 import dvote.types.v1.Vochain;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Hash;
-import org.web3j.crypto.Sign;
-import org.web3j.utils.Numeric;
-
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
+import java.util.*;
+import lombok.SneakyThrows;
+import org.web3j.crypto.*;
+import org.web3j.utils.Numeric;
 
 public class VocdoniUtils {
-
-    public static HttpHeaders makeHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        return headers;
-    }
 
     public static String strip0x(String hex) {
         if (hex.startsWith("0x")) {
@@ -80,28 +67,28 @@ public class VocdoniUtils {
         return Math.max(estimatedBlock, 0);
     }
 
-    public static String signTransaction(String chainId, byte[] tx, ECKeyPair ecKeyPair) {
-        //Digest Vocdoni transaction
-        String prefix = "Vocdoni signed transaction:\n" + chainId + "\n";
-        byte[] digestedPayload = Hash.sha3(tx);
-        String digestedPayloadHex = Numeric.toHexStringNoPrefix(digestedPayload);
-        String combinedPayload = prefix + digestedPayloadHex;
-        byte[] prefixAndDigestedPayload = combinedPayload.getBytes(StandardCharsets.UTF_8);
+    @SneakyThrows
+    public static String signTransaction(ECKeyPair ecKeyPair, String message, byte[] tx, String chainId) {
+        final String txHash = strip0x(Numeric.toHexStringNoPrefix(Hash.sha3(tx)));
+        final String payload = message.replace(
+                        "{address}",
+                        strip0x(Credentials.create(ecKeyPair).getAddress().toLowerCase()))
+                .replace("{hash}", txHash)
+                .replace("{chainId}", chainId);
 
-        //Sign the digested payload
-        Sign.SignatureData signatureData = Sign.signPrefixedMessage(prefixAndDigestedPayload, ecKeyPair);
+        final byte[] payloadBytes = payload.getBytes(StandardCharsets.UTF_8);
 
-        //Create signed transaction using the original transaction and the signature
+        final Sign.SignatureData signatureData = Sign.signPrefixedMessage(payloadBytes, ecKeyPair);
+
         byte[] signature = Arrays.copyOf(signatureData.getR(), 65);
         System.arraycopy(signatureData.getS(), 0, signature, 32, 32);
         signature[64] = signatureData.getV()[0];
 
-        Vochain.SignedTx signedTx = Vochain.SignedTx.newBuilder()
+        final Vochain.SignedTx signedTx = Vochain.SignedTx.newBuilder()
                 .setTx(ByteString.copyFrom(tx))
                 .setSignature(ByteString.copyFrom(signature))
                 .build();
 
         return Base64.getEncoder().encodeToString(signedTx.toByteArray());
     }
-
 }

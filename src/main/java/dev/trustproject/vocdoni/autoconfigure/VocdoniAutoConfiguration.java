@@ -1,5 +1,6 @@
 package dev.trustproject.vocdoni.autoconfigure;
 
+import dev.trustproject.vocdoni.TransactionSigner;
 import dev.trustproject.vocdoni.VocdoniClient;
 import dev.trustproject.vocdoni.configuration.VocdoniProperties;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,7 @@ public class VocdoniAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public VocdoniClient vocdoniClient(VocdoniClient.TransactionSigner transactionSigner) {
+    public VocdoniClient vocdoniClient(TransactionSigner transactionSigner) {
         return new VocdoniClient(properties, transactionSigner);
     }
-
 }

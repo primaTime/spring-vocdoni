@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;
 import dev.trustproject.vocdoni.configuration.VocdoniProperties;
+import dev.trustproject.vocdoni.exception.TransactionTimeoutException;
+import dev.trustproject.vocdoni.exception.VocdoniConfigurationException;
 import dev.trustproject.vocdoni.model.TxMessage;
 import dev.trustproject.vocdoni.model.internal.*;
 import dev.trustproject.vocdoni.model.payload.CensusParticipant;
@@ -33,6 +35,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -53,6 +56,10 @@ public class VocdoniClient {
     private final CensusesApi censusesApi;
 
     public VocdoniClient(VocdoniProperties config, TransactionSigner transactionSigner) {
+        if (StringUtils.isBlank(config.apiHost()) || StringUtils.isBlank(config.faucetHost())) {
+            throw new VocdoniConfigurationException();
+        }
+
         this.config = config;
         this.transactionSigner = transactionSigner;
 
@@ -108,7 +115,7 @@ public class VocdoniClient {
             attemptsNumber--;
 
             if (attemptsNumber == 0) {
-                throw new RuntimeException("Time out waiting for transaction: " + txHash);
+                throw new TransactionTimeoutException(txHash);
             }
 
             try {

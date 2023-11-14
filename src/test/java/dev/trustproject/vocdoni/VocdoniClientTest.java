@@ -15,7 +15,6 @@ import dvote.types.v1.Vochain;
 import io.vocdoni.invoker.ApiException;
 import java.time.Instant;
 import java.util.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

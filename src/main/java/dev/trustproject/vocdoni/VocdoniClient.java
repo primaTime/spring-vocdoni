@@ -31,6 +31,7 @@ import io.vocdoni.invoker.ApiClient;
 import io.vocdoni.invoker.ApiException;
 import io.vocdoni.invoker.Configuration;
 import io.vocdoni.model.*;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -300,7 +301,24 @@ public class VocdoniClient {
         return response.getBody();
     }
 
-    public Election createElection(
+    public BigDecimal countElectionPrice(
+            Integer electionBlocks,
+            Boolean encryptedVotes,
+            Boolean anonymousVotes,
+            Integer maxCensusSize,
+            Integer maxVoteOverwrite)
+            throws ApiException {
+        final ElectionsPricePost200Response response =
+                this.electionsApi.electionsPricePost(new ElectionpriceElectionParameters()
+                        .electionBlocks(electionBlocks)
+                        .encryptedVotes(encryptedVotes)
+                        .anonymousVotes(anonymousVotes)
+                        .maxCensusSize(maxCensusSize)
+                        .maxVoteOverwrite(maxVoteOverwrite));
+        return response.getPrice();
+    }
+
+    public ElectionTransactionResponse createElection(
             String walletAddress,
             ElectionMetadata metadata,
             Instant startDate,
@@ -348,7 +366,7 @@ public class VocdoniClient {
                 voteOptions);
     }
 
-    public Election createElection(
+    public ElectionTransactionResponse createElection(
             String walletAddress,
             ElectionMetadata metadata,
             Instant startDate,
@@ -406,11 +424,9 @@ public class VocdoniClient {
                 new HttpEntity<>(payload, headersPOST()),
                 ApiElectionCreate.class);
 
-        ApiElectionCreate newProcess = response.getBody();
+        ApiElectionCreate responseBody = response.getBody();
 
-        this.waitForTransaction(newProcess.getTxHash());
-
-        return this.fetchElectionInfo(newProcess.getElectionID());
+        return new ElectionTransactionResponse(responseBody.getElectionID(), responseBody.getTxHash());
     }
 
     public void changeElectionStatus(String walletAddress, String electionId, ElectionStatus status)

@@ -80,7 +80,7 @@ public class VocdoniClientTest {
         Vochain.ProcessVoteOptions voteOptions = Vochain.ProcessVoteOptions.newBuilder()
                 .setMaxCount(1)
                 .setMaxValue(2)
-                .setMaxVoteOverwrites(1)
+                .setMaxVoteOverwrites(0)
                 .setCostExponent(1)
                 .build();
 
@@ -98,7 +98,7 @@ public class VocdoniClientTest {
                                 new ElectionQuestionOption(Map.of("default", "test option 2"), 1)))),
                 null);
 
-        Election election = vocdoniClient.createElection(
+        ElectionTransactionResponse electionTransaction = vocdoniClient.createElection(
                 ORGANIZATION.getAddress(),
                 electionMetadata,
                 Instant.now(),
@@ -110,8 +110,17 @@ public class VocdoniClientTest {
                 mode,
                 voteOptions);
 
+        vocdoniClient.waitForTransaction(electionTransaction.txHash());
+
+        Election election = vocdoniClient.fetchElectionInfo(electionTransaction.id());
+
         vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
         vocdoniClient.vote(election.electionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
+    }
+
+    @Test
+    public void electionPriceTest() throws ApiException {
+        vocdoniClient.countElectionPrice(7200, false, false, 2, 1);
     }
 
     @Test

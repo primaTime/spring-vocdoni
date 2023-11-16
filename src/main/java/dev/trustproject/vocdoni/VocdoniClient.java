@@ -526,10 +526,12 @@ public class VocdoniClient {
     }
 
     public TransactionResponse transferTokens(String walletAddress, String destinationAddress, int amount)
-            throws JsonProcessingException {
+            throws JsonProcessingException, ApiException {
+        final Account accountInfo = this.fetchAccountInfo(walletAddress);
+
         Vochain.SendTokensTx sendTokensTx = Vochain.SendTokensTx.newBuilder()
-                .setTxtype(Vochain.TxType.SET_ACCOUNT_INFO_URI)
-                .setNonce(0)
+                .setTxtype(Vochain.TxType.SEND_TOKENS)
+                .setNonce(accountInfo.nonce())
                 .setValue(amount)
                 .setFrom(ByteString.fromHex(strip0x(walletAddress)))
                 .setTo(ByteString.fromHex(strip0x(destinationAddress)))

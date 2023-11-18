@@ -114,6 +114,8 @@ public class VocdoniClientTest {
 
         Election election = vocdoniClient.fetchElectionInfo(electionTransaction.id());
 
+        Thread.sleep(15000);
+
         vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
         vocdoniClient.vote(election.electionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
     }

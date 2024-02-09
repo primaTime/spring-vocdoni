@@ -57,7 +57,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiElectionDescription
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiElectionDescription {
   public static final String SERIALIZED_NAME_CENSUS = "census";
   @SerializedName(SERIALIZED_NAME_CENSUS)
@@ -90,6 +90,10 @@ public class ApiElectionDescription {
   public static final String SERIALIZED_NAME_STREAM_URI = "streamUri";
   @SerializedName(SERIALIZED_NAME_STREAM_URI)
   private String streamUri;
+
+  public static final String SERIALIZED_NAME_TEMP_S_I_KS = "tempSIKs";
+  @SerializedName(SERIALIZED_NAME_TEMP_S_I_KS)
+  private Boolean tempSIKs;
 
   public static final String SERIALIZED_NAME_TITLE = "title";
   @SerializedName(SERIALIZED_NAME_TITLE)
@@ -286,6 +290,27 @@ public class ApiElectionDescription {
   }
 
 
+  public ApiElectionDescription tempSIKs(Boolean tempSIKs) {
+    
+    this.tempSIKs = tempSIKs;
+    return this;
+  }
+
+   /**
+   * Get tempSIKs
+   * @return tempSIKs
+  **/
+  @javax.annotation.Nullable
+  public Boolean getTempSIKs() {
+    return tempSIKs;
+  }
+
+
+  public void setTempSIKs(Boolean tempSIKs) {
+    this.tempSIKs = tempSIKs;
+  }
+
+
   public ApiElectionDescription title(Map<String, String> title) {
     
     this.title = title;
@@ -354,13 +379,14 @@ public class ApiElectionDescription {
         Objects.equals(this.questions, apiElectionDescription.questions) &&
         Objects.equals(this.startDate, apiElectionDescription.startDate) &&
         Objects.equals(this.streamUri, apiElectionDescription.streamUri) &&
+        Objects.equals(this.tempSIKs, apiElectionDescription.tempSIKs) &&
         Objects.equals(this.title, apiElectionDescription.title) &&
         Objects.equals(this.voteType, apiElectionDescription.voteType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(census, description, electionType, endDate, header, questions, startDate, streamUri, title, voteType);
+    return Objects.hash(census, description, electionType, endDate, header, questions, startDate, streamUri, tempSIKs, title, voteType);
   }
 
   @Override
@@ -375,6 +401,7 @@ public class ApiElectionDescription {
     sb.append("    questions: ").append(toIndentedString(questions)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    streamUri: ").append(toIndentedString(streamUri)).append("\n");
+    sb.append("    tempSIKs: ").append(toIndentedString(tempSIKs)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    voteType: ").append(toIndentedString(voteType)).append("\n");
     sb.append("}");
@@ -407,6 +434,7 @@ public class ApiElectionDescription {
     openapiFields.add("questions");
     openapiFields.add("startDate");
     openapiFields.add("streamUri");
+    openapiFields.add("tempSIKs");
     openapiFields.add("title");
     openapiFields.add("voteType");
 

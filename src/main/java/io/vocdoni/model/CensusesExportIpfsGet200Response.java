@@ -19,7 +19,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.CensusesCensusIDPublishPost200Response;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -48,35 +47,35 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * CensusesCensusIDPublishRootPost200Response
+ * CensusesExportIpfsGet200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class CensusesCensusIDPublishRootPost200Response {
-  public static final String SERIALIZED_NAME_CENSUS = "census";
-  @SerializedName(SERIALIZED_NAME_CENSUS)
-  private CensusesCensusIDPublishPost200Response census;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class CensusesExportIpfsGet200Response {
+  public static final String SERIALIZED_NAME_VALID = "valid";
+  @SerializedName(SERIALIZED_NAME_VALID)
+  private Boolean valid;
 
-  public CensusesCensusIDPublishRootPost200Response() {
+  public CensusesExportIpfsGet200Response() {
   }
 
-  public CensusesCensusIDPublishRootPost200Response census(CensusesCensusIDPublishPost200Response census) {
+  public CensusesExportIpfsGet200Response valid(Boolean valid) {
     
-    this.census = census;
+    this.valid = valid;
     return this;
   }
 
    /**
-   * Get census
-   * @return census
+   * Get valid
+   * @return valid
   **/
   @javax.annotation.Nullable
-  public CensusesCensusIDPublishPost200Response getCensus() {
-    return census;
+  public Boolean getValid() {
+    return valid;
   }
 
 
-  public void setCensus(CensusesCensusIDPublishPost200Response census) {
-    this.census = census;
+  public void setValid(Boolean valid) {
+    this.valid = valid;
   }
 
 
@@ -89,20 +88,20 @@ public class CensusesCensusIDPublishRootPost200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CensusesCensusIDPublishRootPost200Response censusesCensusIDPublishRootPost200Response = (CensusesCensusIDPublishRootPost200Response) o;
-    return Objects.equals(this.census, censusesCensusIDPublishRootPost200Response.census);
+    CensusesExportIpfsGet200Response censusesExportIpfsGet200Response = (CensusesExportIpfsGet200Response) o;
+    return Objects.equals(this.valid, censusesExportIpfsGet200Response.valid);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(census);
+    return Objects.hash(valid);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CensusesCensusIDPublishRootPost200Response {\n");
-    sb.append("    census: ").append(toIndentedString(census)).append("\n");
+    sb.append("class CensusesExportIpfsGet200Response {\n");
+    sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -125,7 +124,7 @@ public class CensusesCensusIDPublishRootPost200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("census");
+    openapiFields.add("valid");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -135,49 +134,45 @@ public class CensusesCensusIDPublishRootPost200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CensusesCensusIDPublishRootPost200Response
+  * @throws IOException if the JSON Element is invalid with respect to CensusesExportIpfsGet200Response
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CensusesCensusIDPublishRootPost200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesCensusIDPublishRootPost200Response is not found in the empty JSON string", CensusesCensusIDPublishRootPost200Response.openapiRequiredFields.toString()));
+        if (!CensusesExportIpfsGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesExportIpfsGet200Response is not found in the empty JSON string", CensusesExportIpfsGet200Response.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CensusesCensusIDPublishRootPost200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesCensusIDPublishRootPost200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!CensusesExportIpfsGet200Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesExportIpfsGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `census`
-      if (jsonObj.get("census") != null && !jsonObj.get("census").isJsonNull()) {
-        CensusesCensusIDPublishPost200Response.validateJsonElement(jsonObj.get("census"));
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CensusesCensusIDPublishRootPost200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CensusesCensusIDPublishRootPost200Response' and its subtypes
+       if (!CensusesExportIpfsGet200Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CensusesExportIpfsGet200Response' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CensusesCensusIDPublishRootPost200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesCensusIDPublishRootPost200Response.class));
+       final TypeAdapter<CensusesExportIpfsGet200Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesExportIpfsGet200Response.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CensusesCensusIDPublishRootPost200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<CensusesExportIpfsGet200Response>() {
            @Override
-           public void write(JsonWriter out, CensusesCensusIDPublishRootPost200Response value) throws IOException {
+           public void write(JsonWriter out, CensusesExportIpfsGet200Response value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CensusesCensusIDPublishRootPost200Response read(JsonReader in) throws IOException {
+           public CensusesExportIpfsGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -188,18 +183,18 @@ public class CensusesCensusIDPublishRootPost200Response {
   }
 
  /**
-  * Create an instance of CensusesCensusIDPublishRootPost200Response given an JSON string
+  * Create an instance of CensusesExportIpfsGet200Response given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CensusesCensusIDPublishRootPost200Response
-  * @throws IOException if the JSON string is invalid with respect to CensusesCensusIDPublishRootPost200Response
+  * @return An instance of CensusesExportIpfsGet200Response
+  * @throws IOException if the JSON string is invalid with respect to CensusesExportIpfsGet200Response
   */
-  public static CensusesCensusIDPublishRootPost200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CensusesCensusIDPublishRootPost200Response.class);
+  public static CensusesExportIpfsGet200Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CensusesExportIpfsGet200Response.class);
   }
 
  /**
-  * Convert an instance of CensusesCensusIDPublishRootPost200Response to an JSON string
+  * Convert an instance of CensusesExportIpfsGet200Response to an JSON string
   *
   * @return JSON string
   */

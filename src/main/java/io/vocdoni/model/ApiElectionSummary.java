@@ -51,8 +51,12 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiElectionSummary
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiElectionSummary {
+  public static final String SERIALIZED_NAME_CHAIN_ID = "chainId";
+  @SerializedName(SERIALIZED_NAME_CHAIN_ID)
+  private String chainId;
+
   public static final String SERIALIZED_NAME_ELECTION_ID = "electionId";
   @SerializedName(SERIALIZED_NAME_ELECTION_ID)
   private String electionId;
@@ -64,6 +68,10 @@ public class ApiElectionSummary {
   public static final String SERIALIZED_NAME_FINAL_RESULTS = "finalResults";
   @SerializedName(SERIALIZED_NAME_FINAL_RESULTS)
   private Boolean finalResults;
+
+  public static final String SERIALIZED_NAME_FROM_ARCHIVE = "fromArchive";
+  @SerializedName(SERIALIZED_NAME_FROM_ARCHIVE)
+  private Boolean fromArchive;
 
   public static final String SERIALIZED_NAME_MANUALLY_ENDED = "manuallyEnded";
   @SerializedName(SERIALIZED_NAME_MANUALLY_ENDED)
@@ -91,6 +99,27 @@ public class ApiElectionSummary {
 
   public ApiElectionSummary() {
   }
+
+  public ApiElectionSummary chainId(String chainId) {
+    
+    this.chainId = chainId;
+    return this;
+  }
+
+   /**
+   * Get chainId
+   * @return chainId
+  **/
+  @javax.annotation.Nullable
+  public String getChainId() {
+    return chainId;
+  }
+
+
+  public void setChainId(String chainId) {
+    this.chainId = chainId;
+  }
+
 
   public ApiElectionSummary electionId(String electionId) {
     
@@ -152,6 +181,27 @@ public class ApiElectionSummary {
 
   public void setFinalResults(Boolean finalResults) {
     this.finalResults = finalResults;
+  }
+
+
+  public ApiElectionSummary fromArchive(Boolean fromArchive) {
+    
+    this.fromArchive = fromArchive;
+    return this;
+  }
+
+   /**
+   * Get fromArchive
+   * @return fromArchive
+  **/
+  @javax.annotation.Nullable
+  public Boolean getFromArchive() {
+    return fromArchive;
+  }
+
+
+  public void setFromArchive(Boolean fromArchive) {
+    this.fromArchive = fromArchive;
   }
 
 
@@ -299,9 +349,11 @@ public class ApiElectionSummary {
       return false;
     }
     ApiElectionSummary apiElectionSummary = (ApiElectionSummary) o;
-    return Objects.equals(this.electionId, apiElectionSummary.electionId) &&
+    return Objects.equals(this.chainId, apiElectionSummary.chainId) &&
+        Objects.equals(this.electionId, apiElectionSummary.electionId) &&
         Objects.equals(this.endDate, apiElectionSummary.endDate) &&
         Objects.equals(this.finalResults, apiElectionSummary.finalResults) &&
+        Objects.equals(this.fromArchive, apiElectionSummary.fromArchive) &&
         Objects.equals(this.manuallyEnded, apiElectionSummary.manuallyEnded) &&
         Objects.equals(this.organizationId, apiElectionSummary.organizationId) &&
         Objects.equals(this.result, apiElectionSummary.result) &&
@@ -312,16 +364,18 @@ public class ApiElectionSummary {
 
   @Override
   public int hashCode() {
-    return Objects.hash(electionId, endDate, finalResults, manuallyEnded, organizationId, result, startDate, status, voteCount);
+    return Objects.hash(chainId, electionId, endDate, finalResults, fromArchive, manuallyEnded, organizationId, result, startDate, status, voteCount);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiElectionSummary {\n");
+    sb.append("    chainId: ").append(toIndentedString(chainId)).append("\n");
     sb.append("    electionId: ").append(toIndentedString(electionId)).append("\n");
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    finalResults: ").append(toIndentedString(finalResults)).append("\n");
+    sb.append("    fromArchive: ").append(toIndentedString(fromArchive)).append("\n");
     sb.append("    manuallyEnded: ").append(toIndentedString(manuallyEnded)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    result: ").append(toIndentedString(result)).append("\n");
@@ -350,9 +404,11 @@ public class ApiElectionSummary {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("chainId");
     openapiFields.add("electionId");
     openapiFields.add("endDate");
     openapiFields.add("finalResults");
+    openapiFields.add("fromArchive");
     openapiFields.add("manuallyEnded");
     openapiFields.add("organizationId");
     openapiFields.add("result");
@@ -385,6 +441,9 @@ public class ApiElectionSummary {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("chainId") != null && !jsonObj.get("chainId").isJsonNull()) && !jsonObj.get("chainId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `chainId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chainId").toString()));
+      }
       if ((jsonObj.get("electionId") != null && !jsonObj.get("electionId").isJsonNull()) && !jsonObj.get("electionId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `electionId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("electionId").toString()));
       }

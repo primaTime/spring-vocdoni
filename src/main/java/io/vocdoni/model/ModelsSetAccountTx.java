@@ -53,7 +53,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ModelsSetAccountTx
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ModelsSetAccountTx {
   public static final String SERIALIZED_NAME_S_I_K = "SIK";
   @SerializedName(SERIALIZED_NAME_S_I_K)
@@ -75,9 +75,17 @@ public class ModelsSetAccountTx {
   @SerializedName(SERIALIZED_NAME_INFO_U_R_I)
   private String infoURI;
 
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
+
   public static final String SERIALIZED_NAME_NONCE = "nonce";
   @SerializedName(SERIALIZED_NAME_NONCE)
   private Integer nonce;
+
+  public static final String SERIALIZED_NAME_PUBLIC_KEY = "publicKey";
+  @SerializedName(SERIALIZED_NAME_PUBLIC_KEY)
+  private List<Integer> publicKey;
 
   public static final String SERIALIZED_NAME_TXTYPE = "txtype";
   @SerializedName(SERIALIZED_NAME_TXTYPE)
@@ -215,6 +223,27 @@ public class ModelsSetAccountTx {
   }
 
 
+  public ModelsSetAccountTx name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @javax.annotation.Nullable
+  public String getName() {
+    return name;
+  }
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
   public ModelsSetAccountTx nonce(Integer nonce) {
     
     this.nonce = nonce;
@@ -233,6 +262,35 @@ public class ModelsSetAccountTx {
 
   public void setNonce(Integer nonce) {
     this.nonce = nonce;
+  }
+
+
+  public ModelsSetAccountTx publicKey(List<Integer> publicKey) {
+    
+    this.publicKey = publicKey;
+    return this;
+  }
+
+  public ModelsSetAccountTx addPublicKeyItem(Integer publicKeyItem) {
+    if (this.publicKey == null) {
+      this.publicKey = new ArrayList<>();
+    }
+    this.publicKey.add(publicKeyItem);
+    return this;
+  }
+
+   /**
+   * Get publicKey
+   * @return publicKey
+  **/
+  @javax.annotation.Nullable
+  public List<Integer> getPublicKey() {
+    return publicKey;
+  }
+
+
+  public void setPublicKey(List<Integer> publicKey) {
+    this.publicKey = publicKey;
   }
 
 
@@ -272,13 +330,15 @@ public class ModelsSetAccountTx {
         Objects.equals(this.delegates, modelsSetAccountTx.delegates) &&
         Objects.equals(this.faucetPackage, modelsSetAccountTx.faucetPackage) &&
         Objects.equals(this.infoURI, modelsSetAccountTx.infoURI) &&
+        Objects.equals(this.name, modelsSetAccountTx.name) &&
         Objects.equals(this.nonce, modelsSetAccountTx.nonce) &&
+        Objects.equals(this.publicKey, modelsSetAccountTx.publicKey) &&
         Objects.equals(this.txtype, modelsSetAccountTx.txtype);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(SIK, account, delegates, faucetPackage, infoURI, nonce, txtype);
+    return Objects.hash(SIK, account, delegates, faucetPackage, infoURI, name, nonce, publicKey, txtype);
   }
 
   @Override
@@ -290,7 +350,9 @@ public class ModelsSetAccountTx {
     sb.append("    delegates: ").append(toIndentedString(delegates)).append("\n");
     sb.append("    faucetPackage: ").append(toIndentedString(faucetPackage)).append("\n");
     sb.append("    infoURI: ").append(toIndentedString(infoURI)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
     sb.append("    txtype: ").append(toIndentedString(txtype)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -319,7 +381,9 @@ public class ModelsSetAccountTx {
     openapiFields.add("delegates");
     openapiFields.add("faucetPackage");
     openapiFields.add("infoURI");
+    openapiFields.add("name");
     openapiFields.add("nonce");
+    openapiFields.add("publicKey");
     openapiFields.add("txtype");
 
     // a set of required properties/fields (JSON key names)
@@ -365,6 +429,13 @@ public class ModelsSetAccountTx {
       }
       if ((jsonObj.get("infoURI") != null && !jsonObj.get("infoURI").isJsonNull()) && !jsonObj.get("infoURI").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `infoURI` to be a primitive type in the JSON string but got `%s`", jsonObj.get("infoURI").toString()));
+      }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("publicKey") != null && !jsonObj.get("publicKey").isJsonNull() && !jsonObj.get("publicKey").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `publicKey` to be an array in the JSON string but got `%s`", jsonObj.get("publicKey").toString()));
       }
   }
 

@@ -47,18 +47,18 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * ChainOrganizationsCountGet200Response
+ * AccountsCountGet200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class ChainOrganizationsCountGet200Response {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class AccountsCountGet200Response {
   public static final String SERIALIZED_NAME_COUNT = "count";
   @SerializedName(SERIALIZED_NAME_COUNT)
   private Integer count;
 
-  public ChainOrganizationsCountGet200Response() {
+  public AccountsCountGet200Response() {
   }
 
-  public ChainOrganizationsCountGet200Response count(Integer count) {
+  public AccountsCountGet200Response count(Integer count) {
     
     this.count = count;
     return this;
@@ -88,8 +88,8 @@ public class ChainOrganizationsCountGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ChainOrganizationsCountGet200Response chainOrganizationsCountGet200Response = (ChainOrganizationsCountGet200Response) o;
-    return Objects.equals(this.count, chainOrganizationsCountGet200Response.count);
+    AccountsCountGet200Response accountsCountGet200Response = (AccountsCountGet200Response) o;
+    return Objects.equals(this.count, accountsCountGet200Response.count);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class ChainOrganizationsCountGet200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ChainOrganizationsCountGet200Response {\n");
+    sb.append("class AccountsCountGet200Response {\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -134,20 +134,20 @@ public class ChainOrganizationsCountGet200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ChainOrganizationsCountGet200Response
+  * @throws IOException if the JSON Element is invalid with respect to AccountsCountGet200Response
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ChainOrganizationsCountGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ChainOrganizationsCountGet200Response is not found in the empty JSON string", ChainOrganizationsCountGet200Response.openapiRequiredFields.toString()));
+        if (!AccountsCountGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in AccountsCountGet200Response is not found in the empty JSON string", AccountsCountGet200Response.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ChainOrganizationsCountGet200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ChainOrganizationsCountGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!AccountsCountGet200Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AccountsCountGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -157,22 +157,22 @@ public class ChainOrganizationsCountGet200Response {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ChainOrganizationsCountGet200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ChainOrganizationsCountGet200Response' and its subtypes
+       if (!AccountsCountGet200Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'AccountsCountGet200Response' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ChainOrganizationsCountGet200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ChainOrganizationsCountGet200Response.class));
+       final TypeAdapter<AccountsCountGet200Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(AccountsCountGet200Response.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ChainOrganizationsCountGet200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<AccountsCountGet200Response>() {
            @Override
-           public void write(JsonWriter out, ChainOrganizationsCountGet200Response value) throws IOException {
+           public void write(JsonWriter out, AccountsCountGet200Response value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ChainOrganizationsCountGet200Response read(JsonReader in) throws IOException {
+           public AccountsCountGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -183,18 +183,18 @@ public class ChainOrganizationsCountGet200Response {
   }
 
  /**
-  * Create an instance of ChainOrganizationsCountGet200Response given an JSON string
+  * Create an instance of AccountsCountGet200Response given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ChainOrganizationsCountGet200Response
-  * @throws IOException if the JSON string is invalid with respect to ChainOrganizationsCountGet200Response
+  * @return An instance of AccountsCountGet200Response
+  * @throws IOException if the JSON string is invalid with respect to AccountsCountGet200Response
   */
-  public static ChainOrganizationsCountGet200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ChainOrganizationsCountGet200Response.class);
+  public static AccountsCountGet200Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, AccountsCountGet200Response.class);
   }
 
  /**
-  * Convert an instance of ChainOrganizationsCountGet200Response to an JSON string
+  * Convert an instance of AccountsCountGet200Response to an JSON string
   *
   * @return JSON string
   */

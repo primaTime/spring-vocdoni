@@ -49,7 +49,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * GenesisTransactionCosts
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class GenesisTransactionCosts {
   public static final String SERIALIZED_NAME_TX_ADD_DELEGATE_FOR_ACCOUNT = "Tx_AddDelegateForAccount";
   @SerializedName(SERIALIZED_NAME_TX_ADD_DELEGATE_FOR_ACCOUNT)
@@ -86,6 +86,10 @@ public class GenesisTransactionCosts {
   public static final String SERIALIZED_NAME_TX_SET_ACCOUNT_INFO_U_R_I = "Tx_SetAccountInfoURI";
   @SerializedName(SERIALIZED_NAME_TX_SET_ACCOUNT_INFO_U_R_I)
   private Integer txSetAccountInfoURI;
+
+  public static final String SERIALIZED_NAME_TX_SET_ACCOUNT_VALIDATOR = "Tx_SetAccountValidator";
+  @SerializedName(SERIALIZED_NAME_TX_SET_ACCOUNT_VALIDATOR)
+  private Integer txSetAccountValidator;
 
   public static final String SERIALIZED_NAME_TX_SET_PROCESS_CENSUS = "Tx_SetProcessCensus";
   @SerializedName(SERIALIZED_NAME_TX_SET_PROCESS_CENSUS)
@@ -295,6 +299,27 @@ public class GenesisTransactionCosts {
   }
 
 
+  public GenesisTransactionCosts txSetAccountValidator(Integer txSetAccountValidator) {
+    
+    this.txSetAccountValidator = txSetAccountValidator;
+    return this;
+  }
+
+   /**
+   * Get txSetAccountValidator
+   * @return txSetAccountValidator
+  **/
+  @javax.annotation.Nullable
+  public Integer getTxSetAccountValidator() {
+    return txSetAccountValidator;
+  }
+
+
+  public void setTxSetAccountValidator(Integer txSetAccountValidator) {
+    this.txSetAccountValidator = txSetAccountValidator;
+  }
+
+
   public GenesisTransactionCosts txSetProcessCensus(Integer txSetProcessCensus) {
     
     this.txSetProcessCensus = txSetProcessCensus;
@@ -398,6 +423,7 @@ public class GenesisTransactionCosts {
         Objects.equals(this.txRegisterKey, genesisTransactionCosts.txRegisterKey) &&
         Objects.equals(this.txSendTokens, genesisTransactionCosts.txSendTokens) &&
         Objects.equals(this.txSetAccountInfoURI, genesisTransactionCosts.txSetAccountInfoURI) &&
+        Objects.equals(this.txSetAccountValidator, genesisTransactionCosts.txSetAccountValidator) &&
         Objects.equals(this.txSetProcessCensus, genesisTransactionCosts.txSetProcessCensus) &&
         Objects.equals(this.txSetProcessQuestionIndex, genesisTransactionCosts.txSetProcessQuestionIndex) &&
         Objects.equals(this.txSetProcessStatus, genesisTransactionCosts.txSetProcessStatus) &&
@@ -406,7 +432,7 @@ public class GenesisTransactionCosts {
 
   @Override
   public int hashCode() {
-    return Objects.hash(txAddDelegateForAccount, txCollectFaucet, txCreateAccount, txDelDelegateForAccount, txDelSik, txNewProcess, txRegisterKey, txSendTokens, txSetAccountInfoURI, txSetProcessCensus, txSetProcessQuestionIndex, txSetProcessStatus, txSetSik);
+    return Objects.hash(txAddDelegateForAccount, txCollectFaucet, txCreateAccount, txDelDelegateForAccount, txDelSik, txNewProcess, txRegisterKey, txSendTokens, txSetAccountInfoURI, txSetAccountValidator, txSetProcessCensus, txSetProcessQuestionIndex, txSetProcessStatus, txSetSik);
   }
 
   @Override
@@ -422,6 +448,7 @@ public class GenesisTransactionCosts {
     sb.append("    txRegisterKey: ").append(toIndentedString(txRegisterKey)).append("\n");
     sb.append("    txSendTokens: ").append(toIndentedString(txSendTokens)).append("\n");
     sb.append("    txSetAccountInfoURI: ").append(toIndentedString(txSetAccountInfoURI)).append("\n");
+    sb.append("    txSetAccountValidator: ").append(toIndentedString(txSetAccountValidator)).append("\n");
     sb.append("    txSetProcessCensus: ").append(toIndentedString(txSetProcessCensus)).append("\n");
     sb.append("    txSetProcessQuestionIndex: ").append(toIndentedString(txSetProcessQuestionIndex)).append("\n");
     sb.append("    txSetProcessStatus: ").append(toIndentedString(txSetProcessStatus)).append("\n");
@@ -457,6 +484,7 @@ public class GenesisTransactionCosts {
     openapiFields.add("Tx_RegisterKey");
     openapiFields.add("Tx_SendTokens");
     openapiFields.add("Tx_SetAccountInfoURI");
+    openapiFields.add("Tx_SetAccountValidator");
     openapiFields.add("Tx_SetProcessCensus");
     openapiFields.add("Tx_SetProcessQuestionIndex");
     openapiFields.add("Tx_SetProcessStatus");

@@ -21,6 +21,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,10 +49,10 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * CircuitZkCircuitConfig
+ * CircuitConfig
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class CircuitZkCircuitConfig {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class CircuitConfig {
   public static final String SERIALIZED_NAME_CIRCUIT_PATH = "circuitPath";
   @SerializedName(SERIALIZED_NAME_CIRCUIT_PATH)
   private String circuitPath;
@@ -58,6 +60,10 @@ public class CircuitZkCircuitConfig {
   public static final String SERIALIZED_NAME_LEVELS = "levels";
   @SerializedName(SERIALIZED_NAME_LEVELS)
   private Integer levels;
+
+  public static final String SERIALIZED_NAME_PUBLIC_SIGNALS = "publicSignals";
+  @SerializedName(SERIALIZED_NAME_PUBLIC_SIGNALS)
+  private Map<String, Integer> publicSignals = new HashMap<>();
 
   public static final String SERIALIZED_NAME_URI = "uri";
   @SerializedName(SERIALIZED_NAME_URI)
@@ -70,6 +76,10 @@ public class CircuitZkCircuitConfig {
   public static final String SERIALIZED_NAME_V_KEY_HASH = "vKeyHash";
   @SerializedName(SERIALIZED_NAME_V_KEY_HASH)
   private String vKeyHash;
+
+  public static final String SERIALIZED_NAME_VERSION = "version";
+  @SerializedName(SERIALIZED_NAME_VERSION)
+  private String version;
 
   public static final String SERIALIZED_NAME_WASM_FILENAME = "wasmFilename";
   @SerializedName(SERIALIZED_NAME_WASM_FILENAME)
@@ -87,10 +97,10 @@ public class CircuitZkCircuitConfig {
   @SerializedName(SERIALIZED_NAME_Z_KEY_HASH)
   private String zKeyHash;
 
-  public CircuitZkCircuitConfig() {
+  public CircuitConfig() {
   }
 
-  public CircuitZkCircuitConfig circuitPath(String circuitPath) {
+  public CircuitConfig circuitPath(String circuitPath) {
     
     this.circuitPath = circuitPath;
     return this;
@@ -111,7 +121,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig levels(Integer levels) {
+  public CircuitConfig levels(Integer levels) {
     
     this.levels = levels;
     return this;
@@ -132,7 +142,36 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig uri(String uri) {
+  public CircuitConfig publicSignals(Map<String, Integer> publicSignals) {
+    
+    this.publicSignals = publicSignals;
+    return this;
+  }
+
+  public CircuitConfig putPublicSignalsItem(String key, Integer publicSignalsItem) {
+    if (this.publicSignals == null) {
+      this.publicSignals = new HashMap<>();
+    }
+    this.publicSignals.put(key, publicSignalsItem);
+    return this;
+  }
+
+   /**
+   * PublicSignals indicates the index of each public signal
+   * @return publicSignals
+  **/
+  @javax.annotation.Nullable
+  public Map<String, Integer> getPublicSignals() {
+    return publicSignals;
+  }
+
+
+  public void setPublicSignals(Map<String, Integer> publicSignals) {
+    this.publicSignals = publicSignals;
+  }
+
+
+  public CircuitConfig uri(String uri) {
     
     this.uri = uri;
     return this;
@@ -153,7 +192,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig vKeyFilename(String vKeyFilename) {
+  public CircuitConfig vKeyFilename(String vKeyFilename) {
     
     this.vKeyFilename = vKeyFilename;
     return this;
@@ -174,7 +213,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig vKeyHash(String vKeyHash) {
+  public CircuitConfig vKeyHash(String vKeyHash) {
     
     this.vKeyHash = vKeyHash;
     return this;
@@ -195,7 +234,28 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig wasmFilename(String wasmFilename) {
+  public CircuitConfig version(String version) {
+    
+    this.version = version;
+    return this;
+  }
+
+   /**
+   * Version of the published circuit
+   * @return version
+  **/
+  @javax.annotation.Nullable
+  public String getVersion() {
+    return version;
+  }
+
+
+  public void setVersion(String version) {
+    this.version = version;
+  }
+
+
+  public CircuitConfig wasmFilename(String wasmFilename) {
     
     this.wasmFilename = wasmFilename;
     return this;
@@ -216,7 +276,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig wasmHash(String wasmHash) {
+  public CircuitConfig wasmHash(String wasmHash) {
     
     this.wasmHash = wasmHash;
     return this;
@@ -237,7 +297,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig zKeyFilename(String zKeyFilename) {
+  public CircuitConfig zKeyFilename(String zKeyFilename) {
     
     this.zKeyFilename = zKeyFilename;
     return this;
@@ -258,7 +318,7 @@ public class CircuitZkCircuitConfig {
   }
 
 
-  public CircuitZkCircuitConfig zKeyHash(String zKeyHash) {
+  public CircuitConfig zKeyHash(String zKeyHash) {
     
     this.zKeyHash = zKeyHash;
     return this;
@@ -288,32 +348,36 @@ public class CircuitZkCircuitConfig {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CircuitZkCircuitConfig circuitZkCircuitConfig = (CircuitZkCircuitConfig) o;
-    return Objects.equals(this.circuitPath, circuitZkCircuitConfig.circuitPath) &&
-        Objects.equals(this.levels, circuitZkCircuitConfig.levels) &&
-        Objects.equals(this.uri, circuitZkCircuitConfig.uri) &&
-        Objects.equals(this.vKeyFilename, circuitZkCircuitConfig.vKeyFilename) &&
-        Objects.equals(this.vKeyHash, circuitZkCircuitConfig.vKeyHash) &&
-        Objects.equals(this.wasmFilename, circuitZkCircuitConfig.wasmFilename) &&
-        Objects.equals(this.wasmHash, circuitZkCircuitConfig.wasmHash) &&
-        Objects.equals(this.zKeyFilename, circuitZkCircuitConfig.zKeyFilename) &&
-        Objects.equals(this.zKeyHash, circuitZkCircuitConfig.zKeyHash);
+    CircuitConfig circuitConfig = (CircuitConfig) o;
+    return Objects.equals(this.circuitPath, circuitConfig.circuitPath) &&
+        Objects.equals(this.levels, circuitConfig.levels) &&
+        Objects.equals(this.publicSignals, circuitConfig.publicSignals) &&
+        Objects.equals(this.uri, circuitConfig.uri) &&
+        Objects.equals(this.vKeyFilename, circuitConfig.vKeyFilename) &&
+        Objects.equals(this.vKeyHash, circuitConfig.vKeyHash) &&
+        Objects.equals(this.version, circuitConfig.version) &&
+        Objects.equals(this.wasmFilename, circuitConfig.wasmFilename) &&
+        Objects.equals(this.wasmHash, circuitConfig.wasmHash) &&
+        Objects.equals(this.zKeyFilename, circuitConfig.zKeyFilename) &&
+        Objects.equals(this.zKeyHash, circuitConfig.zKeyHash);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(circuitPath, levels, uri, vKeyFilename, vKeyHash, wasmFilename, wasmHash, zKeyFilename, zKeyHash);
+    return Objects.hash(circuitPath, levels, publicSignals, uri, vKeyFilename, vKeyHash, version, wasmFilename, wasmHash, zKeyFilename, zKeyHash);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CircuitZkCircuitConfig {\n");
+    sb.append("class CircuitConfig {\n");
     sb.append("    circuitPath: ").append(toIndentedString(circuitPath)).append("\n");
     sb.append("    levels: ").append(toIndentedString(levels)).append("\n");
+    sb.append("    publicSignals: ").append(toIndentedString(publicSignals)).append("\n");
     sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("    vKeyFilename: ").append(toIndentedString(vKeyFilename)).append("\n");
     sb.append("    vKeyHash: ").append(toIndentedString(vKeyHash)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    wasmFilename: ").append(toIndentedString(wasmFilename)).append("\n");
     sb.append("    wasmHash: ").append(toIndentedString(wasmHash)).append("\n");
     sb.append("    zKeyFilename: ").append(toIndentedString(zKeyFilename)).append("\n");
@@ -342,9 +406,11 @@ public class CircuitZkCircuitConfig {
     openapiFields = new HashSet<String>();
     openapiFields.add("circuitPath");
     openapiFields.add("levels");
+    openapiFields.add("publicSignals");
     openapiFields.add("uri");
     openapiFields.add("vKeyFilename");
     openapiFields.add("vKeyHash");
+    openapiFields.add("version");
     openapiFields.add("wasmFilename");
     openapiFields.add("wasmHash");
     openapiFields.add("zKeyFilename");
@@ -358,20 +424,20 @@ public class CircuitZkCircuitConfig {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CircuitZkCircuitConfig
+  * @throws IOException if the JSON Element is invalid with respect to CircuitConfig
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CircuitZkCircuitConfig.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CircuitZkCircuitConfig is not found in the empty JSON string", CircuitZkCircuitConfig.openapiRequiredFields.toString()));
+        if (!CircuitConfig.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CircuitConfig is not found in the empty JSON string", CircuitConfig.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CircuitZkCircuitConfig.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CircuitZkCircuitConfig` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!CircuitConfig.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CircuitConfig` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -386,6 +452,9 @@ public class CircuitZkCircuitConfig {
       }
       if ((jsonObj.get("vKeyHash") != null && !jsonObj.get("vKeyHash").isJsonNull()) && !jsonObj.get("vKeyHash").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `vKeyHash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("vKeyHash").toString()));
+      }
+      if ((jsonObj.get("version") != null && !jsonObj.get("version").isJsonNull()) && !jsonObj.get("version").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `version` to be a primitive type in the JSON string but got `%s`", jsonObj.get("version").toString()));
       }
       if ((jsonObj.get("wasmFilename") != null && !jsonObj.get("wasmFilename").isJsonNull()) && !jsonObj.get("wasmFilename").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `wasmFilename` to be a primitive type in the JSON string but got `%s`", jsonObj.get("wasmFilename").toString()));
@@ -405,22 +474,22 @@ public class CircuitZkCircuitConfig {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CircuitZkCircuitConfig.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CircuitZkCircuitConfig' and its subtypes
+       if (!CircuitConfig.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CircuitConfig' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CircuitZkCircuitConfig> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CircuitZkCircuitConfig.class));
+       final TypeAdapter<CircuitConfig> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CircuitConfig.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CircuitZkCircuitConfig>() {
+       return (TypeAdapter<T>) new TypeAdapter<CircuitConfig>() {
            @Override
-           public void write(JsonWriter out, CircuitZkCircuitConfig value) throws IOException {
+           public void write(JsonWriter out, CircuitConfig value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CircuitZkCircuitConfig read(JsonReader in) throws IOException {
+           public CircuitConfig read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -431,18 +500,18 @@ public class CircuitZkCircuitConfig {
   }
 
  /**
-  * Create an instance of CircuitZkCircuitConfig given an JSON string
+  * Create an instance of CircuitConfig given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CircuitZkCircuitConfig
-  * @throws IOException if the JSON string is invalid with respect to CircuitZkCircuitConfig
+  * @return An instance of CircuitConfig
+  * @throws IOException if the JSON string is invalid with respect to CircuitConfig
   */
-  public static CircuitZkCircuitConfig fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CircuitZkCircuitConfig.class);
+  public static CircuitConfig fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CircuitConfig.class);
   }
 
  /**
-  * Convert an instance of CircuitZkCircuitConfig to an JSON string
+  * Convert an instance of CircuitConfig to an JSON string
   *
   * @return JSON string
   */

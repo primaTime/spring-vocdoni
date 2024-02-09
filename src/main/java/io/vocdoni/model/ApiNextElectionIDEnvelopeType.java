@@ -19,7 +19,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.ModelsMintTokensTx;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -48,35 +47,135 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * ModelsTxMintTokens
+ * ApiNextElectionIDEnvelopeType
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class ModelsTxMintTokens {
-  public static final String SERIALIZED_NAME_MINT_TOKENS = "mintTokens";
-  @SerializedName(SERIALIZED_NAME_MINT_TOKENS)
-  private ModelsMintTokensTx mintTokens;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class ApiNextElectionIDEnvelopeType {
+  public static final String SERIALIZED_NAME_ANONYMOUS = "anonymous";
+  @SerializedName(SERIALIZED_NAME_ANONYMOUS)
+  private Boolean anonymous;
 
-  public ModelsTxMintTokens() {
+  public static final String SERIALIZED_NAME_COST_FROM_WEIGHT = "costFromWeight";
+  @SerializedName(SERIALIZED_NAME_COST_FROM_WEIGHT)
+  private Boolean costFromWeight;
+
+  public static final String SERIALIZED_NAME_ENCRYPTED_VOTES = "encryptedVotes";
+  @SerializedName(SERIALIZED_NAME_ENCRYPTED_VOTES)
+  private Boolean encryptedVotes;
+
+  public static final String SERIALIZED_NAME_SERIAL = "serial";
+  @SerializedName(SERIALIZED_NAME_SERIAL)
+  private Boolean serial;
+
+  public static final String SERIALIZED_NAME_UNIQUE_VALUES = "uniqueValues";
+  @SerializedName(SERIALIZED_NAME_UNIQUE_VALUES)
+  private Boolean uniqueValues;
+
+  public ApiNextElectionIDEnvelopeType() {
   }
 
-  public ModelsTxMintTokens mintTokens(ModelsMintTokensTx mintTokens) {
+  public ApiNextElectionIDEnvelopeType anonymous(Boolean anonymous) {
     
-    this.mintTokens = mintTokens;
+    this.anonymous = anonymous;
     return this;
   }
 
    /**
-   * Get mintTokens
-   * @return mintTokens
+   * Get anonymous
+   * @return anonymous
   **/
   @javax.annotation.Nullable
-  public ModelsMintTokensTx getMintTokens() {
-    return mintTokens;
+  public Boolean getAnonymous() {
+    return anonymous;
   }
 
 
-  public void setMintTokens(ModelsMintTokensTx mintTokens) {
-    this.mintTokens = mintTokens;
+  public void setAnonymous(Boolean anonymous) {
+    this.anonymous = anonymous;
+  }
+
+
+  public ApiNextElectionIDEnvelopeType costFromWeight(Boolean costFromWeight) {
+    
+    this.costFromWeight = costFromWeight;
+    return this;
+  }
+
+   /**
+   * Get costFromWeight
+   * @return costFromWeight
+  **/
+  @javax.annotation.Nullable
+  public Boolean getCostFromWeight() {
+    return costFromWeight;
+  }
+
+
+  public void setCostFromWeight(Boolean costFromWeight) {
+    this.costFromWeight = costFromWeight;
+  }
+
+
+  public ApiNextElectionIDEnvelopeType encryptedVotes(Boolean encryptedVotes) {
+    
+    this.encryptedVotes = encryptedVotes;
+    return this;
+  }
+
+   /**
+   * Get encryptedVotes
+   * @return encryptedVotes
+  **/
+  @javax.annotation.Nullable
+  public Boolean getEncryptedVotes() {
+    return encryptedVotes;
+  }
+
+
+  public void setEncryptedVotes(Boolean encryptedVotes) {
+    this.encryptedVotes = encryptedVotes;
+  }
+
+
+  public ApiNextElectionIDEnvelopeType serial(Boolean serial) {
+    
+    this.serial = serial;
+    return this;
+  }
+
+   /**
+   * Get serial
+   * @return serial
+  **/
+  @javax.annotation.Nullable
+  public Boolean getSerial() {
+    return serial;
+  }
+
+
+  public void setSerial(Boolean serial) {
+    this.serial = serial;
+  }
+
+
+  public ApiNextElectionIDEnvelopeType uniqueValues(Boolean uniqueValues) {
+    
+    this.uniqueValues = uniqueValues;
+    return this;
+  }
+
+   /**
+   * Get uniqueValues
+   * @return uniqueValues
+  **/
+  @javax.annotation.Nullable
+  public Boolean getUniqueValues() {
+    return uniqueValues;
+  }
+
+
+  public void setUniqueValues(Boolean uniqueValues) {
+    this.uniqueValues = uniqueValues;
   }
 
 
@@ -89,20 +188,28 @@ public class ModelsTxMintTokens {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelsTxMintTokens modelsTxMintTokens = (ModelsTxMintTokens) o;
-    return Objects.equals(this.mintTokens, modelsTxMintTokens.mintTokens);
+    ApiNextElectionIDEnvelopeType apiNextElectionIDEnvelopeType = (ApiNextElectionIDEnvelopeType) o;
+    return Objects.equals(this.anonymous, apiNextElectionIDEnvelopeType.anonymous) &&
+        Objects.equals(this.costFromWeight, apiNextElectionIDEnvelopeType.costFromWeight) &&
+        Objects.equals(this.encryptedVotes, apiNextElectionIDEnvelopeType.encryptedVotes) &&
+        Objects.equals(this.serial, apiNextElectionIDEnvelopeType.serial) &&
+        Objects.equals(this.uniqueValues, apiNextElectionIDEnvelopeType.uniqueValues);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(mintTokens);
+    return Objects.hash(anonymous, costFromWeight, encryptedVotes, serial, uniqueValues);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelsTxMintTokens {\n");
-    sb.append("    mintTokens: ").append(toIndentedString(mintTokens)).append("\n");
+    sb.append("class ApiNextElectionIDEnvelopeType {\n");
+    sb.append("    anonymous: ").append(toIndentedString(anonymous)).append("\n");
+    sb.append("    costFromWeight: ").append(toIndentedString(costFromWeight)).append("\n");
+    sb.append("    encryptedVotes: ").append(toIndentedString(encryptedVotes)).append("\n");
+    sb.append("    serial: ").append(toIndentedString(serial)).append("\n");
+    sb.append("    uniqueValues: ").append(toIndentedString(uniqueValues)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -125,7 +232,11 @@ public class ModelsTxMintTokens {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("mintTokens");
+    openapiFields.add("anonymous");
+    openapiFields.add("costFromWeight");
+    openapiFields.add("encryptedVotes");
+    openapiFields.add("serial");
+    openapiFields.add("uniqueValues");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -135,49 +246,45 @@ public class ModelsTxMintTokens {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ModelsTxMintTokens
+  * @throws IOException if the JSON Element is invalid with respect to ApiNextElectionIDEnvelopeType
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ModelsTxMintTokens.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ModelsTxMintTokens is not found in the empty JSON string", ModelsTxMintTokens.openapiRequiredFields.toString()));
+        if (!ApiNextElectionIDEnvelopeType.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ApiNextElectionIDEnvelopeType is not found in the empty JSON string", ApiNextElectionIDEnvelopeType.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ModelsTxMintTokens.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ModelsTxMintTokens` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!ApiNextElectionIDEnvelopeType.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ApiNextElectionIDEnvelopeType` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `mintTokens`
-      if (jsonObj.get("mintTokens") != null && !jsonObj.get("mintTokens").isJsonNull()) {
-        ModelsMintTokensTx.validateJsonElement(jsonObj.get("mintTokens"));
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ModelsTxMintTokens.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ModelsTxMintTokens' and its subtypes
+       if (!ApiNextElectionIDEnvelopeType.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ApiNextElectionIDEnvelopeType' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ModelsTxMintTokens> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxMintTokens.class));
+       final TypeAdapter<ApiNextElectionIDEnvelopeType> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ApiNextElectionIDEnvelopeType.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ModelsTxMintTokens>() {
+       return (TypeAdapter<T>) new TypeAdapter<ApiNextElectionIDEnvelopeType>() {
            @Override
-           public void write(JsonWriter out, ModelsTxMintTokens value) throws IOException {
+           public void write(JsonWriter out, ApiNextElectionIDEnvelopeType value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ModelsTxMintTokens read(JsonReader in) throws IOException {
+           public ApiNextElectionIDEnvelopeType read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -188,18 +295,18 @@ public class ModelsTxMintTokens {
   }
 
  /**
-  * Create an instance of ModelsTxMintTokens given an JSON string
+  * Create an instance of ApiNextElectionIDEnvelopeType given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ModelsTxMintTokens
-  * @throws IOException if the JSON string is invalid with respect to ModelsTxMintTokens
+  * @return An instance of ApiNextElectionIDEnvelopeType
+  * @throws IOException if the JSON string is invalid with respect to ApiNextElectionIDEnvelopeType
   */
-  public static ModelsTxMintTokens fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ModelsTxMintTokens.class);
+  public static ApiNextElectionIDEnvelopeType fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ApiNextElectionIDEnvelopeType.class);
   }
 
  /**
-  * Convert an instance of ModelsTxMintTokens to an JSON string
+  * Convert an instance of ApiNextElectionIDEnvelopeType to an JSON string
   *
   * @return JSON string
   */

@@ -51,8 +51,12 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiGenericTransactionWithInfo
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiGenericTransactionWithInfo {
+  public static final String SERIALIZED_NAME_SIGNATURE = "signature";
+  @SerializedName(SERIALIZED_NAME_SIGNATURE)
+  private String signature;
+
   public static final String SERIALIZED_NAME_TX = "tx";
   @SerializedName(SERIALIZED_NAME_TX)
   private ApiGenericTransactionWithInfoTx tx;
@@ -63,6 +67,27 @@ public class ApiGenericTransactionWithInfo {
 
   public ApiGenericTransactionWithInfo() {
   }
+
+  public ApiGenericTransactionWithInfo signature(String signature) {
+    
+    this.signature = signature;
+    return this;
+  }
+
+   /**
+   * Get signature
+   * @return signature
+  **/
+  @javax.annotation.Nullable
+  public String getSignature() {
+    return signature;
+  }
+
+
+  public void setSignature(String signature) {
+    this.signature = signature;
+  }
+
 
   public ApiGenericTransactionWithInfo tx(ApiGenericTransactionWithInfoTx tx) {
     
@@ -116,19 +141,21 @@ public class ApiGenericTransactionWithInfo {
       return false;
     }
     ApiGenericTransactionWithInfo apiGenericTransactionWithInfo = (ApiGenericTransactionWithInfo) o;
-    return Objects.equals(this.tx, apiGenericTransactionWithInfo.tx) &&
+    return Objects.equals(this.signature, apiGenericTransactionWithInfo.signature) &&
+        Objects.equals(this.tx, apiGenericTransactionWithInfo.tx) &&
         Objects.equals(this.txInfo, apiGenericTransactionWithInfo.txInfo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tx, txInfo);
+    return Objects.hash(signature, tx, txInfo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiGenericTransactionWithInfo {\n");
+    sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
     sb.append("    tx: ").append(toIndentedString(tx)).append("\n");
     sb.append("    txInfo: ").append(toIndentedString(txInfo)).append("\n");
     sb.append("}");
@@ -153,6 +180,7 @@ public class ApiGenericTransactionWithInfo {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("signature");
     openapiFields.add("tx");
     openapiFields.add("txInfo");
 
@@ -181,6 +209,9 @@ public class ApiGenericTransactionWithInfo {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("signature") != null && !jsonObj.get("signature").isJsonNull()) && !jsonObj.get("signature").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `signature` to be a primitive type in the JSON string but got `%s`", jsonObj.get("signature").toString()));
+      }
       // validate the optional field `tx`
       if (jsonObj.get("tx") != null && !jsonObj.get("tx").isJsonNull()) {
         ApiGenericTransactionWithInfoTx.validateJsonElement(jsonObj.get("tx"));

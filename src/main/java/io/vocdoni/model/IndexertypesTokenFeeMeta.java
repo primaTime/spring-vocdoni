@@ -19,7 +19,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.ModelsProof;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,151 +49,168 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * ModelsRegisterKeyTx
+ * IndexertypesTokenFeeMeta
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
-public class ModelsRegisterKeyTx {
-  public static final String SERIALIZED_NAME_NEW_KEY = "newKey";
-  @SerializedName(SERIALIZED_NAME_NEW_KEY)
-  private List<Integer> newKey;
+public class IndexertypesTokenFeeMeta {
+  public static final String SERIALIZED_NAME_COST = "cost";
+  @SerializedName(SERIALIZED_NAME_COST)
+  private Integer cost;
 
-  public static final String SERIALIZED_NAME_NONCE = "nonce";
-  @SerializedName(SERIALIZED_NAME_NONCE)
-  private Integer nonce;
+  public static final String SERIALIZED_NAME_FROM = "from";
+  @SerializedName(SERIALIZED_NAME_FROM)
+  private List<Integer> from;
 
-  public static final String SERIALIZED_NAME_PROCESS_ID = "processId";
-  @SerializedName(SERIALIZED_NAME_PROCESS_ID)
-  private List<Integer> processId;
+  public static final String SERIALIZED_NAME_HEIGHT = "height";
+  @SerializedName(SERIALIZED_NAME_HEIGHT)
+  private Integer height;
 
-  public static final String SERIALIZED_NAME_PROOF = "proof";
-  @SerializedName(SERIALIZED_NAME_PROOF)
-  private ModelsProof proof;
+  public static final String SERIALIZED_NAME_REFERENCE = "reference";
+  @SerializedName(SERIALIZED_NAME_REFERENCE)
+  private String reference;
 
-  public static final String SERIALIZED_NAME_WEIGHT = "weight";
-  @SerializedName(SERIALIZED_NAME_WEIGHT)
-  private String weight;
+  public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
+  @SerializedName(SERIALIZED_NAME_TIMESTAMP)
+  private String timestamp;
 
-  public ModelsRegisterKeyTx() {
+  public static final String SERIALIZED_NAME_TX_TYPE = "txType";
+  @SerializedName(SERIALIZED_NAME_TX_TYPE)
+  private String txType;
+
+  public IndexertypesTokenFeeMeta() {
   }
 
-  public ModelsRegisterKeyTx newKey(List<Integer> newKey) {
+  public IndexertypesTokenFeeMeta cost(Integer cost) {
     
-    this.newKey = newKey;
+    this.cost = cost;
     return this;
   }
 
-  public ModelsRegisterKeyTx addNewKeyItem(Integer newKeyItem) {
-    if (this.newKey == null) {
-      this.newKey = new ArrayList<>();
+   /**
+   * Get cost
+   * @return cost
+  **/
+  @javax.annotation.Nullable
+  public Integer getCost() {
+    return cost;
+  }
+
+
+  public void setCost(Integer cost) {
+    this.cost = cost;
+  }
+
+
+  public IndexertypesTokenFeeMeta from(List<Integer> from) {
+    
+    this.from = from;
+    return this;
+  }
+
+  public IndexertypesTokenFeeMeta addFromItem(Integer fromItem) {
+    if (this.from == null) {
+      this.from = new ArrayList<>();
     }
-    this.newKey.add(newKeyItem);
+    this.from.add(fromItem);
     return this;
   }
 
    /**
-   * New key to register
-   * @return newKey
+   * Get from
+   * @return from
   **/
   @javax.annotation.Nullable
-  public List<Integer> getNewKey() {
-    return newKey;
+  public List<Integer> getFrom() {
+    return from;
   }
 
 
-  public void setNewKey(List<Integer> newKey) {
-    this.newKey = newKey;
+  public void setFrom(List<Integer> from) {
+    this.from = from;
   }
 
 
-  public ModelsRegisterKeyTx nonce(Integer nonce) {
+  public IndexertypesTokenFeeMeta height(Integer height) {
     
-    this.nonce = nonce;
+    this.height = height;
     return this;
   }
 
    /**
-   * Unique number per vote attempt, so that replay attacks can&#39;t reuse this payload
-   * @return nonce
+   * Get height
+   * @return height
   **/
   @javax.annotation.Nullable
-  public Integer getNonce() {
-    return nonce;
+  public Integer getHeight() {
+    return height;
   }
 
 
-  public void setNonce(Integer nonce) {
-    this.nonce = nonce;
+  public void setHeight(Integer height) {
+    this.height = height;
   }
 
 
-  public ModelsRegisterKeyTx processId(List<Integer> processId) {
+  public IndexertypesTokenFeeMeta reference(String reference) {
     
-    this.processId = processId;
-    return this;
-  }
-
-  public ModelsRegisterKeyTx addProcessIdItem(Integer processIdItem) {
-    if (this.processId == null) {
-      this.processId = new ArrayList<>();
-    }
-    this.processId.add(processIdItem);
+    this.reference = reference;
     return this;
   }
 
    /**
-   * The process for which the vote is casted
-   * @return processId
+   * Get reference
+   * @return reference
   **/
   @javax.annotation.Nullable
-  public List<Integer> getProcessId() {
-    return processId;
+  public String getReference() {
+    return reference;
   }
 
 
-  public void setProcessId(List<Integer> processId) {
-    this.processId = processId;
+  public void setReference(String reference) {
+    this.reference = reference;
   }
 
 
-  public ModelsRegisterKeyTx proof(ModelsProof proof) {
+  public IndexertypesTokenFeeMeta timestamp(String timestamp) {
     
-    this.proof = proof;
+    this.timestamp = timestamp;
     return this;
   }
 
    /**
-   * Get proof
-   * @return proof
+   * Get timestamp
+   * @return timestamp
   **/
   @javax.annotation.Nullable
-  public ModelsProof getProof() {
-    return proof;
+  public String getTimestamp() {
+    return timestamp;
   }
 
 
-  public void setProof(ModelsProof proof) {
-    this.proof = proof;
+  public void setTimestamp(String timestamp) {
+    this.timestamp = timestamp;
   }
 
 
-  public ModelsRegisterKeyTx weight(String weight) {
+  public IndexertypesTokenFeeMeta txType(String txType) {
     
-    this.weight = weight;
+    this.txType = txType;
     return this;
   }
 
    /**
-   * Weight to delegate to newKey
-   * @return weight
+   * Get txType
+   * @return txType
   **/
   @javax.annotation.Nullable
-  public String getWeight() {
-    return weight;
+  public String getTxType() {
+    return txType;
   }
 
 
-  public void setWeight(String weight) {
-    this.weight = weight;
+  public void setTxType(String txType) {
+    this.txType = txType;
   }
 
 
@@ -207,28 +223,30 @@ public class ModelsRegisterKeyTx {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelsRegisterKeyTx modelsRegisterKeyTx = (ModelsRegisterKeyTx) o;
-    return Objects.equals(this.newKey, modelsRegisterKeyTx.newKey) &&
-        Objects.equals(this.nonce, modelsRegisterKeyTx.nonce) &&
-        Objects.equals(this.processId, modelsRegisterKeyTx.processId) &&
-        Objects.equals(this.proof, modelsRegisterKeyTx.proof) &&
-        Objects.equals(this.weight, modelsRegisterKeyTx.weight);
+    IndexertypesTokenFeeMeta indexertypesTokenFeeMeta = (IndexertypesTokenFeeMeta) o;
+    return Objects.equals(this.cost, indexertypesTokenFeeMeta.cost) &&
+        Objects.equals(this.from, indexertypesTokenFeeMeta.from) &&
+        Objects.equals(this.height, indexertypesTokenFeeMeta.height) &&
+        Objects.equals(this.reference, indexertypesTokenFeeMeta.reference) &&
+        Objects.equals(this.timestamp, indexertypesTokenFeeMeta.timestamp) &&
+        Objects.equals(this.txType, indexertypesTokenFeeMeta.txType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(newKey, nonce, processId, proof, weight);
+    return Objects.hash(cost, from, height, reference, timestamp, txType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelsRegisterKeyTx {\n");
-    sb.append("    newKey: ").append(toIndentedString(newKey)).append("\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    processId: ").append(toIndentedString(processId)).append("\n");
-    sb.append("    proof: ").append(toIndentedString(proof)).append("\n");
-    sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
+    sb.append("class IndexertypesTokenFeeMeta {\n");
+    sb.append("    cost: ").append(toIndentedString(cost)).append("\n");
+    sb.append("    from: ").append(toIndentedString(from)).append("\n");
+    sb.append("    height: ").append(toIndentedString(height)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    txType: ").append(toIndentedString(txType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -251,11 +269,12 @@ public class ModelsRegisterKeyTx {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("newKey");
-    openapiFields.add("nonce");
-    openapiFields.add("processId");
-    openapiFields.add("proof");
-    openapiFields.add("weight");
+    openapiFields.add("cost");
+    openapiFields.add("from");
+    openapiFields.add("height");
+    openapiFields.add("reference");
+    openapiFields.add("timestamp");
+    openapiFields.add("txType");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -265,37 +284,35 @@ public class ModelsRegisterKeyTx {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ModelsRegisterKeyTx
+  * @throws IOException if the JSON Element is invalid with respect to IndexertypesTokenFeeMeta
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ModelsRegisterKeyTx.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ModelsRegisterKeyTx is not found in the empty JSON string", ModelsRegisterKeyTx.openapiRequiredFields.toString()));
+        if (!IndexertypesTokenFeeMeta.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in IndexertypesTokenFeeMeta is not found in the empty JSON string", IndexertypesTokenFeeMeta.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ModelsRegisterKeyTx.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ModelsRegisterKeyTx` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!IndexertypesTokenFeeMeta.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `IndexertypesTokenFeeMeta` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       // ensure the optional json data is an array if present
-      if (jsonObj.get("newKey") != null && !jsonObj.get("newKey").isJsonNull() && !jsonObj.get("newKey").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `newKey` to be an array in the JSON string but got `%s`", jsonObj.get("newKey").toString()));
+      if (jsonObj.get("from") != null && !jsonObj.get("from").isJsonNull() && !jsonObj.get("from").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `from` to be an array in the JSON string but got `%s`", jsonObj.get("from").toString()));
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("processId") != null && !jsonObj.get("processId").isJsonNull() && !jsonObj.get("processId").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `processId` to be an array in the JSON string but got `%s`", jsonObj.get("processId").toString()));
+      if ((jsonObj.get("reference") != null && !jsonObj.get("reference").isJsonNull()) && !jsonObj.get("reference").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `reference` to be a primitive type in the JSON string but got `%s`", jsonObj.get("reference").toString()));
       }
-      // validate the optional field `proof`
-      if (jsonObj.get("proof") != null && !jsonObj.get("proof").isJsonNull()) {
-        ModelsProof.validateJsonElement(jsonObj.get("proof"));
+      if ((jsonObj.get("timestamp") != null && !jsonObj.get("timestamp").isJsonNull()) && !jsonObj.get("timestamp").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `timestamp` to be a primitive type in the JSON string but got `%s`", jsonObj.get("timestamp").toString()));
       }
-      if ((jsonObj.get("weight") != null && !jsonObj.get("weight").isJsonNull()) && !jsonObj.get("weight").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `weight` to be a primitive type in the JSON string but got `%s`", jsonObj.get("weight").toString()));
+      if ((jsonObj.get("txType") != null && !jsonObj.get("txType").isJsonNull()) && !jsonObj.get("txType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `txType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("txType").toString()));
       }
   }
 
@@ -303,22 +320,22 @@ public class ModelsRegisterKeyTx {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ModelsRegisterKeyTx.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ModelsRegisterKeyTx' and its subtypes
+       if (!IndexertypesTokenFeeMeta.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'IndexertypesTokenFeeMeta' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ModelsRegisterKeyTx> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ModelsRegisterKeyTx.class));
+       final TypeAdapter<IndexertypesTokenFeeMeta> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(IndexertypesTokenFeeMeta.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ModelsRegisterKeyTx>() {
+       return (TypeAdapter<T>) new TypeAdapter<IndexertypesTokenFeeMeta>() {
            @Override
-           public void write(JsonWriter out, ModelsRegisterKeyTx value) throws IOException {
+           public void write(JsonWriter out, IndexertypesTokenFeeMeta value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ModelsRegisterKeyTx read(JsonReader in) throws IOException {
+           public IndexertypesTokenFeeMeta read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -329,18 +346,18 @@ public class ModelsRegisterKeyTx {
   }
 
  /**
-  * Create an instance of ModelsRegisterKeyTx given an JSON string
+  * Create an instance of IndexertypesTokenFeeMeta given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ModelsRegisterKeyTx
-  * @throws IOException if the JSON string is invalid with respect to ModelsRegisterKeyTx
+  * @return An instance of IndexertypesTokenFeeMeta
+  * @throws IOException if the JSON string is invalid with respect to IndexertypesTokenFeeMeta
   */
-  public static ModelsRegisterKeyTx fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ModelsRegisterKeyTx.class);
+  public static IndexertypesTokenFeeMeta fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, IndexertypesTokenFeeMeta.class);
   }
 
  /**
-  * Convert an instance of ModelsRegisterKeyTx to an JSON string
+  * Convert an instance of IndexertypesTokenFeeMeta to an JSON string
   *
   * @return JSON string
   */

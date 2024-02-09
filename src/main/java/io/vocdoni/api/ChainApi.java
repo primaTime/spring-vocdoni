@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import io.vocdoni.model.AccountsCountGet200Response;
 import io.vocdoni.model.AccountsOrganizationIDElectionsCountGet200Response;
 import io.vocdoni.model.ApiBlock;
 import io.vocdoni.model.ApiChainInfo;
@@ -39,11 +40,10 @@ import io.vocdoni.model.ApiValidatorList;
 import java.math.BigDecimal;
 import io.vocdoni.model.ChainBlockToDateHeightGet200Response;
 import io.vocdoni.model.ChainDateToBlockTimestampGet200Response;
-import io.vocdoni.model.ChainOrganizationsCountGet200Response;
 import io.vocdoni.model.ChainOrganizationsFilterPagePagePost200Response;
 import io.vocdoni.model.ChainOrganizationsFilterPagePagePostRequest;
 import io.vocdoni.model.ChainTransactionsPostRequest;
-import io.vocdoni.model.CircuitZkCircuitConfig;
+import io.vocdoni.model.CircuitConfig;
 import io.vocdoni.model.ElectionpriceCalculator;
 import io.vocdoni.model.GenesisTransactionCosts;
 import io.vocdoni.model.IndexertypesTransaction;
@@ -780,7 +780,7 @@ public class ChainApi {
     /**
      * Circuit info
      * Returns the circuit configuration according to the current circuit
-     * @return CircuitZkCircuitConfig
+     * @return CircuitConfig
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -788,15 +788,15 @@ public class ChainApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public CircuitZkCircuitConfig chainInfoCircuitGet() throws ApiException {
-        ApiResponse<CircuitZkCircuitConfig> localVarResp = chainInfoCircuitGetWithHttpInfo();
+    public CircuitConfig chainInfoCircuitGet() throws ApiException {
+        ApiResponse<CircuitConfig> localVarResp = chainInfoCircuitGetWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * Circuit info
      * Returns the circuit configuration according to the current circuit
-     * @return ApiResponse&lt;CircuitZkCircuitConfig&gt;
+     * @return ApiResponse&lt;CircuitConfig&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -804,9 +804,9 @@ public class ChainApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CircuitZkCircuitConfig> chainInfoCircuitGetWithHttpInfo() throws ApiException {
+    public ApiResponse<CircuitConfig> chainInfoCircuitGetWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = chainInfoCircuitGetValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<CircuitZkCircuitConfig>(){}.getType();
+        Type localVarReturnType = new TypeToken<CircuitConfig>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -822,10 +822,10 @@ public class ChainApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call chainInfoCircuitGetAsync(final ApiCallback<CircuitZkCircuitConfig> _callback) throws ApiException {
+    public okhttp3.Call chainInfoCircuitGetAsync(final ApiCallback<CircuitConfig> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = chainInfoCircuitGetValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<CircuitZkCircuitConfig>(){}.getType();
+        Type localVarReturnType = new TypeToken<CircuitConfig>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1119,7 +1119,7 @@ public class ChainApi {
     /**
      * Count organizations
      * Return the number of organizations
-     * @return ChainOrganizationsCountGet200Response
+     * @return AccountsCountGet200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1127,15 +1127,15 @@ public class ChainApi {
         <tr><td> 200 </td><td> Number of registered organizations </td><td>  -  </td></tr>
      </table>
      */
-    public ChainOrganizationsCountGet200Response chainOrganizationsCountGet() throws ApiException {
-        ApiResponse<ChainOrganizationsCountGet200Response> localVarResp = chainOrganizationsCountGetWithHttpInfo();
+    public AccountsCountGet200Response chainOrganizationsCountGet() throws ApiException {
+        ApiResponse<AccountsCountGet200Response> localVarResp = chainOrganizationsCountGetWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * Count organizations
      * Return the number of organizations
-     * @return ApiResponse&lt;ChainOrganizationsCountGet200Response&gt;
+     * @return ApiResponse&lt;AccountsCountGet200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1143,9 +1143,9 @@ public class ChainApi {
         <tr><td> 200 </td><td> Number of registered organizations </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ChainOrganizationsCountGet200Response> chainOrganizationsCountGetWithHttpInfo() throws ApiException {
+    public ApiResponse<AccountsCountGet200Response> chainOrganizationsCountGetWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = chainOrganizationsCountGetValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<ChainOrganizationsCountGet200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1161,10 +1161,10 @@ public class ChainApi {
         <tr><td> 200 </td><td> Number of registered organizations </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call chainOrganizationsCountGetAsync(final ApiCallback<ChainOrganizationsCountGet200Response> _callback) throws ApiException {
+    public okhttp3.Call chainOrganizationsCountGetAsync(final ApiCallback<AccountsCountGet200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = chainOrganizationsCountGetValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<ChainOrganizationsCountGet200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

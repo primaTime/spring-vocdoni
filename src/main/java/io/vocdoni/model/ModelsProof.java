@@ -50,7 +50,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ModelsProof
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ModelsProof {
   public static final String SERIALIZED_NAME_PAYLOAD = "payload";
   @SerializedName(SERIALIZED_NAME_PAYLOAD)
@@ -66,7 +66,7 @@ public class ModelsProof {
   }
 
    /**
-   * Types that are assignable to Payload:   *Proof_Graviton  *Proof_Iden3  *Proof_EthereumStorage  *Proof_EthereumAccount  *Proof_Ca  *Proof_Arbo  *Proof_ZkSnark  *Proof_MinimeStorage
+   * Types that are assignable to Payload:   *Proof_EthereumStorage  *Proof_EthereumAccount  *Proof_Ca  *Proof_Arbo  *Proof_ZkSnark  *Proof_MinimeStorage
    * @return payload
   **/
   @javax.annotation.Nullable

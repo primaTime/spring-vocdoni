@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.ModelsTxType;
+import io.vocdoni.model.IndexertypesTokenTransferMeta;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,118 +50,76 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * ModelsMintTokensTx
+ * IndexertypesTokenTransfersAccount
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class ModelsMintTokensTx {
-  public static final String SERIALIZED_NAME_NONCE = "nonce";
-  @SerializedName(SERIALIZED_NAME_NONCE)
-  private Integer nonce;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class IndexertypesTokenTransfersAccount {
+  public static final String SERIALIZED_NAME_RECEIVED = "received";
+  @SerializedName(SERIALIZED_NAME_RECEIVED)
+  private List<IndexertypesTokenTransferMeta> received;
 
-  public static final String SERIALIZED_NAME_TO = "to";
-  @SerializedName(SERIALIZED_NAME_TO)
-  private List<Integer> to;
+  public static final String SERIALIZED_NAME_SENT = "sent";
+  @SerializedName(SERIALIZED_NAME_SENT)
+  private List<IndexertypesTokenTransferMeta> sent;
 
-  public static final String SERIALIZED_NAME_TXTYPE = "txtype";
-  @SerializedName(SERIALIZED_NAME_TXTYPE)
-  private ModelsTxType txtype;
-
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private Integer value;
-
-  public ModelsMintTokensTx() {
+  public IndexertypesTokenTransfersAccount() {
   }
 
-  public ModelsMintTokensTx nonce(Integer nonce) {
+  public IndexertypesTokenTransfersAccount received(List<IndexertypesTokenTransferMeta> received) {
     
-    this.nonce = nonce;
+    this.received = received;
     return this;
   }
 
-   /**
-   * Get nonce
-   * @return nonce
-  **/
-  @javax.annotation.Nullable
-  public Integer getNonce() {
-    return nonce;
-  }
-
-
-  public void setNonce(Integer nonce) {
-    this.nonce = nonce;
-  }
-
-
-  public ModelsMintTokensTx to(List<Integer> to) {
-    
-    this.to = to;
-    return this;
-  }
-
-  public ModelsMintTokensTx addToItem(Integer toItem) {
-    if (this.to == null) {
-      this.to = new ArrayList<>();
+  public IndexertypesTokenTransfersAccount addReceivedItem(IndexertypesTokenTransferMeta receivedItem) {
+    if (this.received == null) {
+      this.received = new ArrayList<>();
     }
-    this.to.add(toItem);
+    this.received.add(receivedItem);
     return this;
   }
 
    /**
-   * Get to
-   * @return to
+   * Get received
+   * @return received
   **/
   @javax.annotation.Nullable
-  public List<Integer> getTo() {
-    return to;
+  public List<IndexertypesTokenTransferMeta> getReceived() {
+    return received;
   }
 
 
-  public void setTo(List<Integer> to) {
-    this.to = to;
+  public void setReceived(List<IndexertypesTokenTransferMeta> received) {
+    this.received = received;
   }
 
 
-  public ModelsMintTokensTx txtype(ModelsTxType txtype) {
+  public IndexertypesTokenTransfersAccount sent(List<IndexertypesTokenTransferMeta> sent) {
     
-    this.txtype = txtype;
+    this.sent = sent;
+    return this;
+  }
+
+  public IndexertypesTokenTransfersAccount addSentItem(IndexertypesTokenTransferMeta sentItem) {
+    if (this.sent == null) {
+      this.sent = new ArrayList<>();
+    }
+    this.sent.add(sentItem);
     return this;
   }
 
    /**
-   * Get txtype
-   * @return txtype
+   * Get sent
+   * @return sent
   **/
   @javax.annotation.Nullable
-  public ModelsTxType getTxtype() {
-    return txtype;
+  public List<IndexertypesTokenTransferMeta> getSent() {
+    return sent;
   }
 
 
-  public void setTxtype(ModelsTxType txtype) {
-    this.txtype = txtype;
-  }
-
-
-  public ModelsMintTokensTx value(Integer value) {
-    
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * Get value
-   * @return value
-  **/
-  @javax.annotation.Nullable
-  public Integer getValue() {
-    return value;
-  }
-
-
-  public void setValue(Integer value) {
-    this.value = value;
+  public void setSent(List<IndexertypesTokenTransferMeta> sent) {
+    this.sent = sent;
   }
 
 
@@ -174,26 +132,22 @@ public class ModelsMintTokensTx {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelsMintTokensTx modelsMintTokensTx = (ModelsMintTokensTx) o;
-    return Objects.equals(this.nonce, modelsMintTokensTx.nonce) &&
-        Objects.equals(this.to, modelsMintTokensTx.to) &&
-        Objects.equals(this.txtype, modelsMintTokensTx.txtype) &&
-        Objects.equals(this.value, modelsMintTokensTx.value);
+    IndexertypesTokenTransfersAccount indexertypesTokenTransfersAccount = (IndexertypesTokenTransfersAccount) o;
+    return Objects.equals(this.received, indexertypesTokenTransfersAccount.received) &&
+        Objects.equals(this.sent, indexertypesTokenTransfersAccount.sent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nonce, to, txtype, value);
+    return Objects.hash(received, sent);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelsMintTokensTx {\n");
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
-    sb.append("    to: ").append(toIndentedString(to)).append("\n");
-    sb.append("    txtype: ").append(toIndentedString(txtype)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class IndexertypesTokenTransfersAccount {\n");
+    sb.append("    received: ").append(toIndentedString(received)).append("\n");
+    sb.append("    sent: ").append(toIndentedString(sent)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -216,10 +170,8 @@ public class ModelsMintTokensTx {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("nonce");
-    openapiFields.add("to");
-    openapiFields.add("txtype");
-    openapiFields.add("value");
+    openapiFields.add("received");
+    openapiFields.add("sent");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -229,26 +181,50 @@ public class ModelsMintTokensTx {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ModelsMintTokensTx
+  * @throws IOException if the JSON Element is invalid with respect to IndexertypesTokenTransfersAccount
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!ModelsMintTokensTx.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ModelsMintTokensTx is not found in the empty JSON string", ModelsMintTokensTx.openapiRequiredFields.toString()));
+        if (!IndexertypesTokenTransfersAccount.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in IndexertypesTokenTransfersAccount is not found in the empty JSON string", IndexertypesTokenTransfersAccount.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ModelsMintTokensTx.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ModelsMintTokensTx` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!IndexertypesTokenTransfersAccount.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `IndexertypesTokenTransfersAccount` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("to") != null && !jsonObj.get("to").isJsonNull() && !jsonObj.get("to").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `to` to be an array in the JSON string but got `%s`", jsonObj.get("to").toString()));
+      if (jsonObj.get("received") != null && !jsonObj.get("received").isJsonNull()) {
+        JsonArray jsonArrayreceived = jsonObj.getAsJsonArray("received");
+        if (jsonArrayreceived != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("received").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `received` to be an array in the JSON string but got `%s`", jsonObj.get("received").toString()));
+          }
+
+          // validate the optional field `received` (array)
+          for (int i = 0; i < jsonArrayreceived.size(); i++) {
+            IndexertypesTokenTransferMeta.validateJsonElement(jsonArrayreceived.get(i));
+          };
+        }
+      }
+      if (jsonObj.get("sent") != null && !jsonObj.get("sent").isJsonNull()) {
+        JsonArray jsonArraysent = jsonObj.getAsJsonArray("sent");
+        if (jsonArraysent != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("sent").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `sent` to be an array in the JSON string but got `%s`", jsonObj.get("sent").toString()));
+          }
+
+          // validate the optional field `sent` (array)
+          for (int i = 0; i < jsonArraysent.size(); i++) {
+            IndexertypesTokenTransferMeta.validateJsonElement(jsonArraysent.get(i));
+          };
+        }
       }
   }
 
@@ -256,22 +232,22 @@ public class ModelsMintTokensTx {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ModelsMintTokensTx.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ModelsMintTokensTx' and its subtypes
+       if (!IndexertypesTokenTransfersAccount.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'IndexertypesTokenTransfersAccount' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ModelsMintTokensTx> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ModelsMintTokensTx.class));
+       final TypeAdapter<IndexertypesTokenTransfersAccount> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(IndexertypesTokenTransfersAccount.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<ModelsMintTokensTx>() {
+       return (TypeAdapter<T>) new TypeAdapter<IndexertypesTokenTransfersAccount>() {
            @Override
-           public void write(JsonWriter out, ModelsMintTokensTx value) throws IOException {
+           public void write(JsonWriter out, IndexertypesTokenTransfersAccount value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public ModelsMintTokensTx read(JsonReader in) throws IOException {
+           public IndexertypesTokenTransfersAccount read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -282,18 +258,18 @@ public class ModelsMintTokensTx {
   }
 
  /**
-  * Create an instance of ModelsMintTokensTx given an JSON string
+  * Create an instance of IndexertypesTokenTransfersAccount given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of ModelsMintTokensTx
-  * @throws IOException if the JSON string is invalid with respect to ModelsMintTokensTx
+  * @return An instance of IndexertypesTokenTransfersAccount
+  * @throws IOException if the JSON string is invalid with respect to IndexertypesTokenTransfersAccount
   */
-  public static ModelsMintTokensTx fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ModelsMintTokensTx.class);
+  public static IndexertypesTokenTransfersAccount fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, IndexertypesTokenTransfersAccount.class);
   }
 
  /**
-  * Convert an instance of ModelsMintTokensTx to an JSON string
+  * Convert an instance of IndexertypesTokenTransfersAccount to an JSON string
   *
   * @return JSON string
   */

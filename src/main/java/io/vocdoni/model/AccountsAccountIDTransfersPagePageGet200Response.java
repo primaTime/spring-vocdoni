@@ -19,11 +19,9 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.vocdoni.model.IndexertypesTokenTransferMeta;
+import io.vocdoni.model.IndexertypesTokenTransfersAccount;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,26 +50,18 @@ import io.vocdoni.invoker.JSON;
 /**
  * AccountsAccountIDTransfersPagePageGet200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class AccountsAccountIDTransfersPagePageGet200Response {
   public static final String SERIALIZED_NAME_TRANSFERS = "transfers";
   @SerializedName(SERIALIZED_NAME_TRANSFERS)
-  private List<IndexertypesTokenTransferMeta> transfers;
+  private IndexertypesTokenTransfersAccount transfers;
 
   public AccountsAccountIDTransfersPagePageGet200Response() {
   }
 
-  public AccountsAccountIDTransfersPagePageGet200Response transfers(List<IndexertypesTokenTransferMeta> transfers) {
+  public AccountsAccountIDTransfersPagePageGet200Response transfers(IndexertypesTokenTransfersAccount transfers) {
     
     this.transfers = transfers;
-    return this;
-  }
-
-  public AccountsAccountIDTransfersPagePageGet200Response addTransfersItem(IndexertypesTokenTransferMeta transfersItem) {
-    if (this.transfers == null) {
-      this.transfers = new ArrayList<>();
-    }
-    this.transfers.add(transfersItem);
     return this;
   }
 
@@ -80,12 +70,12 @@ public class AccountsAccountIDTransfersPagePageGet200Response {
    * @return transfers
   **/
   @javax.annotation.Nullable
-  public List<IndexertypesTokenTransferMeta> getTransfers() {
+  public IndexertypesTokenTransfersAccount getTransfers() {
     return transfers;
   }
 
 
-  public void setTransfers(List<IndexertypesTokenTransferMeta> transfers) {
+  public void setTransfers(IndexertypesTokenTransfersAccount transfers) {
     this.transfers = transfers;
   }
 
@@ -162,19 +152,9 @@ public class AccountsAccountIDTransfersPagePageGet200Response {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // validate the optional field `transfers`
       if (jsonObj.get("transfers") != null && !jsonObj.get("transfers").isJsonNull()) {
-        JsonArray jsonArraytransfers = jsonObj.getAsJsonArray("transfers");
-        if (jsonArraytransfers != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("transfers").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `transfers` to be an array in the JSON string but got `%s`", jsonObj.get("transfers").toString()));
-          }
-
-          // validate the optional field `transfers` (array)
-          for (int i = 0; i < jsonArraytransfers.size(); i++) {
-            IndexertypesTokenTransferMeta.validateJsonElement(jsonArraytransfers.get(i));
-          };
-        }
+        IndexertypesTokenTransfersAccount.validateJsonElement(jsonObj.get("transfers"));
       }
   }
 

@@ -145,10 +145,13 @@ public class VocdoniClientTest {
         FaucetPackageResponse faucetPackage = vocdoniClient.fetchFaucetPackage(FIRST_ACTOR.getAddress());
         vocdoniClient.createAccount(FIRST_ACTOR.getAddress(), faucetPackage.faucetPackage(), accountMetadata);
 
+        FaucetPackageResponse receiverFaucetPackage = vocdoniClient.fetchFaucetPackage(SECOND_ACTOR.getAddress());
+        vocdoniClient.createAccount(SECOND_ACTOR.getAddress(), receiverFaucetPackage.faucetPackage(), accountMetadata);
+
         Thread.sleep(15000);
 
         TransactionResponse transactionResponse =
-                vocdoniClient.transferTokens(FIRST_ACTOR.getAddress(), "75f7adba921facbe1d6bc4acad530051487a337b", 10);
+                vocdoniClient.transferTokens(FIRST_ACTOR.getAddress(), SECOND_ACTOR.getAddress(), 10);
         vocdoniClient.waitForTransaction(transactionResponse.txHash());
     }
 }

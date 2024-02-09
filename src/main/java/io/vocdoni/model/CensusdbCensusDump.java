@@ -52,8 +52,12 @@ import io.vocdoni.invoker.JSON;
 /**
  * CensusdbCensusDump
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class CensusdbCensusDump {
+  public static final String SERIALIZED_NAME_CENSUS_I_D = "censusID";
+  @SerializedName(SERIALIZED_NAME_CENSUS_I_D)
+  private String censusID;
+
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
   private List<Integer> data;
@@ -64,14 +68,47 @@ public class CensusdbCensusDump {
 
   public static final String SERIALIZED_NAME_ROOT_HASH = "rootHash";
   @SerializedName(SERIALIZED_NAME_ROOT_HASH)
-  private List<Integer> rootHash;
+  private String rootHash;
+
+  public static final String SERIALIZED_NAME_SIZE = "size";
+  @SerializedName(SERIALIZED_NAME_SIZE)
+  private Integer size;
+
+  public static final String SERIALIZED_NAME_TOKEN = "token";
+  @SerializedName(SERIALIZED_NAME_TOKEN)
+  private String token;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
   private ModelsCensusType type;
 
+  public static final String SERIALIZED_NAME_URI = "uri";
+  @SerializedName(SERIALIZED_NAME_URI)
+  private String uri;
+
   public CensusdbCensusDump() {
   }
+
+  public CensusdbCensusDump censusID(String censusID) {
+    
+    this.censusID = censusID;
+    return this;
+  }
+
+   /**
+   * Get censusID
+   * @return censusID
+  **/
+  @javax.annotation.Nullable
+  public String getCensusID() {
+    return censusID;
+  }
+
+
+  public void setCensusID(String censusID) {
+    this.censusID = censusID;
+  }
+
 
   public CensusdbCensusDump data(List<Integer> data) {
     
@@ -123,17 +160,9 @@ public class CensusdbCensusDump {
   }
 
 
-  public CensusdbCensusDump rootHash(List<Integer> rootHash) {
+  public CensusdbCensusDump rootHash(String rootHash) {
     
     this.rootHash = rootHash;
-    return this;
-  }
-
-  public CensusdbCensusDump addRootHashItem(Integer rootHashItem) {
-    if (this.rootHash == null) {
-      this.rootHash = new ArrayList<>();
-    }
-    this.rootHash.add(rootHashItem);
     return this;
   }
 
@@ -142,13 +171,55 @@ public class CensusdbCensusDump {
    * @return rootHash
   **/
   @javax.annotation.Nullable
-  public List<Integer> getRootHash() {
+  public String getRootHash() {
     return rootHash;
   }
 
 
-  public void setRootHash(List<Integer> rootHash) {
+  public void setRootHash(String rootHash) {
     this.rootHash = rootHash;
+  }
+
+
+  public CensusdbCensusDump size(Integer size) {
+    
+    this.size = size;
+    return this;
+  }
+
+   /**
+   * Get size
+   * @return size
+  **/
+  @javax.annotation.Nullable
+  public Integer getSize() {
+    return size;
+  }
+
+
+  public void setSize(Integer size) {
+    this.size = size;
+  }
+
+
+  public CensusdbCensusDump token(String token) {
+    
+    this.token = token;
+    return this;
+  }
+
+   /**
+   * Get token
+   * @return token
+  **/
+  @javax.annotation.Nullable
+  public String getToken() {
+    return token;
+  }
+
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
 
@@ -173,6 +244,27 @@ public class CensusdbCensusDump {
   }
 
 
+  public CensusdbCensusDump uri(String uri) {
+    
+    this.uri = uri;
+    return this;
+  }
+
+   /**
+   * Get uri
+   * @return uri
+  **/
+  @javax.annotation.Nullable
+  public String getUri() {
+    return uri;
+  }
+
+
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -183,25 +275,33 @@ public class CensusdbCensusDump {
       return false;
     }
     CensusdbCensusDump censusdbCensusDump = (CensusdbCensusDump) o;
-    return Objects.equals(this.data, censusdbCensusDump.data) &&
+    return Objects.equals(this.censusID, censusdbCensusDump.censusID) &&
+        Objects.equals(this.data, censusdbCensusDump.data) &&
         Objects.equals(this.maxLevels, censusdbCensusDump.maxLevels) &&
         Objects.equals(this.rootHash, censusdbCensusDump.rootHash) &&
-        Objects.equals(this.type, censusdbCensusDump.type);
+        Objects.equals(this.size, censusdbCensusDump.size) &&
+        Objects.equals(this.token, censusdbCensusDump.token) &&
+        Objects.equals(this.type, censusdbCensusDump.type) &&
+        Objects.equals(this.uri, censusdbCensusDump.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, maxLevels, rootHash, type);
+    return Objects.hash(censusID, data, maxLevels, rootHash, size, token, type, uri);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CensusdbCensusDump {\n");
+    sb.append("    censusID: ").append(toIndentedString(censusID)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    maxLevels: ").append(toIndentedString(maxLevels)).append("\n");
     sb.append("    rootHash: ").append(toIndentedString(rootHash)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -224,10 +324,14 @@ public class CensusdbCensusDump {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("censusID");
     openapiFields.add("data");
     openapiFields.add("maxLevels");
     openapiFields.add("rootHash");
+    openapiFields.add("size");
+    openapiFields.add("token");
     openapiFields.add("type");
+    openapiFields.add("uri");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -254,13 +358,21 @@ public class CensusdbCensusDump {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("censusID") != null && !jsonObj.get("censusID").isJsonNull()) && !jsonObj.get("censusID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `censusID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusID").toString()));
+      }
       // ensure the optional json data is an array if present
       if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull() && !jsonObj.get("data").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `data` to be an array in the JSON string but got `%s`", jsonObj.get("data").toString()));
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("rootHash") != null && !jsonObj.get("rootHash").isJsonNull() && !jsonObj.get("rootHash").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `rootHash` to be an array in the JSON string but got `%s`", jsonObj.get("rootHash").toString()));
+      if ((jsonObj.get("rootHash") != null && !jsonObj.get("rootHash").isJsonNull()) && !jsonObj.get("rootHash").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `rootHash` to be a primitive type in the JSON string but got `%s`", jsonObj.get("rootHash").toString()));
+      }
+      if ((jsonObj.get("token") != null && !jsonObj.get("token").isJsonNull()) && !jsonObj.get("token").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `token` to be a primitive type in the JSON string but got `%s`", jsonObj.get("token").toString()));
+      }
+      if ((jsonObj.get("uri") != null && !jsonObj.get("uri").isJsonNull()) && !jsonObj.get("uri").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `uri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uri").toString()));
       }
   }
 

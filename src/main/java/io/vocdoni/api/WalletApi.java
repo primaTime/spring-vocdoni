@@ -144,7 +144,7 @@ public class WalletApi {
 
     /**
      * Add account
-     * Add a new account to the local store. It return a token used to manage this account on the future.
+     * Add a new account to the local store. It returns a token used to manage this account on the future.
      * @param privateKey Private key to add (required)
      * @return WalletAddPrivateKeyPost200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -161,7 +161,7 @@ public class WalletApi {
 
     /**
      * Add account
-     * Add a new account to the local store. It return a token used to manage this account on the future.
+     * Add a new account to the local store. It returns a token used to manage this account on the future.
      * @param privateKey Private key to add (required)
      * @return ApiResponse&lt;WalletAddPrivateKeyPost200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -179,7 +179,7 @@ public class WalletApi {
 
     /**
      * Add account (asynchronously)
-     * Add a new account to the local store. It return a token used to manage this account on the future.
+     * Add a new account to the local store. It returns a token used to manage this account on the future.
      * @param privateKey Private key to add (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call

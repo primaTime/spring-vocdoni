@@ -38,11 +38,7 @@ public enum ModelsCensusType {
   
   Census_ETHEREUMACCOUNT(4),
   
-  Census_CA(5),
-  
-  Census_GRAVITON(1001),
-  
-  Census_IDEN3(1002);
+  Census_CA(5);
 
   private Integer value;
 

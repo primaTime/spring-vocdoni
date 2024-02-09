@@ -49,11 +49,15 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiValidator
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiValidator {
   public static final String SERIALIZED_NAME_ADDRESS = "address";
   @SerializedName(SERIALIZED_NAME_ADDRESS)
   private String address;
+
+  public static final String SERIALIZED_NAME_JOIN_HEIGHT = "joinHeight";
+  @SerializedName(SERIALIZED_NAME_JOIN_HEIGHT)
+  private Integer joinHeight;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -63,9 +67,25 @@ public class ApiValidator {
   @SerializedName(SERIALIZED_NAME_POWER)
   private Integer power;
 
+  public static final String SERIALIZED_NAME_PROPOSALS = "proposals";
+  @SerializedName(SERIALIZED_NAME_PROPOSALS)
+  private Integer proposals;
+
   public static final String SERIALIZED_NAME_PUB_KEY = "pubKey";
   @SerializedName(SERIALIZED_NAME_PUB_KEY)
   private String pubKey;
+
+  public static final String SERIALIZED_NAME_SCORE = "score";
+  @SerializedName(SERIALIZED_NAME_SCORE)
+  private Integer score;
+
+  public static final String SERIALIZED_NAME_VALIDATOR_ADDRESS = "validatorAddress";
+  @SerializedName(SERIALIZED_NAME_VALIDATOR_ADDRESS)
+  private String validatorAddress;
+
+  public static final String SERIALIZED_NAME_VOTES = "votes";
+  @SerializedName(SERIALIZED_NAME_VOTES)
+  private Integer votes;
 
   public ApiValidator() {
   }
@@ -88,6 +108,27 @@ public class ApiValidator {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+
+  public ApiValidator joinHeight(Integer joinHeight) {
+    
+    this.joinHeight = joinHeight;
+    return this;
+  }
+
+   /**
+   * Get joinHeight
+   * @return joinHeight
+  **/
+  @javax.annotation.Nullable
+  public Integer getJoinHeight() {
+    return joinHeight;
+  }
+
+
+  public void setJoinHeight(Integer joinHeight) {
+    this.joinHeight = joinHeight;
   }
 
 
@@ -133,6 +174,27 @@ public class ApiValidator {
   }
 
 
+  public ApiValidator proposals(Integer proposals) {
+    
+    this.proposals = proposals;
+    return this;
+  }
+
+   /**
+   * Get proposals
+   * @return proposals
+  **/
+  @javax.annotation.Nullable
+  public Integer getProposals() {
+    return proposals;
+  }
+
+
+  public void setProposals(Integer proposals) {
+    this.proposals = proposals;
+  }
+
+
   public ApiValidator pubKey(String pubKey) {
     
     this.pubKey = pubKey;
@@ -154,6 +216,69 @@ public class ApiValidator {
   }
 
 
+  public ApiValidator score(Integer score) {
+    
+    this.score = score;
+    return this;
+  }
+
+   /**
+   * Get score
+   * @return score
+  **/
+  @javax.annotation.Nullable
+  public Integer getScore() {
+    return score;
+  }
+
+
+  public void setScore(Integer score) {
+    this.score = score;
+  }
+
+
+  public ApiValidator validatorAddress(String validatorAddress) {
+    
+    this.validatorAddress = validatorAddress;
+    return this;
+  }
+
+   /**
+   * Get validatorAddress
+   * @return validatorAddress
+  **/
+  @javax.annotation.Nullable
+  public String getValidatorAddress() {
+    return validatorAddress;
+  }
+
+
+  public void setValidatorAddress(String validatorAddress) {
+    this.validatorAddress = validatorAddress;
+  }
+
+
+  public ApiValidator votes(Integer votes) {
+    
+    this.votes = votes;
+    return this;
+  }
+
+   /**
+   * Get votes
+   * @return votes
+  **/
+  @javax.annotation.Nullable
+  public Integer getVotes() {
+    return votes;
+  }
+
+
+  public void setVotes(Integer votes) {
+    this.votes = votes;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -165,14 +290,19 @@ public class ApiValidator {
     }
     ApiValidator apiValidator = (ApiValidator) o;
     return Objects.equals(this.address, apiValidator.address) &&
+        Objects.equals(this.joinHeight, apiValidator.joinHeight) &&
         Objects.equals(this.name, apiValidator.name) &&
         Objects.equals(this.power, apiValidator.power) &&
-        Objects.equals(this.pubKey, apiValidator.pubKey);
+        Objects.equals(this.proposals, apiValidator.proposals) &&
+        Objects.equals(this.pubKey, apiValidator.pubKey) &&
+        Objects.equals(this.score, apiValidator.score) &&
+        Objects.equals(this.validatorAddress, apiValidator.validatorAddress) &&
+        Objects.equals(this.votes, apiValidator.votes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, name, power, pubKey);
+    return Objects.hash(address, joinHeight, name, power, proposals, pubKey, score, validatorAddress, votes);
   }
 
   @Override
@@ -180,9 +310,14 @@ public class ApiValidator {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiValidator {\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    joinHeight: ").append(toIndentedString(joinHeight)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    power: ").append(toIndentedString(power)).append("\n");
+    sb.append("    proposals: ").append(toIndentedString(proposals)).append("\n");
     sb.append("    pubKey: ").append(toIndentedString(pubKey)).append("\n");
+    sb.append("    score: ").append(toIndentedString(score)).append("\n");
+    sb.append("    validatorAddress: ").append(toIndentedString(validatorAddress)).append("\n");
+    sb.append("    votes: ").append(toIndentedString(votes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -206,9 +341,14 @@ public class ApiValidator {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("address");
+    openapiFields.add("joinHeight");
     openapiFields.add("name");
     openapiFields.add("power");
+    openapiFields.add("proposals");
     openapiFields.add("pubKey");
+    openapiFields.add("score");
+    openapiFields.add("validatorAddress");
+    openapiFields.add("votes");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -243,6 +383,9 @@ public class ApiValidator {
       }
       if ((jsonObj.get("pubKey") != null && !jsonObj.get("pubKey").isJsonNull()) && !jsonObj.get("pubKey").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `pubKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("pubKey").toString()));
+      }
+      if ((jsonObj.get("validatorAddress") != null && !jsonObj.get("validatorAddress").isJsonNull()) && !jsonObj.get("validatorAddress").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `validatorAddress` to be a primitive type in the JSON string but got `%s`", jsonObj.get("validatorAddress").toString()));
       }
   }
 

@@ -43,7 +43,7 @@ public class VocdoniTestConfiguration {
                 throw new RuntimeException("Unknown wallet address: " + walletAddress);
             }
 
-            return VocdoniUtils.signTransaction(keyPair, message, tx, "vocdoni/STAGE/9");
+            return VocdoniUtils.signTransaction(keyPair, message, tx, "vocdoni/STAGE/10");
         };
     }
 }

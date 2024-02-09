@@ -47,35 +47,35 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * CensusesCensusIDWeightGet200Response
+ * ElectionsIdPost200Response
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
-public class CensusesCensusIDWeightGet200Response {
-  public static final String SERIALIZED_NAME_WEIGHT = "weight";
-  @SerializedName(SERIALIZED_NAME_WEIGHT)
-  private String weight;
+public class ElectionsIdPost200Response {
+  public static final String SERIALIZED_NAME_ELECTION_I_D = "electionID";
+  @SerializedName(SERIALIZED_NAME_ELECTION_I_D)
+  private String electionID;
 
-  public CensusesCensusIDWeightGet200Response() {
+  public ElectionsIdPost200Response() {
   }
 
-  public CensusesCensusIDWeightGet200Response weight(String weight) {
+  public ElectionsIdPost200Response electionID(String electionID) {
     
-    this.weight = weight;
+    this.electionID = electionID;
     return this;
   }
 
    /**
-   * Get weight
-   * @return weight
+   * Get electionID
+   * @return electionID
   **/
   @javax.annotation.Nullable
-  public String getWeight() {
-    return weight;
+  public String getElectionID() {
+    return electionID;
   }
 
 
-  public void setWeight(String weight) {
-    this.weight = weight;
+  public void setElectionID(String electionID) {
+    this.electionID = electionID;
   }
 
 
@@ -88,20 +88,20 @@ public class CensusesCensusIDWeightGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CensusesCensusIDWeightGet200Response censusesCensusIDWeightGet200Response = (CensusesCensusIDWeightGet200Response) o;
-    return Objects.equals(this.weight, censusesCensusIDWeightGet200Response.weight);
+    ElectionsIdPost200Response electionsIdPost200Response = (ElectionsIdPost200Response) o;
+    return Objects.equals(this.electionID, electionsIdPost200Response.electionID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(weight);
+    return Objects.hash(electionID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CensusesCensusIDWeightGet200Response {\n");
-    sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
+    sb.append("class ElectionsIdPost200Response {\n");
+    sb.append("    electionID: ").append(toIndentedString(electionID)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -124,7 +124,7 @@ public class CensusesCensusIDWeightGet200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("weight");
+    openapiFields.add("electionID");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -134,25 +134,25 @@ public class CensusesCensusIDWeightGet200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CensusesCensusIDWeightGet200Response
+  * @throws IOException if the JSON Element is invalid with respect to ElectionsIdPost200Response
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CensusesCensusIDWeightGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesCensusIDWeightGet200Response is not found in the empty JSON string", CensusesCensusIDWeightGet200Response.openapiRequiredFields.toString()));
+        if (!ElectionsIdPost200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ElectionsIdPost200Response is not found in the empty JSON string", ElectionsIdPost200Response.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CensusesCensusIDWeightGet200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesCensusIDWeightGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!ElectionsIdPost200Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ElectionsIdPost200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("weight") != null && !jsonObj.get("weight").isJsonNull()) && !jsonObj.get("weight").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `weight` to be a primitive type in the JSON string but got `%s`", jsonObj.get("weight").toString()));
+      if ((jsonObj.get("electionID") != null && !jsonObj.get("electionID").isJsonNull()) && !jsonObj.get("electionID").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `electionID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("electionID").toString()));
       }
   }
 
@@ -160,22 +160,22 @@ public class CensusesCensusIDWeightGet200Response {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CensusesCensusIDWeightGet200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CensusesCensusIDWeightGet200Response' and its subtypes
+       if (!ElectionsIdPost200Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ElectionsIdPost200Response' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CensusesCensusIDWeightGet200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesCensusIDWeightGet200Response.class));
+       final TypeAdapter<ElectionsIdPost200Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ElectionsIdPost200Response.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CensusesCensusIDWeightGet200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<ElectionsIdPost200Response>() {
            @Override
-           public void write(JsonWriter out, CensusesCensusIDWeightGet200Response value) throws IOException {
+           public void write(JsonWriter out, ElectionsIdPost200Response value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CensusesCensusIDWeightGet200Response read(JsonReader in) throws IOException {
+           public ElectionsIdPost200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +186,18 @@ public class CensusesCensusIDWeightGet200Response {
   }
 
  /**
-  * Create an instance of CensusesCensusIDWeightGet200Response given an JSON string
+  * Create an instance of ElectionsIdPost200Response given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CensusesCensusIDWeightGet200Response
-  * @throws IOException if the JSON string is invalid with respect to CensusesCensusIDWeightGet200Response
+  * @return An instance of ElectionsIdPost200Response
+  * @throws IOException if the JSON string is invalid with respect to ElectionsIdPost200Response
   */
-  public static CensusesCensusIDWeightGet200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CensusesCensusIDWeightGet200Response.class);
+  public static ElectionsIdPost200Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ElectionsIdPost200Response.class);
   }
 
  /**
-  * Convert an instance of CensusesCensusIDWeightGet200Response to an JSON string
+  * Convert an instance of ElectionsIdPost200Response to an JSON string
   *
   * @return JSON string
   */

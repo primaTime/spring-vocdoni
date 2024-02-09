@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.vocdoni.model.ApiNextElectionIDEnvelopeType;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -47,35 +48,85 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * AccountsTreasurerGet200Response
+ * ApiNextElectionID
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class AccountsTreasurerGet200Response {
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
-  private String address;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class ApiNextElectionID {
+  public static final String SERIALIZED_NAME_CENSUS_ORIGIN = "censusOrigin";
+  @SerializedName(SERIALIZED_NAME_CENSUS_ORIGIN)
+  private Integer censusOrigin;
 
-  public AccountsTreasurerGet200Response() {
+  public static final String SERIALIZED_NAME_ENVELOPE_TYPE = "envelopeType";
+  @SerializedName(SERIALIZED_NAME_ENVELOPE_TYPE)
+  private ApiNextElectionIDEnvelopeType envelopeType;
+
+  public static final String SERIALIZED_NAME_ORGANIZATION_ID = "organizationId";
+  @SerializedName(SERIALIZED_NAME_ORGANIZATION_ID)
+  private String organizationId;
+
+  public ApiNextElectionID() {
   }
 
-  public AccountsTreasurerGet200Response address(String address) {
+  public ApiNextElectionID censusOrigin(Integer censusOrigin) {
     
-    this.address = address;
+    this.censusOrigin = censusOrigin;
     return this;
   }
 
    /**
-   * Get address
-   * @return address
+   * Get censusOrigin
+   * @return censusOrigin
   **/
   @javax.annotation.Nullable
-  public String getAddress() {
-    return address;
+  public Integer getCensusOrigin() {
+    return censusOrigin;
   }
 
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setCensusOrigin(Integer censusOrigin) {
+    this.censusOrigin = censusOrigin;
+  }
+
+
+  public ApiNextElectionID envelopeType(ApiNextElectionIDEnvelopeType envelopeType) {
+    
+    this.envelopeType = envelopeType;
+    return this;
+  }
+
+   /**
+   * Get envelopeType
+   * @return envelopeType
+  **/
+  @javax.annotation.Nullable
+  public ApiNextElectionIDEnvelopeType getEnvelopeType() {
+    return envelopeType;
+  }
+
+
+  public void setEnvelopeType(ApiNextElectionIDEnvelopeType envelopeType) {
+    this.envelopeType = envelopeType;
+  }
+
+
+  public ApiNextElectionID organizationId(String organizationId) {
+    
+    this.organizationId = organizationId;
+    return this;
+  }
+
+   /**
+   * Get organizationId
+   * @return organizationId
+  **/
+  @javax.annotation.Nullable
+  public String getOrganizationId() {
+    return organizationId;
+  }
+
+
+  public void setOrganizationId(String organizationId) {
+    this.organizationId = organizationId;
   }
 
 
@@ -88,20 +139,24 @@ public class AccountsTreasurerGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountsTreasurerGet200Response accountsTreasurerGet200Response = (AccountsTreasurerGet200Response) o;
-    return Objects.equals(this.address, accountsTreasurerGet200Response.address);
+    ApiNextElectionID apiNextElectionID = (ApiNextElectionID) o;
+    return Objects.equals(this.censusOrigin, apiNextElectionID.censusOrigin) &&
+        Objects.equals(this.envelopeType, apiNextElectionID.envelopeType) &&
+        Objects.equals(this.organizationId, apiNextElectionID.organizationId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address);
+    return Objects.hash(censusOrigin, envelopeType, organizationId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountsTreasurerGet200Response {\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("class ApiNextElectionID {\n");
+    sb.append("    censusOrigin: ").append(toIndentedString(censusOrigin)).append("\n");
+    sb.append("    envelopeType: ").append(toIndentedString(envelopeType)).append("\n");
+    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -124,7 +179,9 @@ public class AccountsTreasurerGet200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("address");
+    openapiFields.add("censusOrigin");
+    openapiFields.add("envelopeType");
+    openapiFields.add("organizationId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -134,25 +191,29 @@ public class AccountsTreasurerGet200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to AccountsTreasurerGet200Response
+  * @throws IOException if the JSON Element is invalid with respect to ApiNextElectionID
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!AccountsTreasurerGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in AccountsTreasurerGet200Response is not found in the empty JSON string", AccountsTreasurerGet200Response.openapiRequiredFields.toString()));
+        if (!ApiNextElectionID.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ApiNextElectionID is not found in the empty JSON string", ApiNextElectionID.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!AccountsTreasurerGet200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AccountsTreasurerGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!ApiNextElectionID.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ApiNextElectionID` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("address") != null && !jsonObj.get("address").isJsonNull()) && !jsonObj.get("address").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `address` to be a primitive type in the JSON string but got `%s`", jsonObj.get("address").toString()));
+      // validate the optional field `envelopeType`
+      if (jsonObj.get("envelopeType") != null && !jsonObj.get("envelopeType").isJsonNull()) {
+        ApiNextElectionIDEnvelopeType.validateJsonElement(jsonObj.get("envelopeType"));
+      }
+      if ((jsonObj.get("organizationId") != null && !jsonObj.get("organizationId").isJsonNull()) && !jsonObj.get("organizationId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `organizationId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organizationId").toString()));
       }
   }
 
@@ -160,22 +221,22 @@ public class AccountsTreasurerGet200Response {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!AccountsTreasurerGet200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'AccountsTreasurerGet200Response' and its subtypes
+       if (!ApiNextElectionID.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ApiNextElectionID' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<AccountsTreasurerGet200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(AccountsTreasurerGet200Response.class));
+       final TypeAdapter<ApiNextElectionID> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ApiNextElectionID.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<AccountsTreasurerGet200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<ApiNextElectionID>() {
            @Override
-           public void write(JsonWriter out, AccountsTreasurerGet200Response value) throws IOException {
+           public void write(JsonWriter out, ApiNextElectionID value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public AccountsTreasurerGet200Response read(JsonReader in) throws IOException {
+           public ApiNextElectionID read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +247,18 @@ public class AccountsTreasurerGet200Response {
   }
 
  /**
-  * Create an instance of AccountsTreasurerGet200Response given an JSON string
+  * Create an instance of ApiNextElectionID given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of AccountsTreasurerGet200Response
-  * @throws IOException if the JSON string is invalid with respect to AccountsTreasurerGet200Response
+  * @return An instance of ApiNextElectionID
+  * @throws IOException if the JSON string is invalid with respect to ApiNextElectionID
   */
-  public static AccountsTreasurerGet200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, AccountsTreasurerGet200Response.class);
+  public static ApiNextElectionID fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ApiNextElectionID.class);
   }
 
  /**
-  * Convert an instance of AccountsTreasurerGet200Response to an JSON string
+  * Convert an instance of ApiNextElectionID to an JSON string
   *
   * @return JSON string
   */

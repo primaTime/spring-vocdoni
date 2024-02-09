@@ -27,11 +27,13 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import io.vocdoni.model.AccountsAccountIDFeesPagePageGet200Response;
 import io.vocdoni.model.AccountsAccountIDTransfersPagePageGet200Response;
+import io.vocdoni.model.AccountsCountGet200Response;
 import io.vocdoni.model.AccountsOrganizationIDElectionsCountGet200Response;
 import io.vocdoni.model.AccountsOrganizationIDElectionsPagePageGet200Response;
+import io.vocdoni.model.AccountsPagePageGet200Response;
 import io.vocdoni.model.AccountsPostRequest;
-import io.vocdoni.model.AccountsTreasurerGet200Response;
 import io.vocdoni.model.ApiAccount;
 import io.vocdoni.model.ApiAccountSet;
 import java.math.BigDecimal;
@@ -79,6 +81,262 @@ public class AccountsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
+    /**
+     * Build call for accountsAccountIDFeesPagePageGet
+     * @param accountID Specific accountID (required)
+     * @param page Paginator page (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsAccountIDFeesPagePageGetCall(String accountID, String page, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/accounts/{accountID}/fees/page/{page}"
+            .replace("{" + "accountID" + "}", localVarApiClient.escapeString(accountID.toString()))
+            .replace("{" + "page" + "}", localVarApiClient.escapeString(page.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call accountsAccountIDFeesPagePageGetValidateBeforeCall(String accountID, String page, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'accountID' is set
+        if (accountID == null) {
+            throw new ApiException("Missing the required parameter 'accountID' when calling accountsAccountIDFeesPagePageGet(Async)");
+        }
+
+        // verify the required parameter 'page' is set
+        if (page == null) {
+            throw new ApiException("Missing the required parameter 'page' when calling accountsAccountIDFeesPagePageGet(Async)");
+        }
+
+        return accountsAccountIDFeesPagePageGetCall(accountID, page, _callback);
+
+    }
+
+    /**
+     * List account token fees
+     * Returns the token fees for an account. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param accountID Specific accountID (required)
+     * @param page Paginator page (required)
+     * @return AccountsAccountIDFeesPagePageGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsAccountIDFeesPagePageGet200Response accountsAccountIDFeesPagePageGet(String accountID, String page) throws ApiException {
+        ApiResponse<AccountsAccountIDFeesPagePageGet200Response> localVarResp = accountsAccountIDFeesPagePageGetWithHttpInfo(accountID, page);
+        return localVarResp.getData();
+    }
+
+    /**
+     * List account token fees
+     * Returns the token fees for an account. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param accountID Specific accountID (required)
+     * @param page Paginator page (required)
+     * @return ApiResponse&lt;AccountsAccountIDFeesPagePageGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsAccountIDFeesPagePageGet200Response> accountsAccountIDFeesPagePageGetWithHttpInfo(String accountID, String page) throws ApiException {
+        okhttp3.Call localVarCall = accountsAccountIDFeesPagePageGetValidateBeforeCall(accountID, page, null);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * List account token fees (asynchronously)
+     * Returns the token fees for an account. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param accountID Specific accountID (required)
+     * @param page Paginator page (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsAccountIDFeesPagePageGetAsync(String accountID, String page, final ApiCallback<AccountsAccountIDFeesPagePageGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = accountsAccountIDFeesPagePageGetValidateBeforeCall(accountID, page, _callback);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for accountsAccountIDTransfersCountGet
+     * @param accountID Specific accountID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Number of transaction sent and received for the account </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsAccountIDTransfersCountGetCall(String accountID, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/accounts/{accountID}/transfers/count"
+            .replace("{" + "accountID" + "}", localVarApiClient.escapeString(accountID.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call accountsAccountIDTransfersCountGetValidateBeforeCall(String accountID, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'accountID' is set
+        if (accountID == null) {
+            throw new ApiException("Missing the required parameter 'accountID' when calling accountsAccountIDTransfersCountGet(Async)");
+        }
+
+        return accountsAccountIDTransfersCountGetCall(accountID, _callback);
+
+    }
+
+    /**
+     * Total number of sent and received transactions
+     * Returns the count of total number of sent and received transactions for an account. A transaction is a token transfer from one account to another existing account
+     * @param accountID Specific accountID (required)
+     * @return AccountsCountGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Number of transaction sent and received for the account </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsCountGet200Response accountsAccountIDTransfersCountGet(String accountID) throws ApiException {
+        ApiResponse<AccountsCountGet200Response> localVarResp = accountsAccountIDTransfersCountGetWithHttpInfo(accountID);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Total number of sent and received transactions
+     * Returns the count of total number of sent and received transactions for an account. A transaction is a token transfer from one account to another existing account
+     * @param accountID Specific accountID (required)
+     * @return ApiResponse&lt;AccountsCountGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Number of transaction sent and received for the account </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsCountGet200Response> accountsAccountIDTransfersCountGetWithHttpInfo(String accountID) throws ApiException {
+        okhttp3.Call localVarCall = accountsAccountIDTransfersCountGetValidateBeforeCall(accountID, null);
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Total number of sent and received transactions (asynchronously)
+     * Returns the count of total number of sent and received transactions for an account. A transaction is a token transfer from one account to another existing account
+     * @param accountID Specific accountID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Number of transaction sent and received for the account </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsAccountIDTransfersCountGetAsync(String accountID, final ApiCallback<AccountsCountGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = accountsAccountIDTransfersCountGetValidateBeforeCall(accountID, _callback);
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
     /**
      * Build call for accountsAccountIDTransfersPagePageGet
      * @param accountID Specific accountID (required)
@@ -155,7 +413,7 @@ public class AccountsApi {
     }
 
     /**
-     * List account transfers
+     * List account received and sent token transfers
      * Returns the token transfers for an account. A transfer is a token transference from one account to other (excepting the burn address).
      * @param accountID Specific accountID (required)
      * @param page Paginator page (required)
@@ -173,7 +431,7 @@ public class AccountsApi {
     }
 
     /**
-     * List account transfers
+     * List account received and sent token transfers
      * Returns the token transfers for an account. A transfer is a token transference from one account to other (excepting the burn address).
      * @param accountID Specific accountID (required)
      * @param page Paginator page (required)
@@ -192,7 +450,7 @@ public class AccountsApi {
     }
 
     /**
-     * List account transfers (asynchronously)
+     * List account received and sent token transfers (asynchronously)
      * Returns the token transfers for an account. A transfer is a token transference from one account to other (excepting the burn address).
      * @param accountID Specific accountID (required)
      * @param page Paginator page (required)
@@ -332,6 +590,119 @@ public class AccountsApi {
 
         okhttp3.Call localVarCall = accountsAddressGetValidateBeforeCall(address, _callback);
         Type localVarReturnType = new TypeToken<ApiAccount>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for accountsCountGet
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsCountGetCall(final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/accounts/count";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call accountsCountGetValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        return accountsCountGetCall(_callback);
+
+    }
+
+    /**
+     * Total number of accounts
+     * Returns the count of total number of existing accounts
+     * @return AccountsCountGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsCountGet200Response accountsCountGet() throws ApiException {
+        ApiResponse<AccountsCountGet200Response> localVarResp = accountsCountGetWithHttpInfo();
+        return localVarResp.getData();
+    }
+
+    /**
+     * Total number of accounts
+     * Returns the count of total number of existing accounts
+     * @return ApiResponse&lt;AccountsCountGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsCountGet200Response> accountsCountGetWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = accountsCountGetValidateBeforeCall(null);
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Total number of accounts (asynchronously)
+     * Returns the count of total number of existing accounts
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsCountGetAsync(final ApiCallback<AccountsCountGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = accountsCountGetValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<AccountsCountGet200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -735,6 +1106,129 @@ public class AccountsApi {
         return localVarCall;
     }
     /**
+     * Build call for accountsPagePageGet
+     * @param page Paginator page (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsPagePageGetCall(String page, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/accounts/page/{page}"
+            .replace("{" + "page" + "}", localVarApiClient.escapeString(page.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call accountsPagePageGetValidateBeforeCall(String page, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'page' is set
+        if (page == null) {
+            throw new ApiException("Missing the required parameter 'page' when calling accountsPagePageGet(Async)");
+        }
+
+        return accountsPagePageGetCall(page, _callback);
+
+    }
+
+    /**
+     * List of the existing accounts
+     * Returns information (address, balance and nonce) of the existing accounts
+     * @param page Paginator page (required)
+     * @return AccountsPagePageGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsPagePageGet200Response accountsPagePageGet(String page) throws ApiException {
+        ApiResponse<AccountsPagePageGet200Response> localVarResp = accountsPagePageGetWithHttpInfo(page);
+        return localVarResp.getData();
+    }
+
+    /**
+     * List of the existing accounts
+     * Returns information (address, balance and nonce) of the existing accounts
+     * @param page Paginator page (required)
+     * @return ApiResponse&lt;AccountsPagePageGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsPagePageGet200Response> accountsPagePageGetWithHttpInfo(String page) throws ApiException {
+        okhttp3.Call localVarCall = accountsPagePageGetValidateBeforeCall(page, null);
+        Type localVarReturnType = new TypeToken<AccountsPagePageGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * List of the existing accounts (asynchronously)
+     * Returns information (address, balance and nonce) of the existing accounts
+     * @param page Paginator page (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call accountsPagePageGetAsync(String page, final ApiCallback<AccountsPagePageGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = accountsPagePageGetValidateBeforeCall(page, _callback);
+        Type localVarReturnType = new TypeToken<AccountsPagePageGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for accountsPost
      * @param accountsPostRequest Transaction payload and metadata object encoded using base64  (required)
      * @param _callback Callback for upload/download progress
@@ -858,7 +1352,8 @@ public class AccountsApi {
         return localVarCall;
     }
     /**
-     * Build call for accountsTreasurerGet
+     * Build call for chainFeesPagePageGet
+     * @param page Paginator page (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -868,7 +1363,7 @@ public class AccountsApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call accountsTreasurerGetCall(final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call chainFeesPagePageGetCall(String page, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -885,7 +1380,8 @@ public class AccountsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/accounts/treasurer";
+        String localVarPath = "/chain/fees/page/{page}"
+            .replace("{" + "page" + "}", localVarApiClient.escapeString(page.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -913,15 +1409,21 @@ public class AccountsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call accountsTreasurerGetValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return accountsTreasurerGetCall(_callback);
+    private okhttp3.Call chainFeesPagePageGetValidateBeforeCall(String page, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'page' is set
+        if (page == null) {
+            throw new ApiException("Missing the required parameter 'page' when calling chainFeesPagePageGet(Async)");
+        }
+
+        return chainFeesPagePageGetCall(page, _callback);
 
     }
 
     /**
-     * Get treasurer address
-     * Get treasurer address. The treasurer is a new authority entity identified by its Ethereum address and is the only one that can Mint new tokens.
-     * @return AccountsTreasurerGet200Response
+     * List all token fees
+     * Returns the token fees list ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param page Paginator page (required)
+     * @return AccountsAccountIDFeesPagePageGet200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -929,15 +1431,16 @@ public class AccountsApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public AccountsTreasurerGet200Response accountsTreasurerGet() throws ApiException {
-        ApiResponse<AccountsTreasurerGet200Response> localVarResp = accountsTreasurerGetWithHttpInfo();
+    public AccountsAccountIDFeesPagePageGet200Response chainFeesPagePageGet(String page) throws ApiException {
+        ApiResponse<AccountsAccountIDFeesPagePageGet200Response> localVarResp = chainFeesPagePageGetWithHttpInfo(page);
         return localVarResp.getData();
     }
 
     /**
-     * Get treasurer address
-     * Get treasurer address. The treasurer is a new authority entity identified by its Ethereum address and is the only one that can Mint new tokens.
-     * @return ApiResponse&lt;AccountsTreasurerGet200Response&gt;
+     * List all token fees
+     * Returns the token fees list ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param page Paginator page (required)
+     * @return ApiResponse&lt;AccountsAccountIDFeesPagePageGet200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -945,15 +1448,16 @@ public class AccountsApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AccountsTreasurerGet200Response> accountsTreasurerGetWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = accountsTreasurerGetValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<AccountsTreasurerGet200Response>(){}.getType();
+    public ApiResponse<AccountsAccountIDFeesPagePageGet200Response> chainFeesPagePageGetWithHttpInfo(String page) throws ApiException {
+        okhttp3.Call localVarCall = chainFeesPagePageGetValidateBeforeCall(page, null);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Get treasurer address (asynchronously)
-     * Get treasurer address. The treasurer is a new authority entity identified by its Ethereum address and is the only one that can Mint new tokens.
+     * List all token fees (asynchronously)
+     * Returns the token fees list ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param page Paginator page (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -963,10 +1467,276 @@ public class AccountsApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call accountsTreasurerGetAsync(final ApiCallback<AccountsTreasurerGet200Response> _callback) throws ApiException {
+    public okhttp3.Call chainFeesPagePageGetAsync(String page, final ApiCallback<AccountsAccountIDFeesPagePageGet200Response> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = accountsTreasurerGetValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<AccountsTreasurerGet200Response>(){}.getType();
+        okhttp3.Call localVarCall = chainFeesPagePageGetValidateBeforeCall(page, _callback);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for chainFeesReferenceReferencePagePageGet
+     * @param reference Reference filter (required)
+     * @param page Paginator page (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call chainFeesReferenceReferencePagePageGetCall(String reference, String page, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/chain/fees/reference/{reference}/page/{page}"
+            .replace("{" + "reference" + "}", localVarApiClient.escapeString(reference.toString()))
+            .replace("{" + "page" + "}", localVarApiClient.escapeString(page.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call chainFeesReferenceReferencePagePageGetValidateBeforeCall(String reference, String page, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'reference' is set
+        if (reference == null) {
+            throw new ApiException("Missing the required parameter 'reference' when calling chainFeesReferenceReferencePagePageGet(Async)");
+        }
+
+        // verify the required parameter 'page' is set
+        if (page == null) {
+            throw new ApiException("Missing the required parameter 'page' when calling chainFeesReferenceReferencePagePageGet(Async)");
+        }
+
+        return chainFeesReferenceReferencePagePageGetCall(reference, page, _callback);
+
+    }
+
+    /**
+     * List all token fees by reference
+     * Returns the token fees list filtered by reference and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param reference Reference filter (required)
+     * @param page Paginator page (required)
+     * @return AccountsAccountIDFeesPagePageGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsAccountIDFeesPagePageGet200Response chainFeesReferenceReferencePagePageGet(String reference, String page) throws ApiException {
+        ApiResponse<AccountsAccountIDFeesPagePageGet200Response> localVarResp = chainFeesReferenceReferencePagePageGetWithHttpInfo(reference, page);
+        return localVarResp.getData();
+    }
+
+    /**
+     * List all token fees by reference
+     * Returns the token fees list filtered by reference and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param reference Reference filter (required)
+     * @param page Paginator page (required)
+     * @return ApiResponse&lt;AccountsAccountIDFeesPagePageGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsAccountIDFeesPagePageGet200Response> chainFeesReferenceReferencePagePageGetWithHttpInfo(String reference, String page) throws ApiException {
+        okhttp3.Call localVarCall = chainFeesReferenceReferencePagePageGetValidateBeforeCall(reference, page, null);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * List all token fees by reference (asynchronously)
+     * Returns the token fees list filtered by reference and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param reference Reference filter (required)
+     * @param page Paginator page (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call chainFeesReferenceReferencePagePageGetAsync(String reference, String page, final ApiCallback<AccountsAccountIDFeesPagePageGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = chainFeesReferenceReferencePagePageGetValidateBeforeCall(reference, page, _callback);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for chainFeesTypeTypePagePageGet
+     * @param type Type filter (required)
+     * @param page Paginator page (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call chainFeesTypeTypePagePageGetCall(String type, String page, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/chain/fees/type/{type}/page/{page}"
+            .replace("{" + "type" + "}", localVarApiClient.escapeString(type.toString()))
+            .replace("{" + "page" + "}", localVarApiClient.escapeString(page.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call chainFeesTypeTypePagePageGetValidateBeforeCall(String type, String page, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'type' is set
+        if (type == null) {
+            throw new ApiException("Missing the required parameter 'type' when calling chainFeesTypeTypePagePageGet(Async)");
+        }
+
+        // verify the required parameter 'page' is set
+        if (page == null) {
+            throw new ApiException("Missing the required parameter 'page' when calling chainFeesTypeTypePagePageGet(Async)");
+        }
+
+        return chainFeesTypeTypePagePageGetCall(type, page, _callback);
+
+    }
+
+    /**
+     * List all token fees by type
+     * Returns the token fees list filtered by type and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param type Type filter (required)
+     * @param page Paginator page (required)
+     * @return AccountsAccountIDFeesPagePageGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public AccountsAccountIDFeesPagePageGet200Response chainFeesTypeTypePagePageGet(String type, String page) throws ApiException {
+        ApiResponse<AccountsAccountIDFeesPagePageGet200Response> localVarResp = chainFeesTypeTypePagePageGetWithHttpInfo(type, page);
+        return localVarResp.getData();
+    }
+
+    /**
+     * List all token fees by type
+     * Returns the token fees list filtered by type and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param type Type filter (required)
+     * @param page Paginator page (required)
+     * @return ApiResponse&lt;AccountsAccountIDFeesPagePageGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AccountsAccountIDFeesPagePageGet200Response> chainFeesTypeTypePagePageGetWithHttpInfo(String type, String page) throws ApiException {
+        okhttp3.Call localVarCall = chainFeesTypeTypePagePageGetValidateBeforeCall(type, page, null);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * List all token fees by type (asynchronously)
+     * Returns the token fees list filtered by type and ordered by date. A spending is an amount of tokens burnt from one account for executing transactions.
+     * @param type Type filter (required)
+     * @param page Paginator page (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call chainFeesTypeTypePagePageGetAsync(String type, String page, final ApiCallback<AccountsAccountIDFeesPagePageGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = chainFeesTypeTypePagePageGetValidateBeforeCall(type, page, _callback);
+        Type localVarReturnType = new TypeToken<AccountsAccountIDFeesPagePageGet200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

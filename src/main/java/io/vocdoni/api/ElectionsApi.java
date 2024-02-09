@@ -35,10 +35,12 @@ import io.vocdoni.model.ApiElectionKeys;
 import io.vocdoni.model.ApiElectionResults;
 import io.vocdoni.model.ApiElectionSummary;
 import io.vocdoni.model.ApiFile;
+import io.vocdoni.model.ApiNextElectionID;
 import io.vocdoni.model.ApiVote;
 import java.math.BigDecimal;
 import io.vocdoni.model.ChainTransactionsPostRequest;
 import io.vocdoni.model.ElectionpriceElectionParameters;
+import io.vocdoni.model.ElectionsIdPost200Response;
 import io.vocdoni.model.ElectionsPricePost200Response;
 import io.vocdoni.model.ModelsSignedTx;
 
@@ -840,6 +842,129 @@ public class ElectionsApi {
 
         okhttp3.Call localVarCall = electionsFilterPagePagePostValidateBeforeCall(page, apiElectionFilter, _callback);
         Type localVarReturnType = new TypeToken<ApiElectionSummary>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for electionsIdPost
+     * @param apiNextElectionID OrganizationID, CensusOrigin and EnvelopeType (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call electionsIdPostCall(ApiNextElectionID apiNextElectionID, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = apiNextElectionID;
+
+        // create path and map variables
+        String localVarPath = "/elections/id";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call electionsIdPostValidateBeforeCall(ApiNextElectionID apiNextElectionID, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'apiNextElectionID' is set
+        if (apiNextElectionID == null) {
+            throw new ApiException("Missing the required parameter 'apiNextElectionID' when calling electionsIdPost(Async)");
+        }
+
+        return electionsIdPostCall(apiNextElectionID, _callback);
+
+    }
+
+    /**
+     * Get next election ID
+     * nextElectionIDHandler
+     * @param apiNextElectionID OrganizationID, CensusOrigin and EnvelopeType (required)
+     * @return ElectionsIdPost200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ElectionsIdPost200Response electionsIdPost(ApiNextElectionID apiNextElectionID) throws ApiException {
+        ApiResponse<ElectionsIdPost200Response> localVarResp = electionsIdPostWithHttpInfo(apiNextElectionID);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get next election ID
+     * nextElectionIDHandler
+     * @param apiNextElectionID OrganizationID, CensusOrigin and EnvelopeType (required)
+     * @return ApiResponse&lt;ElectionsIdPost200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ElectionsIdPost200Response> electionsIdPostWithHttpInfo(ApiNextElectionID apiNextElectionID) throws ApiException {
+        okhttp3.Call localVarCall = electionsIdPostValidateBeforeCall(apiNextElectionID, null);
+        Type localVarReturnType = new TypeToken<ElectionsIdPost200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get next election ID (asynchronously)
+     * nextElectionIDHandler
+     * @param apiNextElectionID OrganizationID, CensusOrigin and EnvelopeType (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call electionsIdPostAsync(ApiNextElectionID apiNextElectionID, final ApiCallback<ElectionsIdPost200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = electionsIdPostValidateBeforeCall(apiNextElectionID, _callback);
+        Type localVarReturnType = new TypeToken<ElectionsIdPost200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

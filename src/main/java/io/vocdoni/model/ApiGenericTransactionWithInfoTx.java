@@ -21,7 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.vocdoni.model.ModelsAdminTx;
 import io.vocdoni.model.ModelsCollectFaucetTx;
-import io.vocdoni.model.ModelsMintTokensTx;
 import io.vocdoni.model.ModelsRegisterKeyTx;
 import io.vocdoni.model.ModelsSendTokensTx;
 import io.vocdoni.model.ModelsSetAccountTx;
@@ -30,7 +29,6 @@ import io.vocdoni.model.ModelsSetProcessTx;
 import io.vocdoni.model.ModelsSetTransactionCostsTx;
 import io.vocdoni.model.ModelsTxAdmin;
 import io.vocdoni.model.ModelsTxCollectFaucet;
-import io.vocdoni.model.ModelsTxMintTokens;
 import io.vocdoni.model.ModelsTxRegisterKey;
 import io.vocdoni.model.ModelsTxSendTokens;
 import io.vocdoni.model.ModelsTxSetAccount;
@@ -77,7 +75,7 @@ import com.google.gson.JsonParseException;
 
 import io.vocdoni.invoker.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(ApiGenericTransactionWithInfoTx.class.getName());
 
@@ -93,7 +91,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
             final TypeAdapter<ModelsTxAdmin> adapterModelsTxAdmin = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxAdmin.class));
             final TypeAdapter<ModelsTxSetProcess> adapterModelsTxSetProcess = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxSetProcess.class));
             final TypeAdapter<ModelsTxRegisterKey> adapterModelsTxRegisterKey = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxRegisterKey.class));
-            final TypeAdapter<ModelsTxMintTokens> adapterModelsTxMintTokens = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxMintTokens.class));
             final TypeAdapter<ModelsTxSendTokens> adapterModelsTxSendTokens = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxSendTokens.class));
             final TypeAdapter<ModelsTxSetTransactionCosts> adapterModelsTxSetTransactionCosts = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxSetTransactionCosts.class));
             final TypeAdapter<ModelsTxSetAccount> adapterModelsTxSetAccount = gson.getDelegateAdapter(this, TypeToken.get(ModelsTxSetAccount.class));
@@ -132,12 +129,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                       elementAdapter.write(out, element);
                       return;
                     }
-                    // check if the actual instance is of the type `ModelsTxMintTokens`
-                    if (value.getActualInstance() instanceof ModelsTxMintTokens) {
-                      JsonElement element = adapterModelsTxMintTokens.toJsonTree((ModelsTxMintTokens)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
-                    }
                     // check if the actual instance is of the type `ModelsTxSendTokens`
                     if (value.getActualInstance() instanceof ModelsTxSendTokens) {
                       JsonElement element = adapterModelsTxSendTokens.toJsonTree((ModelsTxSendTokens)value.getActualInstance());
@@ -168,7 +159,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                       elementAdapter.write(out, element);
                       return;
                     }
-                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote");
+                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote");
                 }
 
                 @Override
@@ -227,18 +218,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                       // deserialization failed, continue
                       errorMessages.add(String.format("Deserialization for ModelsTxRegisterKey failed with `%s`.", e.getMessage()));
                       log.log(Level.FINER, "Input data does not match schema 'ModelsTxRegisterKey'", e);
-                    }
-                    // deserialize ModelsTxMintTokens
-                    try {
-                      // validate the JSON object to see if any exception is thrown
-                      ModelsTxMintTokens.validateJsonElement(jsonElement);
-                      actualAdapter = adapterModelsTxMintTokens;
-                      match++;
-                      log.log(Level.FINER, "Input data matches schema 'ModelsTxMintTokens'");
-                    } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for ModelsTxMintTokens failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'ModelsTxMintTokens'", e);
                     }
                     // deserialize ModelsTxSendTokens
                     try {
@@ -330,11 +309,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
-    public ApiGenericTransactionWithInfoTx(ModelsTxMintTokens o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
-
     public ApiGenericTransactionWithInfoTx(ModelsTxRegisterKey o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -375,7 +349,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
         schemas.put("ModelsTxAdmin", ModelsTxAdmin.class);
         schemas.put("ModelsTxSetProcess", ModelsTxSetProcess.class);
         schemas.put("ModelsTxRegisterKey", ModelsTxRegisterKey.class);
-        schemas.put("ModelsTxMintTokens", ModelsTxMintTokens.class);
         schemas.put("ModelsTxSendTokens", ModelsTxSendTokens.class);
         schemas.put("ModelsTxSetTransactionCosts", ModelsTxSetTransactionCosts.class);
         schemas.put("ModelsTxSetAccount", ModelsTxSetAccount.class);
@@ -391,7 +364,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the oneOf child schema, check
      * the instance parameter is valid against the oneOf child schemas:
-     * ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote
+     * ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote
      *
      * It could be an instance of the 'oneOf' schemas.
      */
@@ -413,11 +386,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
         }
 
         if (instance instanceof ModelsTxRegisterKey) {
-            super.setActualInstance(instance);
-            return;
-        }
-
-        if (instance instanceof ModelsTxMintTokens) {
             super.setActualInstance(instance);
             return;
         }
@@ -447,14 +415,14 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote");
+        throw new RuntimeException("Invalid instance type. Must be ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote
+     * ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote
      *
-     * @return The actual instance (ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote)
+     * @return The actual instance (ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote)
      */
     @Override
     public Object getActualInstance() {
@@ -500,16 +468,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
      */
     public ModelsTxRegisterKey getModelsTxRegisterKey() throws ClassCastException {
         return (ModelsTxRegisterKey)super.getActualInstance();
-    }
-    /**
-     * Get the actual instance of `ModelsTxMintTokens`. If the actual instance is not `ModelsTxMintTokens`,
-     * the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `ModelsTxMintTokens`
-     * @throws ClassCastException if the instance is not `ModelsTxMintTokens`
-     */
-    public ModelsTxMintTokens getModelsTxMintTokens() throws ClassCastException {
-        return (ModelsTxMintTokens)super.getActualInstance();
     }
     /**
      * Get the actual instance of `ModelsTxSendTokens`. If the actual instance is not `ModelsTxSendTokens`,
@@ -604,14 +562,6 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
       errorMessages.add(String.format("Deserialization for ModelsTxRegisterKey failed with `%s`.", e.getMessage()));
       // continue to the next one
     }
-    // validate the json string with ModelsTxMintTokens
-    try {
-      ModelsTxMintTokens.validateJsonElement(jsonElement);
-      validCount++;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for ModelsTxMintTokens failed with `%s`.", e.getMessage()));
-      // continue to the next one
-    }
     // validate the json string with ModelsTxSendTokens
     try {
       ModelsTxSendTokens.validateJsonElement(jsonElement);
@@ -653,7 +603,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
       // continue to the next one
     }
     if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for ApiGenericTransactionWithInfoTx with oneOf schemas: ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxMintTokens, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
+      throw new IOException(String.format("The JSON string is invalid for ApiGenericTransactionWithInfoTx with oneOf schemas: ModelsTxAdmin, ModelsTxCollectFaucet, ModelsTxRegisterKey, ModelsTxSendTokens, ModelsTxSetAccount, ModelsTxSetKeykeeper, ModelsTxSetProcess, ModelsTxSetTransactionCosts, ModelsTxVote. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonElement.toString()));
     }
   }
 

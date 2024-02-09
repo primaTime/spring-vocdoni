@@ -56,11 +56,7 @@ public enum ModelsTxType {
   
   TxType_REGISTER_VOTER_KEY(13),
   
-  TxType_MINT_TOKENS(14),
-  
   TxType_SEND_TOKENS(15),
-  
-  TxType_SET_TRANSACTION_COSTS(16),
   
   TxType_SET_ACCOUNT_INFO_URI(17),
   
@@ -80,7 +76,9 @@ public enum ModelsTxType {
   
   TxType_DEL_ACCOUNT_SIK(25),
   
-  TxType_REGISTER_SIK(26);
+  TxType_REGISTER_SIK(26),
+  
+  TxType_SET_ACCOUNT_VALIDATOR(27);
 
   private Integer value;
 

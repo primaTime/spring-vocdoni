@@ -53,7 +53,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * GithubComCometbftCometbftTypesHeader
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class GithubComCometbftCometbftTypesHeader {
   public static final String SERIALIZED_NAME_APP_HASH = "app_hash";
   @SerializedName(SERIALIZED_NAME_APP_HASH)

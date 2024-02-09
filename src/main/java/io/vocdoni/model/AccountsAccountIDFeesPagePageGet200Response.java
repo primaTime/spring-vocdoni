@@ -19,8 +19,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.vocdoni.model.IndexertypesTokenFeeMeta;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,35 +50,43 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * CensusesCensusIDWeightGet200Response
+ * AccountsAccountIDFeesPagePageGet200Response
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
-public class CensusesCensusIDWeightGet200Response {
-  public static final String SERIALIZED_NAME_WEIGHT = "weight";
-  @SerializedName(SERIALIZED_NAME_WEIGHT)
-  private String weight;
+public class AccountsAccountIDFeesPagePageGet200Response {
+  public static final String SERIALIZED_NAME_FEES = "fees";
+  @SerializedName(SERIALIZED_NAME_FEES)
+  private List<IndexertypesTokenFeeMeta> fees;
 
-  public CensusesCensusIDWeightGet200Response() {
+  public AccountsAccountIDFeesPagePageGet200Response() {
   }
 
-  public CensusesCensusIDWeightGet200Response weight(String weight) {
+  public AccountsAccountIDFeesPagePageGet200Response fees(List<IndexertypesTokenFeeMeta> fees) {
     
-    this.weight = weight;
+    this.fees = fees;
+    return this;
+  }
+
+  public AccountsAccountIDFeesPagePageGet200Response addFeesItem(IndexertypesTokenFeeMeta feesItem) {
+    if (this.fees == null) {
+      this.fees = new ArrayList<>();
+    }
+    this.fees.add(feesItem);
     return this;
   }
 
    /**
-   * Get weight
-   * @return weight
+   * Get fees
+   * @return fees
   **/
   @javax.annotation.Nullable
-  public String getWeight() {
-    return weight;
+  public List<IndexertypesTokenFeeMeta> getFees() {
+    return fees;
   }
 
 
-  public void setWeight(String weight) {
-    this.weight = weight;
+  public void setFees(List<IndexertypesTokenFeeMeta> fees) {
+    this.fees = fees;
   }
 
 
@@ -88,20 +99,20 @@ public class CensusesCensusIDWeightGet200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CensusesCensusIDWeightGet200Response censusesCensusIDWeightGet200Response = (CensusesCensusIDWeightGet200Response) o;
-    return Objects.equals(this.weight, censusesCensusIDWeightGet200Response.weight);
+    AccountsAccountIDFeesPagePageGet200Response accountsAccountIDFeesPagePageGet200Response = (AccountsAccountIDFeesPagePageGet200Response) o;
+    return Objects.equals(this.fees, accountsAccountIDFeesPagePageGet200Response.fees);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(weight);
+    return Objects.hash(fees);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CensusesCensusIDWeightGet200Response {\n");
-    sb.append("    weight: ").append(toIndentedString(weight)).append("\n");
+    sb.append("class AccountsAccountIDFeesPagePageGet200Response {\n");
+    sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -124,7 +135,7 @@ public class CensusesCensusIDWeightGet200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("weight");
+    openapiFields.add("fees");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -134,25 +145,36 @@ public class CensusesCensusIDWeightGet200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CensusesCensusIDWeightGet200Response
+  * @throws IOException if the JSON Element is invalid with respect to AccountsAccountIDFeesPagePageGet200Response
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CensusesCensusIDWeightGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesCensusIDWeightGet200Response is not found in the empty JSON string", CensusesCensusIDWeightGet200Response.openapiRequiredFields.toString()));
+        if (!AccountsAccountIDFeesPagePageGet200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in AccountsAccountIDFeesPagePageGet200Response is not found in the empty JSON string", AccountsAccountIDFeesPagePageGet200Response.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CensusesCensusIDWeightGet200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesCensusIDWeightGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!AccountsAccountIDFeesPagePageGet200Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `AccountsAccountIDFeesPagePageGet200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("weight") != null && !jsonObj.get("weight").isJsonNull()) && !jsonObj.get("weight").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `weight` to be a primitive type in the JSON string but got `%s`", jsonObj.get("weight").toString()));
+      if (jsonObj.get("fees") != null && !jsonObj.get("fees").isJsonNull()) {
+        JsonArray jsonArrayfees = jsonObj.getAsJsonArray("fees");
+        if (jsonArrayfees != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("fees").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `fees` to be an array in the JSON string but got `%s`", jsonObj.get("fees").toString()));
+          }
+
+          // validate the optional field `fees` (array)
+          for (int i = 0; i < jsonArrayfees.size(); i++) {
+            IndexertypesTokenFeeMeta.validateJsonElement(jsonArrayfees.get(i));
+          };
+        }
       }
   }
 
@@ -160,22 +182,22 @@ public class CensusesCensusIDWeightGet200Response {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CensusesCensusIDWeightGet200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CensusesCensusIDWeightGet200Response' and its subtypes
+       if (!AccountsAccountIDFeesPagePageGet200Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'AccountsAccountIDFeesPagePageGet200Response' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CensusesCensusIDWeightGet200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesCensusIDWeightGet200Response.class));
+       final TypeAdapter<AccountsAccountIDFeesPagePageGet200Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(AccountsAccountIDFeesPagePageGet200Response.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CensusesCensusIDWeightGet200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<AccountsAccountIDFeesPagePageGet200Response>() {
            @Override
-           public void write(JsonWriter out, CensusesCensusIDWeightGet200Response value) throws IOException {
+           public void write(JsonWriter out, AccountsAccountIDFeesPagePageGet200Response value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CensusesCensusIDWeightGet200Response read(JsonReader in) throws IOException {
+           public AccountsAccountIDFeesPagePageGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -186,18 +208,18 @@ public class CensusesCensusIDWeightGet200Response {
   }
 
  /**
-  * Create an instance of CensusesCensusIDWeightGet200Response given an JSON string
+  * Create an instance of AccountsAccountIDFeesPagePageGet200Response given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CensusesCensusIDWeightGet200Response
-  * @throws IOException if the JSON string is invalid with respect to CensusesCensusIDWeightGet200Response
+  * @return An instance of AccountsAccountIDFeesPagePageGet200Response
+  * @throws IOException if the JSON string is invalid with respect to AccountsAccountIDFeesPagePageGet200Response
   */
-  public static CensusesCensusIDWeightGet200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CensusesCensusIDWeightGet200Response.class);
+  public static AccountsAccountIDFeesPagePageGet200Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, AccountsAccountIDFeesPagePageGet200Response.class);
   }
 
  /**
-  * Convert an instance of CensusesCensusIDWeightGet200Response to an JSON string
+  * Convert an instance of AccountsAccountIDFeesPagePageGet200Response to an JSON string
   *
   * @return JSON string
   */

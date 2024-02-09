@@ -20,7 +20,9 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,35 +49,93 @@ import java.util.Set;
 import io.vocdoni.invoker.JSON;
 
 /**
- * CensusesCensusIDVerifyPost200Response
+ * IndexertypesAccount
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
-public class CensusesCensusIDVerifyPost200Response {
-  public static final String SERIALIZED_NAME_VALID = "valid";
-  @SerializedName(SERIALIZED_NAME_VALID)
-  private Boolean valid;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
+public class IndexertypesAccount {
+  public static final String SERIALIZED_NAME_ADDRESS = "address";
+  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  private List<Integer> address;
 
-  public CensusesCensusIDVerifyPost200Response() {
+  public static final String SERIALIZED_NAME_BALANCE = "balance";
+  @SerializedName(SERIALIZED_NAME_BALANCE)
+  private Integer balance;
+
+  public static final String SERIALIZED_NAME_NONCE = "nonce";
+  @SerializedName(SERIALIZED_NAME_NONCE)
+  private Integer nonce;
+
+  public IndexertypesAccount() {
   }
 
-  public CensusesCensusIDVerifyPost200Response valid(Boolean valid) {
+  public IndexertypesAccount address(List<Integer> address) {
     
-    this.valid = valid;
+    this.address = address;
+    return this;
+  }
+
+  public IndexertypesAccount addAddressItem(Integer addressItem) {
+    if (this.address == null) {
+      this.address = new ArrayList<>();
+    }
+    this.address.add(addressItem);
     return this;
   }
 
    /**
-   * Get valid
-   * @return valid
+   * Get address
+   * @return address
   **/
   @javax.annotation.Nullable
-  public Boolean getValid() {
-    return valid;
+  public List<Integer> getAddress() {
+    return address;
   }
 
 
-  public void setValid(Boolean valid) {
-    this.valid = valid;
+  public void setAddress(List<Integer> address) {
+    this.address = address;
+  }
+
+
+  public IndexertypesAccount balance(Integer balance) {
+    
+    this.balance = balance;
+    return this;
+  }
+
+   /**
+   * Get balance
+   * @return balance
+  **/
+  @javax.annotation.Nullable
+  public Integer getBalance() {
+    return balance;
+  }
+
+
+  public void setBalance(Integer balance) {
+    this.balance = balance;
+  }
+
+
+  public IndexertypesAccount nonce(Integer nonce) {
+    
+    this.nonce = nonce;
+    return this;
+  }
+
+   /**
+   * Get nonce
+   * @return nonce
+  **/
+  @javax.annotation.Nullable
+  public Integer getNonce() {
+    return nonce;
+  }
+
+
+  public void setNonce(Integer nonce) {
+    this.nonce = nonce;
   }
 
 
@@ -88,20 +148,24 @@ public class CensusesCensusIDVerifyPost200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CensusesCensusIDVerifyPost200Response censusesCensusIDVerifyPost200Response = (CensusesCensusIDVerifyPost200Response) o;
-    return Objects.equals(this.valid, censusesCensusIDVerifyPost200Response.valid);
+    IndexertypesAccount indexertypesAccount = (IndexertypesAccount) o;
+    return Objects.equals(this.address, indexertypesAccount.address) &&
+        Objects.equals(this.balance, indexertypesAccount.balance) &&
+        Objects.equals(this.nonce, indexertypesAccount.nonce);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(valid);
+    return Objects.hash(address, balance, nonce);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CensusesCensusIDVerifyPost200Response {\n");
-    sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
+    sb.append("class IndexertypesAccount {\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -124,7 +188,9 @@ public class CensusesCensusIDVerifyPost200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("valid");
+    openapiFields.add("address");
+    openapiFields.add("balance");
+    openapiFields.add("nonce");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -134,45 +200,49 @@ public class CensusesCensusIDVerifyPost200Response {
   * Validates the JSON Element and throws an exception if issues found
   *
   * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to CensusesCensusIDVerifyPost200Response
+  * @throws IOException if the JSON Element is invalid with respect to IndexertypesAccount
   */
   public static void validateJsonElement(JsonElement jsonElement) throws IOException {
       if (jsonElement == null) {
-        if (!CensusesCensusIDVerifyPost200Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CensusesCensusIDVerifyPost200Response is not found in the empty JSON string", CensusesCensusIDVerifyPost200Response.openapiRequiredFields.toString()));
+        if (!IndexertypesAccount.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in IndexertypesAccount is not found in the empty JSON string", IndexertypesAccount.openapiRequiredFields.toString()));
         }
       }
 
       Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
       // check to see if the JSON string contains additional fields
       for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!CensusesCensusIDVerifyPost200Response.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `CensusesCensusIDVerifyPost200Response` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        if (!IndexertypesAccount.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `IndexertypesAccount` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("address") != null && !jsonObj.get("address").isJsonNull() && !jsonObj.get("address").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `address` to be an array in the JSON string but got `%s`", jsonObj.get("address").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CensusesCensusIDVerifyPost200Response.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CensusesCensusIDVerifyPost200Response' and its subtypes
+       if (!IndexertypesAccount.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'IndexertypesAccount' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CensusesCensusIDVerifyPost200Response> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CensusesCensusIDVerifyPost200Response.class));
+       final TypeAdapter<IndexertypesAccount> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(IndexertypesAccount.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CensusesCensusIDVerifyPost200Response>() {
+       return (TypeAdapter<T>) new TypeAdapter<IndexertypesAccount>() {
            @Override
-           public void write(JsonWriter out, CensusesCensusIDVerifyPost200Response value) throws IOException {
+           public void write(JsonWriter out, IndexertypesAccount value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public CensusesCensusIDVerifyPost200Response read(JsonReader in) throws IOException {
+           public IndexertypesAccount read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
              return thisAdapter.fromJsonTree(jsonElement);
@@ -183,18 +253,18 @@ public class CensusesCensusIDVerifyPost200Response {
   }
 
  /**
-  * Create an instance of CensusesCensusIDVerifyPost200Response given an JSON string
+  * Create an instance of IndexertypesAccount given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CensusesCensusIDVerifyPost200Response
-  * @throws IOException if the JSON string is invalid with respect to CensusesCensusIDVerifyPost200Response
+  * @return An instance of IndexertypesAccount
+  * @throws IOException if the JSON string is invalid with respect to IndexertypesAccount
   */
-  public static CensusesCensusIDVerifyPost200Response fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CensusesCensusIDVerifyPost200Response.class);
+  public static IndexertypesAccount fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, IndexertypesAccount.class);
   }
 
  /**
-  * Convert an instance of CensusesCensusIDVerifyPost200Response to an JSON string
+  * Convert an instance of IndexertypesAccount to an JSON string
   *
   * @return JSON string
   */

@@ -49,33 +49,33 @@ import io.vocdoni.invoker.JSON;
 /**
  * CensusesTypePost200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class CensusesTypePost200Response {
-  public static final String SERIALIZED_NAME_CENSUS_I_D = "censusID";
-  @SerializedName(SERIALIZED_NAME_CENSUS_I_D)
-  private String censusID;
+  public static final String SERIALIZED_NAME_CENSUS_ID = "censusId";
+  @SerializedName(SERIALIZED_NAME_CENSUS_ID)
+  private String censusId;
 
   public CensusesTypePost200Response() {
   }
 
-  public CensusesTypePost200Response censusID(String censusID) {
+  public CensusesTypePost200Response censusId(String censusId) {
     
-    this.censusID = censusID;
+    this.censusId = censusId;
     return this;
   }
 
    /**
-   * Get censusID
-   * @return censusID
+   * Get censusId
+   * @return censusId
   **/
   @javax.annotation.Nullable
-  public String getCensusID() {
-    return censusID;
+  public String getCensusId() {
+    return censusId;
   }
 
 
-  public void setCensusID(String censusID) {
-    this.censusID = censusID;
+  public void setCensusId(String censusId) {
+    this.censusId = censusId;
   }
 
 
@@ -89,19 +89,19 @@ public class CensusesTypePost200Response {
       return false;
     }
     CensusesTypePost200Response censusesTypePost200Response = (CensusesTypePost200Response) o;
-    return Objects.equals(this.censusID, censusesTypePost200Response.censusID);
+    return Objects.equals(this.censusId, censusesTypePost200Response.censusId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(censusID);
+    return Objects.hash(censusId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CensusesTypePost200Response {\n");
-    sb.append("    censusID: ").append(toIndentedString(censusID)).append("\n");
+    sb.append("    censusId: ").append(toIndentedString(censusId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -124,7 +124,7 @@ public class CensusesTypePost200Response {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("censusID");
+    openapiFields.add("censusId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -151,8 +151,8 @@ public class CensusesTypePost200Response {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("censusID") != null && !jsonObj.get("censusID").isJsonNull()) && !jsonObj.get("censusID").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `censusID` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusID").toString()));
+      if ((jsonObj.get("censusId") != null && !jsonObj.get("censusId").isJsonNull()) && !jsonObj.get("censusId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `censusId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("censusId").toString()));
       }
   }
 

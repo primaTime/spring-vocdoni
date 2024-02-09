@@ -52,7 +52,7 @@ import io.vocdoni.invoker.JSON;
 /**
  * ApiChainInfo
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-10T16:40:32.462750+01:00[Europe/Prague]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-02-09T17:09:26.351036+01:00[Europe/Prague]")
 public class ApiChainInfo {
   public static final String SERIALIZED_NAME_BLOCK_TIME = "blockTime";
   @SerializedName(SERIALIZED_NAME_BLOCK_TIME)
@@ -66,9 +66,9 @@ public class ApiChainInfo {
   @SerializedName(SERIALIZED_NAME_CHAIN_ID)
   private String chainId;
 
-  public static final String SERIALIZED_NAME_CICUIT_CONFIGURATION_TAG = "cicuitConfigurationTag";
-  @SerializedName(SERIALIZED_NAME_CICUIT_CONFIGURATION_TAG)
-  private String cicuitConfigurationTag;
+  public static final String SERIALIZED_NAME_CIRCUIT_VERSION = "circuitVersion";
+  @SerializedName(SERIALIZED_NAME_CIRCUIT_VERSION)
+  private String circuitVersion;
 
   public static final String SERIALIZED_NAME_ELECTION_COUNT = "electionCount";
   @SerializedName(SERIALIZED_NAME_ELECTION_COUNT)
@@ -184,24 +184,24 @@ public class ApiChainInfo {
   }
 
 
-  public ApiChainInfo cicuitConfigurationTag(String cicuitConfigurationTag) {
+  public ApiChainInfo circuitVersion(String circuitVersion) {
     
-    this.cicuitConfigurationTag = cicuitConfigurationTag;
+    this.circuitVersion = circuitVersion;
     return this;
   }
 
    /**
-   * Get cicuitConfigurationTag
-   * @return cicuitConfigurationTag
+   * Get circuitVersion
+   * @return circuitVersion
   **/
   @javax.annotation.Nullable
-  public String getCicuitConfigurationTag() {
-    return cicuitConfigurationTag;
+  public String getCircuitVersion() {
+    return circuitVersion;
   }
 
 
-  public void setCicuitConfigurationTag(String cicuitConfigurationTag) {
-    this.cicuitConfigurationTag = cicuitConfigurationTag;
+  public void setCircuitVersion(String circuitVersion) {
+    this.circuitVersion = circuitVersion;
   }
 
 
@@ -428,7 +428,7 @@ public class ApiChainInfo {
     return Objects.equals(this.blockTime, apiChainInfo.blockTime) &&
         Objects.equals(this.blockTimestamp, apiChainInfo.blockTimestamp) &&
         Objects.equals(this.chainId, apiChainInfo.chainId) &&
-        Objects.equals(this.cicuitConfigurationTag, apiChainInfo.cicuitConfigurationTag) &&
+        Objects.equals(this.circuitVersion, apiChainInfo.circuitVersion) &&
         Objects.equals(this.electionCount, apiChainInfo.electionCount) &&
         Objects.equals(this.genesisTime, apiChainInfo.genesisTime) &&
         Objects.equals(this.height, apiChainInfo.height) &&
@@ -443,7 +443,7 @@ public class ApiChainInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(blockTime, blockTimestamp, chainId, cicuitConfigurationTag, electionCount, genesisTime, height, maxCensusSize, networkCapacity, organizationCount, syncing, transactionCount, validatorCount, voteCount);
+    return Objects.hash(blockTime, blockTimestamp, chainId, circuitVersion, electionCount, genesisTime, height, maxCensusSize, networkCapacity, organizationCount, syncing, transactionCount, validatorCount, voteCount);
   }
 
   @Override
@@ -453,7 +453,7 @@ public class ApiChainInfo {
     sb.append("    blockTime: ").append(toIndentedString(blockTime)).append("\n");
     sb.append("    blockTimestamp: ").append(toIndentedString(blockTimestamp)).append("\n");
     sb.append("    chainId: ").append(toIndentedString(chainId)).append("\n");
-    sb.append("    cicuitConfigurationTag: ").append(toIndentedString(cicuitConfigurationTag)).append("\n");
+    sb.append("    circuitVersion: ").append(toIndentedString(circuitVersion)).append("\n");
     sb.append("    electionCount: ").append(toIndentedString(electionCount)).append("\n");
     sb.append("    genesisTime: ").append(toIndentedString(genesisTime)).append("\n");
     sb.append("    height: ").append(toIndentedString(height)).append("\n");
@@ -489,7 +489,7 @@ public class ApiChainInfo {
     openapiFields.add("blockTime");
     openapiFields.add("blockTimestamp");
     openapiFields.add("chainId");
-    openapiFields.add("cicuitConfigurationTag");
+    openapiFields.add("circuitVersion");
     openapiFields.add("electionCount");
     openapiFields.add("genesisTime");
     openapiFields.add("height");
@@ -533,8 +533,8 @@ public class ApiChainInfo {
       if ((jsonObj.get("chainId") != null && !jsonObj.get("chainId").isJsonNull()) && !jsonObj.get("chainId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `chainId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chainId").toString()));
       }
-      if ((jsonObj.get("cicuitConfigurationTag") != null && !jsonObj.get("cicuitConfigurationTag").isJsonNull()) && !jsonObj.get("cicuitConfigurationTag").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `cicuitConfigurationTag` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cicuitConfigurationTag").toString()));
+      if ((jsonObj.get("circuitVersion") != null && !jsonObj.get("circuitVersion").isJsonNull()) && !jsonObj.get("circuitVersion").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `circuitVersion` to be a primitive type in the JSON string but got `%s`", jsonObj.get("circuitVersion").toString()));
       }
   }
 

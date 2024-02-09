@@ -2,7 +2,7 @@ plugins {
 	id("org.springframework.boot") version "3.1.0"
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.openapi.generator") version "7.0.1"
-	id("com.diffplug.spotless") version "6.19.0"
+	id("com.diffplug.spotless") version "6.23.3"
 	`maven-publish`
 	`java-library`
 }
@@ -65,8 +65,8 @@ repositories {
 }
 
 dependencies {
-	compileOnly("org.projectlombok:lombok")
-	annotationProcessor("org.projectlombok:lombok")
+	compileOnly("org.projectlombok:lombok:1.18.30")
+	annotationProcessor("org.projectlombok:lombok:1.18.30")
 	implementation("io.swagger:swagger-annotations:1.6.8")
 	implementation("com.google.code.findbugs:jsr305:3.0.2")
 	implementation("com.squareup.okhttp3:okhttp:4.10.0")

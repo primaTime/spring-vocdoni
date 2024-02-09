@@ -31,12 +31,11 @@ import io.vocdoni.model.ApiCensusParticipants;
 import io.vocdoni.model.CensusdbCensusDump;
 import io.vocdoni.model.CensusesCensusIDProofKeyGet200Response;
 import io.vocdoni.model.CensusesCensusIDPublishPost200Response;
-import io.vocdoni.model.CensusesCensusIDPublishRootPost200Response;
 import io.vocdoni.model.CensusesCensusIDRootGet200Response;
 import io.vocdoni.model.CensusesCensusIDSizeGet200Response;
 import io.vocdoni.model.CensusesCensusIDTypeGet200Response;
-import io.vocdoni.model.CensusesCensusIDVerifyPost200Response;
 import io.vocdoni.model.CensusesCensusIDWeightGet200Response;
+import io.vocdoni.model.CensusesExportIpfsGet200Response;
 import io.vocdoni.model.CensusesTypePost200Response;
 
 import java.lang.reflect.Type;
@@ -905,7 +904,7 @@ public class CensusesApi {
      * Register a census to the storage (IPFS in our case). After this, the census can&#39;t be edited.           You could provide the census Merkle root to specify census publication at specific snapshot. See [censuses/{censusId}/participants](census-add-participants-to-census)  - Requires Bearer token - The census is copied to a new census identified by its Merkle Root - The new census **cannot be modified** - The census is published to the storage provided (IPFS in our case) - The new census ID is returned and can be used for querying - If a censusID with the same root has been already published, the request will fail - If &#x60;root&#x60; is specified as path parameter, it publish the census at specific  root (append the census to existing one).
      * @param censusID Census id (required)
      * @param root Specific root where to publish the census. Not required (required)
-     * @return CensusesCensusIDPublishRootPost200Response
+     * @return CensusesCensusIDPublishPost200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -913,8 +912,8 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public CensusesCensusIDPublishRootPost200Response censusesCensusIDPublishRootPost(String censusID, String root) throws ApiException {
-        ApiResponse<CensusesCensusIDPublishRootPost200Response> localVarResp = censusesCensusIDPublishRootPostWithHttpInfo(censusID, root);
+    public CensusesCensusIDPublishPost200Response censusesCensusIDPublishRootPost(String censusID, String root) throws ApiException {
+        ApiResponse<CensusesCensusIDPublishPost200Response> localVarResp = censusesCensusIDPublishRootPostWithHttpInfo(censusID, root);
         return localVarResp.getData();
     }
 
@@ -923,7 +922,7 @@ public class CensusesApi {
      * Register a census to the storage (IPFS in our case). After this, the census can&#39;t be edited.           You could provide the census Merkle root to specify census publication at specific snapshot. See [censuses/{censusId}/participants](census-add-participants-to-census)  - Requires Bearer token - The census is copied to a new census identified by its Merkle Root - The new census **cannot be modified** - The census is published to the storage provided (IPFS in our case) - The new census ID is returned and can be used for querying - If a censusID with the same root has been already published, the request will fail - If &#x60;root&#x60; is specified as path parameter, it publish the census at specific  root (append the census to existing one).
      * @param censusID Census id (required)
      * @param root Specific root where to publish the census. Not required (required)
-     * @return ApiResponse&lt;CensusesCensusIDPublishRootPost200Response&gt;
+     * @return ApiResponse&lt;CensusesCensusIDPublishPost200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -931,9 +930,9 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CensusesCensusIDPublishRootPost200Response> censusesCensusIDPublishRootPostWithHttpInfo(String censusID, String root) throws ApiException {
+    public ApiResponse<CensusesCensusIDPublishPost200Response> censusesCensusIDPublishRootPostWithHttpInfo(String censusID, String root) throws ApiException {
         okhttp3.Call localVarCall = censusesCensusIDPublishRootPostValidateBeforeCall(censusID, root, null);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishRootPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishPost200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -951,10 +950,10 @@ public class CensusesApi {
         <tr><td> 200 </td><td> It return published censusID and the ipfs uri where its uploaded </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call censusesCensusIDPublishRootPostAsync(String censusID, String root, final ApiCallback<CensusesCensusIDPublishRootPost200Response> _callback) throws ApiException {
+    public okhttp3.Call censusesCensusIDPublishRootPostAsync(String censusID, String root, final ApiCallback<CensusesCensusIDPublishPost200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = censusesCensusIDPublishRootPostValidateBeforeCall(censusID, root, _callback);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishRootPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesCensusIDPublishPost200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1274,7 +1273,7 @@ public class CensusesApi {
 
     /**
      * Get type of census
-     * Get the type of a census
+     * Get the census type
      * @param censusID Census id (required)
      * @return CensusesCensusIDTypeGet200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1291,7 +1290,7 @@ public class CensusesApi {
 
     /**
      * Get type of census
-     * Get the type of a census
+     * Get the census type
      * @param censusID Census id (required)
      * @return ApiResponse&lt;CensusesCensusIDTypeGet200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1309,7 +1308,7 @@ public class CensusesApi {
 
     /**
      * Get type of census (asynchronously)
-     * Get the type of a census
+     * Get the census type
      * @param censusID Census id (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -1399,7 +1398,7 @@ public class CensusesApi {
      * Verify merkle proof
      * Verify that a previously obtained Merkle proof for a key, acquired via [/censuses/{censusId}/proof/{publicKey}](prove-key-to-census) is still correct.
      * @param censusID Census id (required)
-     * @return CensusesCensusIDVerifyPost200Response
+     * @return CensusesExportIpfsGet200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1407,8 +1406,8 @@ public class CensusesApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public CensusesCensusIDVerifyPost200Response censusesCensusIDVerifyPost(String censusID) throws ApiException {
-        ApiResponse<CensusesCensusIDVerifyPost200Response> localVarResp = censusesCensusIDVerifyPostWithHttpInfo(censusID);
+    public CensusesExportIpfsGet200Response censusesCensusIDVerifyPost(String censusID) throws ApiException {
+        ApiResponse<CensusesExportIpfsGet200Response> localVarResp = censusesCensusIDVerifyPostWithHttpInfo(censusID);
         return localVarResp.getData();
     }
 
@@ -1416,7 +1415,7 @@ public class CensusesApi {
      * Verify merkle proof
      * Verify that a previously obtained Merkle proof for a key, acquired via [/censuses/{censusId}/proof/{publicKey}](prove-key-to-census) is still correct.
      * @param censusID Census id (required)
-     * @return ApiResponse&lt;CensusesCensusIDVerifyPost200Response&gt;
+     * @return ApiResponse&lt;CensusesExportIpfsGet200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1424,9 +1423,9 @@ public class CensusesApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CensusesCensusIDVerifyPost200Response> censusesCensusIDVerifyPostWithHttpInfo(String censusID) throws ApiException {
+    public ApiResponse<CensusesExportIpfsGet200Response> censusesCensusIDVerifyPostWithHttpInfo(String censusID) throws ApiException {
         okhttp3.Call localVarCall = censusesCensusIDVerifyPostValidateBeforeCall(censusID, null);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDVerifyPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1443,10 +1442,10 @@ public class CensusesApi {
         <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call censusesCensusIDVerifyPostAsync(String censusID, final ApiCallback<CensusesCensusIDVerifyPost200Response> _callback) throws ApiException {
+    public okhttp3.Call censusesCensusIDVerifyPostAsync(String censusID, final ApiCallback<CensusesExportIpfsGet200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = censusesCensusIDVerifyPostValidateBeforeCall(censusID, _callback);
-        Type localVarReturnType = new TypeToken<CensusesCensusIDVerifyPost200Response>(){}.getType();
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1570,6 +1569,365 @@ public class CensusesApi {
 
         okhttp3.Call localVarCall = censusesCensusIDWeightGetValidateBeforeCall(censusID, _callback);
         Type localVarReturnType = new TypeToken<CensusesCensusIDWeightGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for censusesExportIpfsGet
+     * @param ipfs Export to IPFS. Blank to return the JSON file (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesExportIpfsGetCall(String ipfs, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/censuses/export/{ipfs}"
+            .replace("{" + "ipfs" + "}", localVarApiClient.escapeString(ipfs.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call censusesExportIpfsGetValidateBeforeCall(String ipfs, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'ipfs' is set
+        if (ipfs == null) {
+            throw new ApiException("Missing the required parameter 'ipfs' when calling censusesExportIpfsGet(Async)");
+        }
+
+        return censusesExportIpfsGetCall(ipfs, _callback);
+
+    }
+
+    /**
+     * Export census database
+     * Export the whole census database to a JSON file. Requires Admin Bearer token.
+     * @param ipfs Export to IPFS. Blank to return the JSON file (required)
+     * @return CensusesExportIpfsGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public CensusesExportIpfsGet200Response censusesExportIpfsGet(String ipfs) throws ApiException {
+        ApiResponse<CensusesExportIpfsGet200Response> localVarResp = censusesExportIpfsGetWithHttpInfo(ipfs);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Export census database
+     * Export the whole census database to a JSON file. Requires Admin Bearer token.
+     * @param ipfs Export to IPFS. Blank to return the JSON file (required)
+     * @return ApiResponse&lt;CensusesExportIpfsGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CensusesExportIpfsGet200Response> censusesExportIpfsGetWithHttpInfo(String ipfs) throws ApiException {
+        okhttp3.Call localVarCall = censusesExportIpfsGetValidateBeforeCall(ipfs, null);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Export census database (asynchronously)
+     * Export the whole census database to a JSON file. Requires Admin Bearer token.
+     * @param ipfs Export to IPFS. Blank to return the JSON file (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesExportIpfsGetAsync(String ipfs, final ApiCallback<CensusesExportIpfsGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = censusesExportIpfsGetValidateBeforeCall(ipfs, _callback);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for censusesImportIpfscidPost
+     * @param ipfscid ipfscid (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesImportIpfscidPostCall(String ipfscid, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/censuses/import/{ipfscid}"
+            .replace("{" + "ipfscid" + "}", localVarApiClient.escapeString(ipfscid.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call censusesImportIpfscidPostValidateBeforeCall(String ipfscid, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'ipfscid' is set
+        if (ipfscid == null) {
+            throw new ApiException("Missing the required parameter 'ipfscid' when calling censusesImportIpfscidPost(Async)");
+        }
+
+        return censusesImportIpfscidPostCall(ipfscid, _callback);
+
+    }
+
+    /**
+     * Import census database
+     * Import the whole census database from a JSON file.
+     * @param ipfscid ipfscid (required)
+     * @return CensusesExportIpfsGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public CensusesExportIpfsGet200Response censusesImportIpfscidPost(String ipfscid) throws ApiException {
+        ApiResponse<CensusesExportIpfsGet200Response> localVarResp = censusesImportIpfscidPostWithHttpInfo(ipfscid);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Import census database
+     * Import the whole census database from a JSON file.
+     * @param ipfscid ipfscid (required)
+     * @return ApiResponse&lt;CensusesExportIpfsGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CensusesExportIpfsGet200Response> censusesImportIpfscidPostWithHttpInfo(String ipfscid) throws ApiException {
+        okhttp3.Call localVarCall = censusesImportIpfscidPostValidateBeforeCall(ipfscid, null);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Import census database (asynchronously)
+     * Import the whole census database from a JSON file.
+     * @param ipfscid ipfscid (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesImportIpfscidPostAsync(String ipfscid, final ApiCallback<CensusesExportIpfsGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = censusesImportIpfscidPostValidateBeforeCall(ipfscid, _callback);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for censusesListGet
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesListGetCall(final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/censuses/list/";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call censusesListGetValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        return censusesListGetCall(_callback);
+
+    }
+
+    /**
+     * List all census references
+     * List all census references. Requires Admin Bearer token.
+     * @return CensusesExportIpfsGet200Response
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public CensusesExportIpfsGet200Response censusesListGet() throws ApiException {
+        ApiResponse<CensusesExportIpfsGet200Response> localVarResp = censusesListGetWithHttpInfo();
+        return localVarResp.getData();
+    }
+
+    /**
+     * List all census references
+     * List all census references. Requires Admin Bearer token.
+     * @return ApiResponse&lt;CensusesExportIpfsGet200Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CensusesExportIpfsGet200Response> censusesListGetWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = censusesListGetValidateBeforeCall(null);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * List all census references (asynchronously)
+     * List all census references. Requires Admin Bearer token.
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call censusesListGetAsync(final ApiCallback<CensusesExportIpfsGet200Response> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = censusesListGetValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<CensusesExportIpfsGet200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

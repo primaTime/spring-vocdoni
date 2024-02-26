@@ -387,16 +387,14 @@ public class VocdoniClient {
         Instant blockTimestamp = vochainInfo.blockTimestamp();
         int height = vochainInfo.height();
         int[] blockTime = vochainInfo.blockTime();
-        int startBlock = Instant.now().isAfter(startDate)
-                ? 0
-                : estimateBlockAtDateTime(startDate, blockTimestamp, height, blockTime);
+        int startBlock = estimateBlockAtDateTime(Instant.now().isAfter(startDate) ? Instant.now() : startDate, blockTimestamp, height, blockTime);
         int endBlock = estimateBlockAtDateTime(endDate, blockTimestamp, height, blockTime);
 
         final Account accountInfo = this.fetchAccountInfo(walletAddress);
 
         Vochain.Process process = Vochain.Process.newBuilder()
                 .setEntityId(ByteString.fromHex(strip0x(walletAddress)))
-                .setStartBlock(startBlock)
+                .setStartBlock(Instant.now().isAfter(startDate) ? 0 : startBlock)
                 .setBlockCount(endBlock - startBlock)
                 .setCensusRoot(ByteString.fromHex(strip0x(censusId)))
                 .setCensusURI(censusURI)

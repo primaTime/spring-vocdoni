@@ -22,7 +22,7 @@ public class VocdoniUtils {
     public static int estimateBlockAtDateTime(Instant dateTime, Instant blockTimestamp, int height, int[] blockTime) {
         Duration dateDiff = Duration.between(dateTime, blockTimestamp).abs();
 
-        double averageBlockTime = 12000;
+        double averageBlockTime = 10000;
         double weightA, weightB;
 
         if (dateDiff.toMillis() >= 1000 * 60 * 60 * 24) {

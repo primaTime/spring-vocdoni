@@ -3,6 +3,7 @@ package dev.trustproject.vocdoni;
 import static dev.trustproject.vocdoni.Routes.*;
 import static dev.trustproject.vocdoni.VocdoniConstants.*;
 import static dev.trustproject.vocdoni.VocdoniUtils.*;
+import static dev.trustproject.vocdoni.model.internal.VocdoniInternalEncryptionKeys.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -36,6 +37,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -387,7 +389,8 @@ public class VocdoniClient {
         Instant blockTimestamp = vochainInfo.blockTimestamp();
         int height = vochainInfo.height();
         int[] blockTime = vochainInfo.blockTime();
-        int startBlock = estimateBlockAtDateTime(Instant.now().isAfter(startDate) ? Instant.now() : startDate, blockTimestamp, height, blockTime);
+        int startBlock = estimateBlockAtDateTime(
+                Instant.now().isAfter(startDate) ? Instant.now() : startDate, blockTimestamp, height, blockTime);
         int endBlock = estimateBlockAtDateTime(endDate, blockTimestamp, height, blockTime);
 
         final Account accountInfo = this.fetchAccountInfo(walletAddress);
@@ -464,6 +467,7 @@ public class VocdoniClient {
                 : null;
     }
 
+    @SneakyThrows
     public VoteResponse vote(String electionId, String walletAddress, String censusToken, List<Integer> votes)
             throws JsonProcessingException, ApiException {
         final Election election = fetchElectionInfo(electionId);
@@ -494,18 +498,41 @@ public class VocdoniClient {
         }
         String votePackageNonce = sb.toString();
 
+        List<EncryptionKey> encryptionKeys = Collections.emptyList();
+        if (election.voteMode().encryptedVotes()) {
+            final ResponseEntity<VocdoniInternalEncryptionKeys> response = restTemplate.exchange(
+                    config.apiHost() + ELECTION_KEYS.replace("{electionId}", electionId),
+                    HttpMethod.GET,
+                    new HttpEntity<>(headers()),
+                    VocdoniInternalEncryptionKeys.class);
+
+            if (response.getBody() != null) {
+                encryptionKeys = Arrays.asList(response.getBody().publicKeys());
+            }
+        }
+
         Map<String, Object> payloadMap = new HashMap<>();
         payloadMap.put("nonce", votePackageNonce);
         payloadMap.put("votes", votes);
         String strPayload = objectMapper.writeValueAsString(payloadMap);
-        byte[] votePackage = strPayload.getBytes(StandardCharsets.UTF_8);
+
+        byte[] votePackage = null;
+        if (encryptionKeys.isEmpty()) {
+            votePackage = strPayload.getBytes(StandardCharsets.UTF_8);
+        } else {
+            votePackage = strPayload.getBytes();
+            for (EncryptionKey entry : encryptionKeys) {
+                votePackage = Asymmetric.encryptRaw(votePackage, strip0x(entry.key()));
+            }
+        }
 
         Vochain.VoteEnvelope voteEnvelope = Vochain.VoteEnvelope.newBuilder()
                 .setProof(proof)
                 .setProcessId(ByteString.fromHex(strip0x(electionId)))
                 .setNonce(ByteString.copyFrom(voteEnvelopeNonce))
                 .setVotePackage(ByteString.copyFrom(votePackage))
-                .addAllEncryptionKeyIndexes(Collections.emptyList())
+                .addAllEncryptionKeyIndexes(
+                        encryptionKeys.stream().map(EncryptionKey::index).toList())
                 .setNullifier(ByteString.copyFrom(new byte[0]))
                 .build();
 

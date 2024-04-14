@@ -56,15 +56,15 @@ public class VocdoniClientTest {
                 censusResponse.id(),
                 censusToken,
                 List.of(
-                        new CensusParticipant(FIRST_ACTOR.getAddress(), "1000"),
-                        new CensusParticipant(SECOND_ACTOR.getAddress(), "1000")));
+                        new CensusParticipant(FIRST_ACTOR.getAddress(), "1"),
+                        new CensusParticipant(SECOND_ACTOR.getAddress(), "1")));
 
         Census census = vocdoniClient.publishCensus(censusResponse.id(), censusToken);
 
         Vochain.EnvelopeType envelopeType = Vochain.EnvelopeType.newBuilder()
                 .setSerial(false)
                 .setAnonymous(false)
-                .setEncryptedVotes(false)
+                .setEncryptedVotes(true)
                 .setUniqueValues(false)
                 .setCostFromWeight(false)
                 .build();
@@ -79,9 +79,9 @@ public class VocdoniClientTest {
 
         Vochain.ProcessVoteOptions voteOptions = Vochain.ProcessVoteOptions.newBuilder()
                 .setMaxCount(1)
-                .setMaxValue(2)
+                .setMaxValue(1)
                 .setMaxVoteOverwrites(0)
-                .setCostExponent(1)
+                .setCostExponent(10000)
                 .build();
 
         ElectionMetadata electionMetadata = new ElectionMetadata(
@@ -92,7 +92,7 @@ public class VocdoniClientTest {
                 new HashMap<>(),
                 List.of(new ElectionQuestion(
                         Map.of("default", "test question 2"),
-                        null,
+                        Map.of("default", "test question description"),
                         List.of(
                                 new ElectionQuestionOption(Map.of("default", "test option 1"), 0),
                                 new ElectionQuestionOption(Map.of("default", "test option 2"), 1)))),
@@ -116,7 +116,7 @@ public class VocdoniClientTest {
 
         Thread.sleep(15000);
 
-        vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(1));
+        vocdoniClient.vote(election.electionId(), FIRST_ACTOR.getAddress(), censusToken, List.of(0));
         vocdoniClient.vote(election.electionId(), SECOND_ACTOR.getAddress(), censusToken, List.of(1));
     }
 

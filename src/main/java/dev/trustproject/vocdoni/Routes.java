@@ -6,6 +6,7 @@ public class Routes {
     public static final String FAUCET_OPEN_CLAIM = VERSION + "/open/claim/";
     public static final String ACCOUNT = VERSION + "/accounts";
     public static final String ELECTION = VERSION + "/elections";
+    public static final String ELECTION_KEYS = VERSION + "/elections/{electionId}/keys";
     public static final String VOTE = VERSION + "/votes";
     public static final String PAGE = "/page";
     public static final String CENSUS = VERSION + "/censuses";

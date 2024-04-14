@@ -82,6 +82,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.google.protobuf:protobuf-java:3.21.12")
 	implementation("org.web3j:crypto:4.10.3") // 5.0.0 is old version from 5/2020
+	implementation("com.goterl:lazysodium-java:5.1.4")
+	implementation("net.java.dev.jna:jna:5.14.0")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

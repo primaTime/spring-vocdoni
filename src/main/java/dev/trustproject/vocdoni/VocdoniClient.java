@@ -390,11 +390,8 @@ public class VocdoniClient {
         Vochain.Process process = Vochain.Process.newBuilder()
                 .setEntityId(ByteString.fromHex(strip0x(walletAddress)))
                 .setStartTime((int)
-                                (Instant.now().isAfter(startDate)
-                                        ? 0
-                                        : Instant.now().toEpochMilli())
-                        / 1000)
-                .setDuration((int) (endDate.toEpochMilli() - startDate.toEpochMilli()) / 1000)
+                        Math.floor((double) (Instant.now().isAfter(startDate) ? 0 : startDate.toEpochMilli()) / 1000))
+                .setDuration((int) Math.floor((double) (endDate.toEpochMilli() - startDate.toEpochMilli()) / 1000))
                 .setCensusRoot(ByteString.fromHex(strip0x(censusId)))
                 .setCensusURI(censusURI)
                 .setStatus(Vochain.ProcessStatus.READY)

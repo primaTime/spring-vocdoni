@@ -43,6 +43,18 @@ openApiGenerate {
 	configOptions.put("dateLibrary", "java8")
 }
 
+tasks.compileJava {
+	doFirst {
+		// set models fields as public to allow their usage with kotlin scope functions
+		val directoryPath = file("${layout.projectDirectory}/src/main/java/io/vocdoni/model")
+		directoryPath.walkTopDown().filter { it.isFile }.forEach { file ->
+			val content = file.readText()
+			val updatedContent = content.replace("((.+)?validateJsonElement\\(jsonElement\\);)".toRegex(), "")
+			file.writeText(updatedContent)
+		}
+	}
+}
+
 spotless {
 	java {
 		target("src/*/java/dev/trustproject/vocdoni/**/*.java")

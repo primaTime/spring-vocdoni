@@ -239,7 +239,7 @@ public class ApiAccountMedia {
            @Override
            public ApiAccountMedia read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

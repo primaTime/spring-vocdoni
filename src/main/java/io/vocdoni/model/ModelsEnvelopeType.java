@@ -286,7 +286,7 @@ public class ModelsEnvelopeType {
            @Override
            public ModelsEnvelopeType read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

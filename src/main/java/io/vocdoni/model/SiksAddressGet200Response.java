@@ -177,7 +177,7 @@ public class SiksAddressGet200Response {
            @Override
            public SiksAddressGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

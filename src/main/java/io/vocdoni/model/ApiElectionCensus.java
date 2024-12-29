@@ -298,7 +298,7 @@ public class ApiElectionCensus {
            @Override
            public ApiElectionCensus read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

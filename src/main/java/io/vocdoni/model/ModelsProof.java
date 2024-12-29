@@ -186,7 +186,7 @@ public class ModelsProof {
            @Override
            public ModelsProof read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

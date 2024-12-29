@@ -177,7 +177,7 @@ public class CensusesCensusIDSizeGet200Response {
            @Override
            public CensusesCensusIDSizeGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

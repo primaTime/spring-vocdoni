@@ -199,7 +199,7 @@ public class AccountsPagePageGet200Response {
            @Override
            public AccountsPagePageGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

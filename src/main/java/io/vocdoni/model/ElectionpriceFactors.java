@@ -343,7 +343,7 @@ public class ElectionpriceFactors {
            @Override
            public ElectionpriceFactors read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

@@ -177,7 +177,7 @@ public class CensusesTypePost200Response {
            @Override
            public CensusesTypePost200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

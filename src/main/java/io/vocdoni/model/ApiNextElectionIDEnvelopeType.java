@@ -286,7 +286,7 @@ public class ApiNextElectionIDEnvelopeType {
            @Override
            public ApiNextElectionIDEnvelopeType read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

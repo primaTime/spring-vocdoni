@@ -177,7 +177,7 @@ public class ChainOrganizationsFilterPagePagePostRequest {
            @Override
            public ChainOrganizationsFilterPagePagePostRequest read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

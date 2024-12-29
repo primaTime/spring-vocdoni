@@ -179,7 +179,7 @@ public class ModelsTxSetTransactionCosts {
            @Override
            public ModelsTxSetTransactionCosts read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

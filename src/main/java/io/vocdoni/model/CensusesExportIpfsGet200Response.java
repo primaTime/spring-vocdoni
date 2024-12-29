@@ -174,7 +174,7 @@ public class CensusesExportIpfsGet200Response {
            @Override
            public CensusesExportIpfsGet200Response read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

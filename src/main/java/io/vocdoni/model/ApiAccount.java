@@ -356,7 +356,7 @@ public class ApiAccount {
            @Override
            public ApiAccount read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

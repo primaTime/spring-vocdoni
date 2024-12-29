@@ -174,7 +174,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxVote
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxVote.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxVote;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxVote'");
@@ -186,7 +186,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxAdmin
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxAdmin.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxAdmin;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxAdmin'");
@@ -198,7 +198,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxSetProcess
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxSetProcess.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxSetProcess;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxSetProcess'");
@@ -210,7 +210,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxRegisterKey
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxRegisterKey.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxRegisterKey;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxRegisterKey'");
@@ -222,7 +222,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxSendTokens
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxSendTokens.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxSendTokens;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxSendTokens'");
@@ -234,7 +234,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxSetTransactionCosts
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxSetTransactionCosts.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxSetTransactionCosts;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxSetTransactionCosts'");
@@ -246,7 +246,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxSetAccount
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxSetAccount.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxSetAccount;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxSetAccount'");
@@ -258,7 +258,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxCollectFaucet
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxCollectFaucet.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxCollectFaucet;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxCollectFaucet'");
@@ -270,7 +270,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
                     // deserialize ModelsTxSetKeykeeper
                     try {
                       // validate the JSON object to see if any exception is thrown
-                      ModelsTxSetKeykeeper.validateJsonElement(jsonElement);
+
                       actualAdapter = adapterModelsTxSetKeykeeper;
                       match++;
                       log.log(Level.FINER, "Input data matches schema 'ModelsTxSetKeykeeper'");
@@ -532,7 +532,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     ArrayList<String> errorMessages = new ArrayList<>();
     // validate the json string with ModelsTxVote
     try {
-      ModelsTxVote.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxVote failed with `%s`.", e.getMessage()));
@@ -540,7 +540,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxAdmin
     try {
-      ModelsTxAdmin.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxAdmin failed with `%s`.", e.getMessage()));
@@ -548,7 +548,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxSetProcess
     try {
-      ModelsTxSetProcess.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxSetProcess failed with `%s`.", e.getMessage()));
@@ -556,7 +556,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxRegisterKey
     try {
-      ModelsTxRegisterKey.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxRegisterKey failed with `%s`.", e.getMessage()));
@@ -564,7 +564,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxSendTokens
     try {
-      ModelsTxSendTokens.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxSendTokens failed with `%s`.", e.getMessage()));
@@ -572,7 +572,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxSetTransactionCosts
     try {
-      ModelsTxSetTransactionCosts.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxSetTransactionCosts failed with `%s`.", e.getMessage()));
@@ -580,7 +580,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxSetAccount
     try {
-      ModelsTxSetAccount.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxSetAccount failed with `%s`.", e.getMessage()));
@@ -588,7 +588,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxCollectFaucet
     try {
-      ModelsTxCollectFaucet.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxCollectFaucet failed with `%s`.", e.getMessage()));
@@ -596,7 +596,7 @@ public class ApiGenericTransactionWithInfoTx extends AbstractOpenApiSchema {
     }
     // validate the json string with ModelsTxSetKeykeeper
     try {
-      ModelsTxSetKeykeeper.validateJsonElement(jsonElement);
+
       validCount++;
     } catch (Exception e) {
       errorMessages.add(String.format("Deserialization for ModelsTxSetKeykeeper failed with `%s`.", e.getMessage()));

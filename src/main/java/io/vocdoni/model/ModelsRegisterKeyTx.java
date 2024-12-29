@@ -320,7 +320,7 @@ public class ModelsRegisterKeyTx {
            @Override
            public ModelsRegisterKeyTx read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

@@ -244,7 +244,7 @@ public class IndexertypesAccount {
            @Override
            public IndexertypesAccount read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

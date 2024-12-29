@@ -410,7 +410,7 @@ public class ApiValidator {
            @Override
            public ApiValidator read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 

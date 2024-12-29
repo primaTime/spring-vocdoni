@@ -228,7 +228,7 @@ public class ModelsFaucetPackage {
            @Override
            public ModelsFaucetPackage read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
+
              return thisAdapter.fromJsonTree(jsonElement);
            }
 
